@@ -4,8 +4,7 @@
 
 <sqlMapConfig>
     <settings useStatementNamespaces="true" />
-    	<sqlMap resource="ibatis_conf/encuesta_sql_map.xml" />
-    	<sqlMap resource="ibatis_conf/pregunta_sql_map.xml" />
-    	<sqlMap resource="ibatis_conf/respuesta_sql_map.xml" />
+    	<sqlMap resource="ibatis_conf/ruta_sql_map.xml" />
+    	<sqlMap resource="ibatis_conf/hito_sql_map.xml" />
     	<sqlMap resource="ibatis_conf/usuario_sql_map.xml" />
 </sqlMapConfig>

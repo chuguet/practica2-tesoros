@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="encuesta">
-	<resultMap id="encuestaResult" class="com.movember.quizz.model.bean.Encuesta">
+	<resultMap id="rutaResult" class="com.movember.treasure.model.bean.Encuesta">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
 		<result column="fecha_inicio" property="fecha_inicio" jdbcType="DATE" />		
@@ -9,37 +9,32 @@
 		
 	</resultMap>
 	
-	<select id="selectById" parameterClass="java.lang.Integer" resultMap="encuestaResult">
+	<select id="selectById" parameterClass="java.lang.Integer" resultMap="rutaResult">
 		SELECT id, nombre, fecha_inicio, fecha_fin
-		FROM encuesta
+		FROM ruta
 		WHERE id = #id:INTEGER#
 	</select>
 	
-	<select id="selectAll" resultMap="encuestaResult">
+	<select id="selectAll" resultMap="rutaResult">
 		SELECT id, nombre, fecha_inicio, fecha_fin
-		FROM encuesta
+		FROM ruta
 	</select>
 	
-	<select id="find" resultMap="encuestaResult" parameterClass="com.movember.quizz.model.bean.ParametrosEncuesta">
+	<!-- REVISAR -->
+	<select id="find" resultMap="rutaResult" parameterClass="com.movember.treasure.model.bean.ParametrosRuta">
 		SELECT id, nombre, fecha_inicio, fecha_fin
-		FROM encuesta e
+		FROM ruta e
 		WHERE fecha_inicio <![CDATA[ <= ]]> now() AND fecha_fin <![CDATA[ >= ]]> now()
-		<isNotNull property="id_usuario" prepend="AND">
+		<isNotNull property="securityToken" prepend="AND">
 			id NOT IN (
 				SELECT id_encuesta
 				FROM encuesta_contestada
 				WHERE id_usuario = #id_usuario:INTEGER#);
 		</isNotNull>
-		<isNotNull property="ip_usuario" prepend="AND">
-			id NOT IN (
-				SELECT id_encuesta
-				FROM encuesta_contestada
-				WHERE ip_usuario = #ip_usuario:VARCHAR#);
-		</isNotNull>
 	</select>
 	
-	<insert id="insertReturnId" parameterClass="com.movember.quizz.model.bean.Encuesta"> 
-	 	INSERT INTO encuesta 
+	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.Ruta"> 
+	 	INSERT INTO ruta 
     	(nombre, fecha_inicio, fecha_fin)
 	 	VALUES  
 	 	(#nombre:VARCHAR#, #fecha_inicio:DATE#, #fecha_fin:DATE#)
@@ -48,18 +43,8 @@
 	 	</selectKey> 
 	</insert>
 	
-	<insert id="contestar" parameterClass="com.movember.quizz.model.bean.EncuestaContestada"> 
-	 	INSERT INTO encuesta_contestada
-    	(id_encuesta, id_usuario, ip_usuario)
-	 	VALUES  
-	 	(#id_encuesta:INTEGER#, #id_usuario:INTEGER#, #ip_usuario:VARCHAR#)
-	 	<selectKey resultClass="int" keyProperty="id">
-			select LAST_INSERT_ID()
-	 	</selectKey> 
-	</insert>
-	
-	<update id="updateByPrimaryKey" parameterClass="com.movember.quizz.model.bean.Encuesta"> 
-  		UPDATE encuesta 
+	<update id="updateByPrimaryKey" parameterClass="com.movember.treasure.model.bean.Ruta"> 
+  		UPDATE ruta 
   		SET  
   		nombre = #nombre:VARCHAR#,
   		fecha_inicio = #fecha_inicio:DATE#,
@@ -68,7 +53,7 @@
   	</update>
 	
 	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer">
-  		DELETE FROM encuesta 
+  		DELETE FROM ruta 
   		WHERE id = #id:INTEGER# 
   	</delete>
 </sqlMap>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="usuario">
-	<resultMap id="usuarioResult" class="com.movember.quizz.model.bean.Usuario">
+	<resultMap id="usuarioResult" class="com.movember.treasure.model.bean.Usuario">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
 		<result column="apellidos" property="apellidos" jdbcType="VARCHAR" />
@@ -28,7 +28,7 @@
 		FROM usuario
 	</select>
 	
-	<insert id="insertReturnId" parameterClass="com.movember.quizz.model.bean.Usuario"> 
+	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.Usuario"> 
 	 	INSERT INTO usuario 
     	(nombre, apellidos, email, usuario, pwd, admin)
 	 	VALUES  
@@ -38,7 +38,7 @@
 	 	</selectKey> 
 	</insert>
 	
-	<update id="updateByPrimaryKey" parameterClass="com.movember.quizz.model.bean.Usuario"> 
+	<update id="updateByPrimaryKey" parameterClass="com.movember.treasure.model.bean.Usuario"> 
   		UPDATE usuario 
   		SET  
   		nombre = #nombre:VARCHAR#, 
