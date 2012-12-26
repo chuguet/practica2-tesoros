@@ -148,11 +148,5 @@
 			<artifactId>javassist</artifactId>
 			<version>${javassist.version}</version>
 		</dependency>
-		
-		<dependency>
-			<groupId>net.sourceforge.wurfl</groupId>
-			<artifactId>wurfl</artifactId>
-			<version>${wurfl.version}</version>
-		</dependency>
 	</dependencies>
 </project>

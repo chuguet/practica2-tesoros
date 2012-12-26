@@ -36,9 +36,9 @@
 	</properties>
 	
 	<modules>
-		<module>quizz.model</module>
-		<module>quizz.view</module>
-		<module>quizz.controller</module>
+		<module>treasure.model</module>
+		<module>treasure.view</module>
+		<module>treasure.controller</module>
   	</modules>
 	
   	<developers>
