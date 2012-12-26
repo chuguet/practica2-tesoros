@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="pregunta">
+	<resultMap id="preguntaResult" class="com.movember.quizz.model.bean.Pregunta">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="pregunta" property="pregunta" jdbcType="VARCHAR" />
+		<result column="id_encuesta" property="id_encuesta" jdbcType="INTEGER" />	
+	</resultMap>
+	
+	<select id="selectById" parameterClass="java.lang.Integer" resultMap="preguntaResult">
+		SELECT id, pregunta, id_encuesta
+		FROM pregunta
+		WHERE id = #id:INTEGER#
+	</select>
+	
+	<select id="selectAll" resultMap="preguntaResult">
+		SELECT id, pregunta, id_encuesta
+		FROM pregunta
+	</select>
+	
+	<insert id="insertReturnId" parameterClass="com.movember.quizz.model.bean.Pregunta"> 
+	 	INSERT INTO pregunta 
+    	(pregunta, id_encuesta)
+	 	VALUES  
+	 	(#pregunta:VARCHAR#, #id_encuesta:INTEGER#)
+	 	<selectKey resultClass="int" keyProperty="id">
+			select LAST_INSERT_ID()
+	 	</selectKey> 
+	</insert>
+	
+	<update id="updateByPrimaryKey" parameterClass="com.movember.quizz.model.bean.Pregunta"> 
+  		UPDATE pregunta 
+  		SET  
+  		pregunta = #pregunta:VARCHAR#,
+  		id_encuesta = #id_encuesta:INTEGER#
+  		WHERE id = #id:INTEGER#
+  	</update>
+	
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer">
+  		DELETE FROM pregunta 
+  		WHERE id = #id:INTEGER# 
+  	</delete>
+  	
+  	<select id="recuperarDeEncuesta" resultMap="preguntaResult" parameterClass="java.lang.Integer">
+		SELECT id, pregunta, id_encuesta
+		FROM pregunta
+		WHERE id_encuesta = #idEncuesta:INTEGER#
+	</select>
+  	
+</sqlMap>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="usuario">
+	<resultMap id="usuarioResult" class="com.movember.quizz.model.bean.Usuario">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
+		<result column="apellidos" property="apellidos" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="usuario" property="usuario" jdbcType="VARCHAR" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />	
+		<result column="admin" property="admin" jdbcType="INTEGER" />	
+	</resultMap>
+	
+	<select id="selectById" parameterClass="java.lang.Integer" resultMap="usuarioResult">
+		SELECT id, nombre, apellidos, email, usuario, pwd, admin
+		FROM usuario
+		WHERE id = #id:INTEGER#
+	</select>
+	
+	<select id="selectByUser" parameterClass="java.lang.String" resultMap="usuarioResult">
+		SELECT id, nombre, apellidos, email, usuario, pwd, admin
+		FROM usuario
+		WHERE usuario = #usuarioNombre:VARCHAR#
+	</select>
+	
+	<select id="selectAll" resultMap="usuarioResult">
+		SELECT id, nombre, apellidos, email, usuario, pwd, admin
+		FROM usuario
+	</select>
+	
+	<insert id="insertReturnId" parameterClass="com.movember.quizz.model.bean.Usuario"> 
+	 	INSERT INTO usuario 
+    	(nombre, apellidos, email, usuario, pwd, admin)
+	 	VALUES  
+	 	(#nombre:VARCHAR#, #apellidos:VARCHAR#, #email:VARCHAR#, #usuario:VARCHAR#, #pwd:VARCHAR#, #admin:INTEGER#)
+	 	<selectKey resultClass="int" keyProperty="id">
+			select LAST_INSERT_ID()
+	 	</selectKey> 
+	</insert>
+	
+	<update id="updateByPrimaryKey" parameterClass="com.movember.quizz.model.bean.Usuario"> 
+  		UPDATE usuario 
+  		SET  
+  		nombre = #nombre:VARCHAR#, 
+  		apellidos = #apellidos:VARCHAR#, 
+  		email = #email:VARCHAR#, 
+  		usuario = #usuario:VARCHAR#, 
+  		pwd = #pwd:VARCHAR#, 
+  		admin = #admin:INTEGER#
+  		WHERE id = #id:INTEGER#
+  	</update>
+	
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer">
+  		DELETE FROM usuario 
+  		WHERE id = #id:INTEGER# 
+  	</delete>
+</sqlMap>
