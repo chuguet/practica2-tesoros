@@ -1,0 +1,32 @@
+#wrapper { /*width:600px;*/ margin:0 auto; text-align:left; }
+.chart,#form_values { /*width:559px;*/ }
+.chart {
+	list-style:none;
+	border-left:solid 1px #666;
+	border-bottom:solid 1px #666;
+	margin-bottom:20px;
+}
+.chart li,.chart li span {
+	height:20px;	
+}
+.chart li .percent {
+	width:30px;
+	position: absolute;
+	top:0;
+	/*right:-40px;*/ right:14px;
+	text-align:right;
+}
+.chart li {
+	position: relative;
+	display:block;
+	height:20px;
+	/*width:554px;*/
+	margin:0 0 5px 5px;
+	text-align:left;
+}
+.chart li .bar { width:0; }
+.red .bar { background-image:url(../imgs/degradado_estadistica.png); background-repeat:repeat-x; }
+legend.quizzText {font-weight: bold; font-family: arial; font-size: 1.1em;padding-bottom:5px}
+span.questionText {font-weight: bold; font-family: arial; font-size: 1em;}
+span.graphText { position:absolute; padding: 2px 0px 2px 7px; font-family: arial; font-size: 0.9em; }
+.field { padding:3px; width:50px; border:solid 1px #000; float:left; margin-right:5px; color:#333; }

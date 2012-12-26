@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>treasure</artifactId>
+	<groupId>com.movember</groupId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>${project.groupId}.${project.artifactId}</name>
+	
+  	<properties>
+  	    <spring.jdbc.version>3.1.2.RELEASE</spring.jdbc.version>
+  	    <slf4j.version>1.5.8</slf4j.version>
+		<mysql.driver.version>5.1.20</mysql.driver.version>
+		<hibernate.annotations.version>3.5.6-Final</hibernate.annotations.version>
+		<hibernate.commons.annotations.version>3.2.0.Final</hibernate.commons.annotations.version>
+		<javax.servlet.version>1.2</javax.servlet.version>
+		<spring.oxm.version>1.5.9</spring.oxm.version>
+		<javassit.version>3.12.1.GA</javassit.version>	
+		<junit.version>4.10</junit.version>
+		<spring.version>3.1.3.RELEASE</spring.version>
+		
+		<spring.test.version>3.1.2.RELEASE</spring.test.version>
+		<mysql.driver.version>5.1.20</mysql.driver.version>
+		<javax.inject.version>1</javax.inject.version>
+		<cglib.version>2.2.2</cglib.version>
+		<dom4j.version>1.6.1</dom4j.version>
+		<commons.logging.version>1.1.1</commons.logging.version>
+		<commons.collections.version>3.2.1</commons.collections.version>
+		<antlr.version>2.7.7</antlr.version>
+		<spring.orm.version>3.1.2.RELEASE</spring.orm.version>
+		<javassist.version>3.12.1.GA</javassist.version>
+		<javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
+		<javax.servlet.api.version>2.5</javax.servlet.api.version>
+		<wurfl.version>v1.4.3.1</wurfl.version>
+	</properties>
+	
+	<modules>
+		<module>quizz.model</module>
+		<module>quizz.view</module>
+		<module>quizz.controller</module>
+  	</modules>
+	
+  	<developers>
+		<developer>
+			<name>Carlos Huguet</name>
+			<id>huguet</id>
+			<email>huguet10@gmail.com</email>
+			<organization>Movember S.L.</organization>
+			<roles>
+				<role>Java Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>David Llamazares Juárez</name>
+			<id>llamaradax</id>
+			<email>david.llamazares.juarez@gmail.com</email>
+			<organization>Movember S.L.</organization>
+			<roles>
+				<role>Java Architect</role>
+				<role>Java Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+</project>

@@ -1,0 +1,11 @@
+<!DOCTYPE sqlMapConfig
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+    <settings useStatementNamespaces="true" />
+    	<sqlMap resource="ibatis_conf/encuesta_sql_map.xml" />
+    	<sqlMap resource="ibatis_conf/pregunta_sql_map.xml" />
+    	<sqlMap resource="ibatis_conf/respuesta_sql_map.xml" />
+    	<sqlMap resource="ibatis_conf/usuario_sql_map.xml" />
+</sqlMapConfig>

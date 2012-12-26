@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+    <parent>
+		<groupId>com.movember</groupId>
+		<artifactId>treasure</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+    
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>treasure.view</artifactId>
+	<packaging>war</packaging>
+	<name>${project.groupId}.${project.artifactId}</name>
+
+	<build>
+		<finalName>${project.groupId}.${project.artifactId}</finalName>
+	</build>
+
+    <dependencies>
+       <dependency>
+           <groupId>com.movember</groupId>
+           <artifactId>treasure.controller</artifactId>
+           <version>0.0.1-SNAPSHOT</version>
+       </dependency>
+       <dependency>
+           <groupId>cglib</groupId>
+           <artifactId>cglib</artifactId>
+           <version>${cglib.version}</version>
+       </dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>${javax.servlet.jstl.version}</version>
+		</dependency>
+		<dependency>
+      		<groupId>javax.servlet</groupId>
+      		<artifactId>servlet-api</artifactId>
+      		<version>${javax.servlet.api.version}</version>
+    	</dependency>
+   
+		
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+    </dependencies>
+</project>
