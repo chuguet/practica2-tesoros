@@ -1,7 +1,5 @@
 package com.movember.quizz.model.config;
 
-import net.sourceforge.wurfl.core.GeneralWURFLEngine;
-import net.sourceforge.wurfl.core.WURFLManager;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * The Class SpringModelConfiguration.
  */
 @Configuration
-@ComponentScan({ "com.movember.quizz.model" })
+@ComponentScan({ "com.movember.treasure.model" })
 @PropertySource({ "classpath:/application.properties" })
 @EnableTransactionManagement
 public class SpringModelConfiguration {
@@ -50,10 +48,6 @@ public class SpringModelConfiguration {
 	/** The password. */
 	@Value("${jdbc.password}")
 	private String password;
-
-	/** Path of wurfl file. */
-	@Value("${wurflPath}")
-	private String wurflPath;
 
 	/**
 	 * Gets the data source.
@@ -93,17 +87,5 @@ public class SpringModelConfiguration {
 		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
 		transactionManager.setDataSource(this.getDataSource());
 		return transactionManager;
-	}
-
-	/**
-	 * Bean que especifica los tipos de petición entre la vista y el
-	 * controlador.
-	 * 
-	 * @return the content negotiating view resolver
-	 */
-	@Bean
-	public WURFLManager wURFLManager() {
-		GeneralWURFLEngine generalWURFLEngine = new GeneralWURFLEngine(wurflPath);
-		return generalWURFLEngine.getWURFLManager();
 	}
 }
