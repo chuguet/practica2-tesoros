@@ -34,7 +34,7 @@ public class EncontrarHitoController {
 	private IRutaService rutaService;
 
 	/** Recurso principal del controlador en la peticiones rest *. */
-	private static final String recurso = "rellenarRuta";
+	private static final String recurso = "encontrarHito";
 
 	/**
 	 * Retrieve the Ruta.

@@ -7,7 +7,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Quizz Movember</title>
+		<title>Treasures Administrator</title>
 		
 		<link href="resources/css/jquery-ui.css" rel="stylesheet" type="text/css" />
 		<link href="resources/css/generic.css" rel="stylesheet" type="text/css" />
@@ -40,7 +40,7 @@
 		
 		<div id="menu">
 			<a href="javascript:void" onclick="javascript:generic.getList('usuario');" title="Ver usuarios" class="itemMenu">Usuarios</a>
-			<a href="javascript:void" onclick="javascript:generic.getList('encuesta');" title="Ver rutas del tesoro" class="itemMenu">Rutas del tesoro</a>
+			<a href="javascript:void" onclick="javascript:generic.getList('ruta');" title="Ver rutas del tesoro" class="itemMenu">Rutas del tesoro</a>
 			<div id="usuario">
 				<span>Usuario : ${nombre} ${apellidos}</span> 
 				<a href="<c:url value="/j_spring_security_logout" />" id="btnUnlogin" title="Salir"><span>Salir</span></a>
@@ -49,7 +49,7 @@
 		
 		
 		<div id="content">
-			<img src="resources/imgs/encuesta.png" alt="imagenes" />
+			<img src="resources/imgs/tesoro.png" alt="imagenes"/>
 		</div>
 		
 		<div id="footer">

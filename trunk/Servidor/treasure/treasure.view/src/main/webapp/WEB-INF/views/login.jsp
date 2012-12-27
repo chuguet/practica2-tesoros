@@ -3,7 +3,7 @@
 <html>
 	
 	<head>
-		<title>Treasure Movember</title>
+		<title>Treasures Administrator</title>
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 		<meta name="description" content="Pantalla de acceso al sistema" />
@@ -21,7 +21,7 @@
 	<body onload='document.f.j_username.focus();' class="web">
 		<form name='f' id='f' action="<c:url value='j_spring_security_check' />" method='POST'>
 			<fieldset class="login">
-				<legend>Acceso a Treasure</legend>
+				<legend>Acceso a Treasures Administrator</legend>
 					<span>Usuario:</span>
 					<input type='text' name='j_username' value='' class="text ui-widget-content ui-corner-all" />
 					<span>Contrase&ntilde;a:</span>

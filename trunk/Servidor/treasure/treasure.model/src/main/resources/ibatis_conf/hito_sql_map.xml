@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="hito">
-	<resultMap id="hitoResult" class="com.movember.quizz.model.bean.Hito">
+	<resultMap id="hitoResult" class="com.movember.treasure.model.bean.Hito">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
 		<result column="id_ruta" property="id_ruta" jdbcType="INTEGER" />
@@ -22,7 +22,7 @@
 		FROM hito
 	</select>
 	
-	<insert id="insertReturnId" parameterClass="com.movember.quizz.model.bean.Hito"> 
+	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.Hito"> 
 	 	INSERT INTO hito 
     	(nombre, id_ruta, longitud, latitud, codigo, pista)
 	 	VALUES  
@@ -32,7 +32,7 @@
 	 	</selectKey> 
 	</insert>
 	
-	<update id="updateByPrimaryKey" parameterClass="com.movember.quizz.model.bean.Hito"> 
+	<update id="updateByPrimaryKey" parameterClass="com.movember.treasure.model.bean.Hito"> 
   		UPDATE hito 
   		SET  
   		nombre = #nombre:VARCHAR#,

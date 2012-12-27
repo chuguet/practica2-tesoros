@@ -1,4 +1,4 @@
-var encuesta = {
+var ruta = {
 	'rowID' : null,
 	'formatList' : function() {
 		$(function() {
@@ -53,7 +53,7 @@ var encuesta = {
 					$("#btnEditar").attr('disabled', false);
 					$("#btnEliminar").attr('disabled', false);
 					$("#btnEstadistica").attr('disabled', false);
-					encuesta.rowID = rowid;
+					ruta.rowID = rowid;
 				}
 			});
 			$(window).bind('resizeEnd', function() {
@@ -62,20 +62,20 @@ var encuesta = {
 		});
 		
 		$("#btnAlta").button().click(function() {
-			generic.getForm('encuesta');
+			generic.getForm('ruta');
 		});
 		$("#btnEditar").button().click(function() {
-			generic.getForm('encuesta', $('#lista').jqGrid('getRowData', encuesta.rowID).id);
+			generic.getForm('ruta', $('#lista').jqGrid('getRowData', ruta.rowID).id);
 		});
 		$("#btnEditar").attr("disabled", "disabled");
 
 		$("#btnEliminar").button().click(function() {
-			generic.delete('encuesta', $('#lista').jqGrid('getRowData', encuesta.rowID).id);
+			generic.delete('ruta', $('#lista').jqGrid('getRowData', ruta.rowID).id);
 		});
 		$("#btnEliminar").attr("disabled", "disabled");
 		
 		$("#btnEstadistica").button().click(function() {
-			generic.getForm('estadistica', $('#lista').jqGrid('getRowData', encuesta.rowID).id);
+			generic.getForm('estadistica', $('#lista').jqGrid('getRowData', ruta.rowID).id);
 		});
 		$("#btnEstadistica").attr("disabled", "disabled");
 	},
@@ -93,7 +93,7 @@ var encuesta = {
 		};
 		$("#fecha_inicio").datepicker(datePickerParams);
 		$("#fecha_fin").datepicker(datePickerParams);
-		encuesta.generateQuestionsTree("#tree");
+		ruta.generateQuestionsTree("#tree");
 
 		$("#btnAddQuestion").button().click(function() {
 			var tree = $("#tree").dynatree("getTree");
@@ -145,11 +145,11 @@ var encuesta = {
 		});
 
 		$("#btnCancel").button().click(function() {
-			generic.getList('encuesta');
+			generic.getList('ruta');
 		});
 
 		$("#btnSaveQuizz").button().click(function() {
-			encuesta.getParams();
+			ruta.getParams();
 		});
 
 		$('#respuestas').change(function() {
@@ -219,7 +219,7 @@ var encuesta = {
 		var nombre = $("#nombre").val();
 		var fecha_inicio = $("#fecha_inicio").val();
 		var fecha_fin = $("#fecha_fin").val();
-		var preguntas = encuesta.getQuestions();
+		var hitos = ruta.getHitos();
 		var errores = '';
 		if (nombre == '') {
 			errores = "- El nombre es obligatorio<br />";
@@ -231,8 +231,8 @@ var encuesta = {
 			errores += "- La fecha de finalizaci&oacute;n es obligatoria<br />";
 		}
 
-		if (preguntas.length == 0) {
-			errores += "- Debe introducir al menos una pregunta";
+		if (hitos.length == 0) {
+			errores += "- Debe introducir al menos un hito";
 		}
 		if (errores != '') {
 			jAlert(errores, "Validaci&oacute;n");
@@ -243,11 +243,11 @@ var encuesta = {
 				nombre : nombre,
 				fecha_inicio : fecha_inicio,
 				fecha_fin : fecha_fin,
-				preguntasDTO : preguntas
+				hitosDTO : hitos
 			};
-			var entity = (id != null) ? 'encuesta/' + id : 'encuesta';
+			var entity = (id != null) ? 'ruta/' + id : 'ruta';
 			generic.post(entity, data, function() {
-				generic.getList('encuesta');
+				generic.getList('ruta');
 			});
 		}
 	},
@@ -260,35 +260,28 @@ var encuesta = {
 			}
 		});
 	},
-	'getQuestions' : function() {
-		var preguntas = [];
-		var pregArray = $("#tree").dynatree("getTree").toDict().children;
-		if (pregArray) {
+	'getHitos' : function() {
+		var hitos = [];
+		var hitosArray = $("#tree").dynatree("getTree").toDict().children;
+		if (hitosArray) {
 
-			for( var i = 0; i < pregArray.length; i++) {
-				var p = pregArray[i];
-				var respuestas = [];
-				var respArray = p.children;
-				for( var j = 0; j < respArray.length; j++) {
-					var respuesta = {
-						'id' : null,
-						'title' : respArray[j].title,
-						'key' : respArray[j].key,
-						'isFolder' : false
-					};
-					respuestas.push(respuesta);
-				}
+			for( var i = 0; i < hitosArray.length; i++) {
+				var h = hitosArray[i];
+				
 
-				var pregunta = {
+				var hito = {
 					'id' : null,
-					'title' : p.title,
-					'key' : p.key,
+					'title' : h.title,
+					'key' : h.key,
 					'isFolder' : true,
-					'children' : respuestas
+					'codigo' : h.codigo,
+					'longitud' : h.longitud,
+					'latitud' : h.latitud,
+					'pista' : h.pista
 				};
-				preguntas.push(pregunta);
+				hitos.push(hito);
 			}
 		}
-		return preguntas;
+		return hitos;
 	}
 };
