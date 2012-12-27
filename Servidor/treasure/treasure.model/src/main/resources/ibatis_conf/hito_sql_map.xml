@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="hito">
+	<resultMap id="hitoResult" class="com.movember.quizz.model.bean.Hito">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="hito" property="hito" jdbcType="VARCHAR" />
+		<result column="id_ruta" property="id_ruta" jdbcType="INTEGER" />
+		<result column="longitud" property="longitud" jdbcType="VARCHAR" />
+		<result column="latitud" property="latitud" jdbcType="VARCHAR" />
+		<result column="codigo" property="codigo" jdbcType="VARCHAR" />
+		<result column="pista" property="pista" jdbcType="TEXT" />
+	</resultMap>
+	
+	<select id="selectById" parameterClass="java.lang.Integer" resultMap="hitoResult">
+		SELECT id, hito, id_ruta, longitud, latitud, codigo, pista
+		FROM hito
+		WHERE id = #id:INTEGER#
+	</select>
+	
+	<select id="selectAll" resultMap="hitoResult">
+		SELECT id, hito, id_ruta, longitud, latitud, codigo, pista
+		FROM hito
+	</select>
+	
+	<insert id="insertReturnId" parameterClass="com.movember.quizz.model.bean.Hito"> 
+	 	INSERT INTO hito 
+    	(hito, id_ruta, longitud, latitud, codigo, pista)
+	 	VALUES  
+	 	(#hito:VARCHAR#, #id_ruta:INTEGER#, #longitud:VARCHAR#, #latitud:VARCHAR#, #codigo:VARCHAR#, #pista:VARCHAR#,)
+	 	<selectKey resultClass="int" keyProperty="id">
+			select LAST_INSERT_ID()
+	 	</selectKey> 
+	</insert>
+	
+	<update id="updateByPrimaryKey" parameterClass="com.movember.quizz.model.bean.Hito"> 
+  		UPDATE hito 
+  		SET  
+  		hito = #hito:VARCHAR#,
+  		id_ruta = #id_ruta:INTEGER#
+  		longitud = #longitud:VARCHAR#,
+  		latitud = #latitud:VARCHAR#, 
+  		codigo = #codigo:VARCHAR#,
+  		pista = #pista:VARCHAR#
+  		WHERE id = #id:INTEGER#
+  	</update>
+	
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer">
+  		DELETE FROM hito 
+  		WHERE id = #id:INTEGER# 
+  	</delete>
+  	
+  	<select id="recuperarDeRuta" resultMap="hitoResult" parameterClass="java.lang.Integer">
+		SELECT id, hito, id_ruta, longitud, latitud, codigo, pista
+		FROM hito
+		WHERE id_ruta = #idRuta:INTEGER#
+	</select>
+  	
+</sqlMap>
