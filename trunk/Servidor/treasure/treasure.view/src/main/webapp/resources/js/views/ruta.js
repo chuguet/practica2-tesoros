@@ -94,9 +94,17 @@ var ruta = {
 		$("#fecha_inicio").datepicker(datePickerParams);
 		$("#fecha_fin").datepicker(datePickerParams);
 		ruta.generateQuestionsTree("#tree");
-		 $( "#tabs" ).tabs();
-		 $("#pista").cleditor({width:515, height:185, useCSS:true})[0].focus();
-
+		$("#tabs").tabs();
+		// $("#pista").cleditor({width:515, height:185});
+		$('#pista').redactor({
+			iframe: true,
+	        css: "resources/css/redactor.iframe.css"
+		});
+		this.configureGoogleMaps();
+		
+		
+		
+		
 		$("#btnAddQuestion").button().click(function() {
 			var tree = $("#tree").dynatree("getTree");
 			if (tree.getActiveNode()) {
@@ -289,5 +297,33 @@ var ruta = {
 			}
 		}
 		return hitos;
+	},
+    'newLocation': null,
+    'map': null,
+	'configureGoogleMaps' : function(){
+		if (GBrowserIsCompatible()) {
+            this.map = new GMap2(document.getElementById("map_canvas"));
+            this.map.addControl(new GSmallMapControl());
+            this.map.addControl(new GMapTypeControl());
+            this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
+
+			var newLocation = this.newLocation;
+			GEvent.addListener(this.map, "click", function(marker,point) {
+				if (ruta.newLocation != null){
+					ruta.map.removeOverlay(ruta.newLocation);
+				}
+				if (marker && marker.openInfoWindowHtml) {
+					ruta.newLocation = marker;
+					$('#longitud').val(marker.getPoint().lng().toString());
+					$('#latitud').val(marker.getPoint().lat().toString());
+				} 
+				else if (point) {
+					ruta.newLocation = new GMarker(point);
+					ruta.map.addOverlay(ruta.newLocation);
+					$('#longitud').val(point.lng().toString());
+					$('#latitud').val(point.lat().toString());
+	            }
+			});
+        }
 	}
 };

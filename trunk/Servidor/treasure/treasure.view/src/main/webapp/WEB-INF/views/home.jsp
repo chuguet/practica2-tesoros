@@ -5,7 +5,7 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 		<title>Treasures Administrator</title>
 		
 		<link href="resources/css/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -15,10 +15,10 @@
 		<link href="resources/css/jquery.alerts.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/ui.jqgrid.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/ui.graph.css" rel="stylesheet" type="text/css">
-		<link href="resources/css/jquery.cleditor.css" rel="stylesheet" type="text/css">
+		<link href="resources/css/redactor.css" rel="stylesheet" type="text/css">
 		
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAFnFO3ySluSuha6r1vYekiRQNy_ewe8RNLHRa7cwLE-yWPUZNWBSV43OE1hhpvzIXRf04qzvWdmKBEw&amp;sensor=false" type="text/javascript"></script>
 		<script src="resources/js/jquery.require.js" type="text/javascript"></script>
-		<script src="resources/js/jquery.mobile-detect.min.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-1.8.2.min.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-ui-1.9.1.min.js" type="text/javascript"></script>
 		<script src="resources/js/generic.js" type="text/javascript"></script>
@@ -27,11 +27,14 @@
 		<script src="resources/js/jquery.alerts.js" type="text/javascript"></script>
 		<script src="resources/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 		<script src="resources/js/i18n/grid.locale-es.js" type="text/javascript"></script>
-		<script src="resources/js/jquery.cleditor.min.js" type="text/javascript"></script>
+		<script src="resources/js/redactor.js" type="text/javascript"></script>
 		
 		<script src="resources/js/views/ruta.js" type="text/javascript"></script>
 		<script src="resources/js/views/usuario.js" type="text/javascript"></script>
 		<script src="resources/js/views/estadistica.js" type="text/javascript"></script>
+		
+		
+		
 	</head>
 	<body id="quizz" class="web">
 		
