@@ -1,4 +1,4 @@
-package com.movember.quizz.controller.security;
+package com.movember.treasure.controller.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,8 +14,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.stereotype.Component;
-import com.movember.quizz.model.bean.Usuario;
-import com.movember.quizz.model.service.IUsuarioService;
+import com.movember.treasure.model.bean.Usuario;
+import com.movember.treasure.model.service.IUsuarioService;
 
 // TODO: Auto-generated Javadoc
 /**

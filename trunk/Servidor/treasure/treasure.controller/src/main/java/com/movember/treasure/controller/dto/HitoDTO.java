@@ -10,7 +10,7 @@ import com.movember.quizz.model.exception.AppException;
 /**
  * The Class PreguntaDTO.
  */
-public class PreguntaDTO extends AbstractDTO {
+public class HitoDTO extends AbstractDTO {
 
 	/** The title. */
 	private String title;

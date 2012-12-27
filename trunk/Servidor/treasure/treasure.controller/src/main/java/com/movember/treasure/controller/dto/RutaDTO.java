@@ -4,14 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import com.movember.quizz.model.bean.Encuesta;
-import com.movember.quizz.model.bean.Pregunta;
-import com.movember.quizz.model.exception.AppException;
+import com.movember.treasure.model.bean.Hito;
+import com.movember.treasure.model.bean.Ruta;
+import com.movember.treasure.model.exception.AppException;
 
 /**
- * The Class EncuestaDTO.
+ * The Class RutaDTO.
  */
-public class EncuestaDTO extends AbstractDTO {
+public class RutaDTO extends AbstractDTO {
 
 	/** The nombre. */
 	private String nombre;
@@ -22,14 +22,14 @@ public class EncuestaDTO extends AbstractDTO {
 	/** The fecha_fin. */
 	private String fecha_fin;
 
-	/** The preguntas dto. */
-	private List<PreguntaDTO> preguntasDTO;
+	/** The hitos dto. */
+	private List<HitoDTO> hitosDTO;
 
 	/**
-	 * Instantiates a new encuesta dto.
+	 * Instantiates a new ruta dto.
 	 */
-	public EncuestaDTO() {
-		preguntasDTO = new ArrayList<PreguntaDTO>();
+	public RutaDTO() {
+		hitosDTO = new ArrayList<HitoDTO>();
 	}
 
 	/**
@@ -90,52 +90,49 @@ public class EncuestaDTO extends AbstractDTO {
 	}
 
 	/**
-	 * Gets the preguntas dto.
+	 * Gets the hitos dto.
 	 * 
-	 * @return the preguntas dto
+	 * @return the hitos dto
 	 */
-	public List<PreguntaDTO> getPreguntasDTO() {
-		return preguntasDTO;
+	public List<HitoDTO> getHitosDTO() {
+		return hitosDTO;
 	}
 
 	/**
-	 * Sets the preguntas dto.
+	 * Sets the hitos dto.
 	 * 
-	 * @param preguntasDTO
-	 *            the new preguntas dto
+	 * @param hitosDTO
+	 *            the new hitos dto
 	 */
-	public void setPreguntasDTO(List<PreguntaDTO> preguntasDTO) {
-		this.preguntasDTO = preguntasDTO;
+	public void setHitosDTO(List<HitoDTO> hitosDTO) {
+		this.hitosDTO = hitosDTO;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
 	@Override
 	public void toRest(Object object) throws AppException {
-		Encuesta encuesta = (Encuesta) object;
+		Ruta ruta = (Ruta) object;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		this.setId(encuesta.getId());
-		this.nombre = encuesta.getNombre();
-		this.fecha_inicio = sdf.format(encuesta.getFecha_inicio());
-		this.fecha_fin = sdf.format(encuesta.getFecha_fin());
+		this.setId(ruta.getId());
+		this.nombre = ruta.getNombre();
+		this.fecha_inicio = sdf.format(ruta.getFecha_inicio());
+		this.fecha_fin = sdf.format(ruta.getFecha_fin());
 
-		if (encuesta.getPreguntas() != null
-				&& encuesta.getPreguntas().size() > 0) {
-			for (Pregunta pregunta : encuesta.getPreguntas()) {
-				PreguntaDTO preguntaDTO = new PreguntaDTO();
-				preguntaDTO.toRest(pregunta);
-				this.preguntasDTO.add(preguntaDTO);
+		if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
+			for (Hito hito : ruta.getHitos()) {
+				HitoDTO hitoDTO = new HitoDTO();
+				hitoDTO.toRest(hito);
+				this.hitosDTO.add(hitoDTO);
 			}
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toBusiness(java.lang.Object
 	 * )
@@ -143,22 +140,23 @@ public class EncuestaDTO extends AbstractDTO {
 	@Override
 	public void toBusiness(Object object) throws AppException {
 		SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
-		Encuesta encuesta = (Encuesta) object;
-		encuesta.setId(this.getId());
-		encuesta.setNombre(this.nombre);
+		Ruta ruta = (Ruta) object;
+		ruta.setId(this.getId());
+		ruta.setNombre(this.nombre);
 		try {
-			encuesta.setFecha_inicio(formatoDelTexto.parse(this.fecha_inicio));
-			encuesta.setFecha_fin(formatoDelTexto.parse(this.fecha_fin));
-		} catch (ParseException e) {
+			ruta.setFecha_inicio(formatoDelTexto.parse(this.fecha_inicio));
+			ruta.setFecha_fin(formatoDelTexto.parse(this.fecha_fin));
+		}
+		catch (ParseException e) {
 			throw new AppException("Error en la conversión de fechas");
 		}
 
-		if (this.preguntasDTO != null && this.preguntasDTO.size() > 0) {
-			for (PreguntaDTO preguntaDTO : this.preguntasDTO) {
-				Pregunta pregunta = new Pregunta();
-				pregunta.setId_encuesta(this.getId());
-				preguntaDTO.toBusiness(pregunta);
-				encuesta.getPreguntas().add(pregunta);
+		if (this.hitosDTO != null && this.hitosDTO.size() > 0) {
+			for (HitoDTO hitoDTO : this.hitosDTO) {
+				Hito hito = new Hito();
+				hito.setId_ruta(this.getId());
+				hitoDTO.toBusiness(hito);
+				ruta.getHitos().add(hito);
 			}
 		}
 	}
