@@ -1,7 +1,7 @@
-package com.movember.quizz.controller.dto;
+package com.movember.treasure.controller.dto;
 
-import com.movember.quizz.model.bean.Usuario;
-import com.movember.quizz.model.exception.AppException;
+import com.movember.treasure.model.bean.Usuario;
+import com.movember.treasure.model.exception.AppException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -143,7 +143,6 @@ public class UsuarioDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
@@ -161,7 +160,6 @@ public class UsuarioDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toBusiness(java.lang.Object
 	 * )

@@ -3,7 +3,7 @@ package com.movember.treasure.model.bean;
 import javax.persistence.Entity;
 
 /**
- * The Class ParametrosEncuesta.
+ * The Class ParametrosRuta.
  */
 @Entity
 public class ParametrosRuta extends AbstractBean {
@@ -13,13 +13,12 @@ public class ParametrosRuta extends AbstractBean {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object otra) {
-		ParametrosRuta parametrosEncuesta = (ParametrosRuta) otra;
-		return this.getId().equals(parametrosEncuesta.getId());
+		ParametrosRuta parametrosRuta = (ParametrosRuta) otra;
+		return this.getId().equals(parametrosRuta.getId());
 	}
 
 	public String getSecurityToken() {

@@ -1,12 +1,9 @@
-package com.movember.quizz.controller.dto;
+package com.movember.treasure.controller.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.movember.quizz.model.bean.Estadistica;
-import com.movember.quizz.model.bean.PreguntaEstadistica;
-import com.movember.quizz.model.exception.AppException;
-
+import com.movember.treasure.model.bean.Estadistica;
+import com.movember.treasure.model.exception.AppException;
 
 /**
  * The Class EstadisticaDTO.
@@ -17,25 +14,25 @@ public class EstadisticaDTO extends AbstractDTO {
 	private String encuesta;
 
 	/** The preguntas. */
-	private List<PreguntaEstadisticaDTO> preguntas;
+	private List<HitoEstadisticaDTO> preguntas;
 
 	/**
 	 * Gets the encuesta.
 	 * 
 	 * @return the encuesta
 	 */
-	public String getEncuesta() {
+	public String getRuta() {
 		return encuesta;
 	}
 
 	/**
 	 * Sets the encuesta.
 	 * 
-	 * @param pEncuesta
+	 * @param pRuta
 	 *            the new encuesta
 	 */
-	public void setEncuesta(String pEncuesta) {
-		encuesta = pEncuesta;
+	public void setRuta(String pRuta) {
+		encuesta = pRuta;
 	}
 
 	/**
@@ -43,7 +40,7 @@ public class EstadisticaDTO extends AbstractDTO {
 	 * 
 	 * @return the preguntas
 	 */
-	public List<PreguntaEstadisticaDTO> getPreguntas() {
+	public List<HitoEstadisticaDTO> getPreguntas() {
 		return preguntas;
 	}
 
@@ -53,31 +50,30 @@ public class EstadisticaDTO extends AbstractDTO {
 	 * @param preguntas
 	 *            the new preguntas
 	 */
-	public void setPreguntas(List<PreguntaEstadisticaDTO> preguntas) {
+	public void setPreguntas(List<HitoEstadisticaDTO> preguntas) {
 		this.preguntas = preguntas;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
 	@Override
 	public void toRest(Object object) throws AppException {
 		Estadistica estadistica = (Estadistica) object;
-		// this.setId(estadistica.getId());
-		this.setEncuesta(estadistica.getEncuesta());
-		this.setId(estadistica.getIdEncuesta());
-		if (estadistica.getPreguntas() != null
-				&& estadistica.getPreguntas().size() > 0) {
-			PreguntaEstadisticaDTO preguntaEstadisticaDTO;
-			for (PreguntaEstadistica pregunta : estadistica.getPreguntas()) {
-				preguntaEstadisticaDTO = new PreguntaEstadisticaDTO();
-				preguntaEstadisticaDTO.toRest(pregunta);
-				this.addPreguntaDTO(preguntaEstadisticaDTO);
-			}
-		}
+
+		// this.setRuta(estadistica.getRuta());
+		// this.setId(estadistica.getIdRuta());
+		// if (estadistica.getPreguntas() != null &&
+		// estadistica.getPreguntas().size() > 0) {
+		// PreguntaEstadisticaDTO preguntaEstadisticaDTO;
+		// for (PreguntaEstadistica pregunta : estadistica.getPreguntas()) {
+		// preguntaEstadisticaDTO = new PreguntaEstadisticaDTO();
+		// preguntaEstadisticaDTO.toRest(pregunta);
+		// this.addPreguntaDTO(preguntaEstadisticaDTO);
+		// }
+		// }
 	}
 
 	/**
@@ -86,16 +82,15 @@ public class EstadisticaDTO extends AbstractDTO {
 	 * @param preguntaEstadisticaDTO
 	 *            the pregunta estadistica dto
 	 */
-	private void addPreguntaDTO(PreguntaEstadisticaDTO preguntaEstadisticaDTO) {
+	private void addPreguntaDTO(HitoEstadisticaDTO preguntaEstadisticaDTO) {
 		if (this.getPreguntas() == null) {
-			this.preguntas = new ArrayList<PreguntaEstadisticaDTO>();
+			this.preguntas = new ArrayList<HitoEstadisticaDTO>();
 		}
 		preguntas.add(preguntaEstadisticaDTO);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toBusiness(java.lang.Object
 	 * )

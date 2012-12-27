@@ -1,6 +1,7 @@
 package com.movember.treasure.model.service;
 
 import java.util.List;
+import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.ParametrosRuta;
 import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.exception.AppException;
@@ -20,4 +21,6 @@ public interface IRutaService extends IService<Ruta> {
 	 *             the app exception
 	 */
 	List<Ruta> find(ParametrosRuta parametrosRuta) throws AppException;
+
+	String encontrarHito(Hito hito, String securityToken);
 }

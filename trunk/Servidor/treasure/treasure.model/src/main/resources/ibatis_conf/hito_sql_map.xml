@@ -3,7 +3,7 @@
 <sqlMap namespace="hito">
 	<resultMap id="hitoResult" class="com.movember.quizz.model.bean.Hito">
 		<result column="id" property="id" jdbcType="INTEGER" />
-		<result column="hito" property="hito" jdbcType="VARCHAR" />
+		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
 		<result column="id_ruta" property="id_ruta" jdbcType="INTEGER" />
 		<result column="longitud" property="longitud" jdbcType="VARCHAR" />
 		<result column="latitud" property="latitud" jdbcType="VARCHAR" />
@@ -12,21 +12,21 @@
 	</resultMap>
 	
 	<select id="selectById" parameterClass="java.lang.Integer" resultMap="hitoResult">
-		SELECT id, hito, id_ruta, longitud, latitud, codigo, pista
+		SELECT id, nombre, id_ruta, longitud, latitud, codigo, pista
 		FROM hito
 		WHERE id = #id:INTEGER#
 	</select>
 	
 	<select id="selectAll" resultMap="hitoResult">
-		SELECT id, hito, id_ruta, longitud, latitud, codigo, pista
+		SELECT id, nombre, id_ruta, longitud, latitud, codigo, pista
 		FROM hito
 	</select>
 	
 	<insert id="insertReturnId" parameterClass="com.movember.quizz.model.bean.Hito"> 
 	 	INSERT INTO hito 
-    	(hito, id_ruta, longitud, latitud, codigo, pista)
+    	(nombre, id_ruta, longitud, latitud, codigo, pista)
 	 	VALUES  
-	 	(#hito:VARCHAR#, #id_ruta:INTEGER#, #longitud:VARCHAR#, #latitud:VARCHAR#, #codigo:VARCHAR#, #pista:VARCHAR#,)
+	 	(#nombre:VARCHAR#, #id_ruta:INTEGER#, #longitud:VARCHAR#, #latitud:VARCHAR#, #codigo:VARCHAR#, #pista:VARCHAR#,)
 	 	<selectKey resultClass="int" keyProperty="id">
 			select LAST_INSERT_ID()
 	 	</selectKey> 
@@ -35,7 +35,7 @@
 	<update id="updateByPrimaryKey" parameterClass="com.movember.quizz.model.bean.Hito"> 
   		UPDATE hito 
   		SET  
-  		hito = #hito:VARCHAR#,
+  		nombre = #nombre:VARCHAR#,
   		id_ruta = #id_ruta:INTEGER#
   		longitud = #longitud:VARCHAR#,
   		latitud = #latitud:VARCHAR#, 
@@ -50,7 +50,7 @@
   	</delete>
   	
   	<select id="recuperarDeRuta" resultMap="hitoResult" parameterClass="java.lang.Integer">
-		SELECT id, hito, id_ruta, longitud, latitud, codigo, pista
+		SELECT id, nombre, id_ruta, longitud, latitud, codigo, pista
 		FROM hito
 		WHERE id_ruta = #idRuta:INTEGER#
 	</select>
