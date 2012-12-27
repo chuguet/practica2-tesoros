@@ -148,4 +148,9 @@ class RutaService implements IRutaService {
 		}
 		return rutas;
 	}
+
+	public String encontrarHito(Hito hito, String securityToken) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

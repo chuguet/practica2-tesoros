@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
-import com.movember.quizz.model.config.SpringModelConfiguration;
+import com.movember.treasure.model.config.SpringModelConfiguration;
 
 /**
  * Configuración de Spring por anotaciones se importa la configuración de spring

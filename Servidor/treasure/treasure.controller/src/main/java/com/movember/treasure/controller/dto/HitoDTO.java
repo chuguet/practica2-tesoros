@@ -1,14 +1,10 @@
-package com.movember.quizz.controller.dto;
+package com.movember.treasure.controller.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.movember.quizz.model.bean.Pregunta;
-import com.movember.quizz.model.bean.Respuesta;
-import com.movember.quizz.model.exception.AppException;
-
+import com.movember.treasure.model.bean.Hito;
+import com.movember.treasure.model.exception.AppException;
 
 /**
- * The Class PreguntaDTO.
+ * The Class HitoDTO.
  */
 public class HitoDTO extends AbstractDTO {
 
@@ -21,8 +17,17 @@ public class HitoDTO extends AbstractDTO {
 	/** The key. */
 	private String key;
 
-	/** The children. */
-	private List<RespuestaDTO> children = new ArrayList<RespuestaDTO>();
+	/** The codigo. */
+	private String codigo;
+
+	/** The pregunta. */
+	private String latitud;
+
+	/** The longitud. */
+	private String longitud;
+
+	/** The pista. */
+	private String pista;
 
 	/**
 	 * Gets the title.
@@ -81,72 +86,74 @@ public class HitoDTO extends AbstractDTO {
 		this.key = key;
 	}
 
-	/**
-	 * Gets the children.
-	 * 
-	 * @return the children
-	 */
-	public List<RespuestaDTO> getChildren() {
-		return children;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
-	/**
-	 * Sets the children.
-	 * 
-	 * @param children
-	 *            the new children
-	 */
-	public void setChildren(List<RespuestaDTO> children) {
-		this.children = children;
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setPista(String pista) {
+		this.pista = pista;
+	}
+
+	public String getPista() {
+		return pista;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
 	@Override
 	public void toRest(Object object) throws AppException {
-		Pregunta pregunta = (Pregunta) object;
-		if (pregunta.getId() != null) {
-			this.key = "p" + pregunta.getId().toString();
-			this.setId(pregunta.getId());
+		Hito hito = (Hito) object;
+		if (hito.getId() != null) {
+			this.key = "p" + hito.getId().toString();
+			this.setId(hito.getId());
 		}
-		this.title = pregunta.getPregunta();
+		this.title = hito.getNombre();
 		this.isFolder = true;
-		if (pregunta.getRespuestas() != null
-				&& pregunta.getRespuestas().size() > 0) {
-			for (Respuesta respuesta : pregunta.getRespuestas()) {
-				RespuestaDTO respuestaDTO = new RespuestaDTO();
-				respuestaDTO.toRest(respuesta);
-				this.children.add(respuestaDTO);
-			}
-		}
+		this.codigo = hito.getCodigo();
+		this.latitud = hito.getLatitud();
+		this.longitud = hito.getLongitud();
+		this.pista = hito.getPista();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toBusiness(java.lang.Object
 	 * )
 	 */
 	@Override
 	public void toBusiness(Object object) throws AppException {
-		Pregunta pregunta = (Pregunta) object;
+		Hito hito = (Hito) object;
 		if (this.key.indexOf('p') != -1) {
-			pregunta.setId(Integer.parseInt(this.key.replace("p", "")));
+			hito.setId(Integer.parseInt(this.key.replace("p", "")));
 		}
-		pregunta.setPregunta(this.title);
-
-		if (this.children != null && this.children.size() > 0) {
-			for (RespuestaDTO respuestaDTO : this.children) {
-				Respuesta respuesta = new Respuesta();
-				respuesta.setId_pregunta(pregunta.getId());
-				respuestaDTO.toBusiness(respuesta);
-				pregunta.getRespuestas().add(respuesta);
-			}
-		}
+		hito.setNombre(this.title);
+		hito.setCodigo(this.codigo);
+		hito.setLatitud(this.latitud);
+		hito.setLongitud(this.longitud);
+		hito.setPista(this.pista);
 	}
 }

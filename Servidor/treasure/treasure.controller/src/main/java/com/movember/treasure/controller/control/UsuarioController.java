@@ -10,25 +10,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.movember.quizz.controller.dto.MensajeDTO;
-import com.movember.quizz.controller.dto.UsuarioDTO;
-import com.movember.quizz.model.bean.Usuario;
-import com.movember.quizz.model.exception.AppException;
-import com.movember.quizz.model.service.IUsuarioService;
-
+import com.movember.treasure.controller.dto.MensajeDTO;
+import com.movember.treasure.controller.dto.UsuarioDTO;
+import com.movember.treasure.model.bean.Usuario;
+import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IUsuarioService;
 
 /**
  * The Class UsuarioController.
- *
+ * 
  * @author Llamaradax
  */
 /**
  * @author Huguet
- *
+ * 
  */
 @Controller
 public class UsuarioController {
-	
+
 	/** The usuario service. */
 	@Inject
 	private IUsuarioService usuarioService;
@@ -38,8 +37,9 @@ public class UsuarioController {
 
 	/**
 	 * Retrieve one User.
-	 *
-	 * @param id the id
+	 * 
+	 * @param id
+	 *            the id
 	 * @return the usuario dto
 	 */
 	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.GET)
@@ -58,7 +58,7 @@ public class UsuarioController {
 
 	/**
 	 * List all users.
-	 *
+	 * 
 	 * @return the list
 	 */
 	@RequestMapping(value = "/" + recurso, method = RequestMethod.GET)
@@ -83,9 +83,11 @@ public class UsuarioController {
 
 	/**
 	 * Creates the form.
-	 *
-	 * @param operacion the operacion
-	 * @param uiModel the ui model
+	 * 
+	 * @param operacion
+	 *            the operacion
+	 * @param uiModel
+	 *            the ui model
 	 * @return the string
 	 */
 	@RequestMapping(value = "/" + recurso + "/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
@@ -99,8 +101,9 @@ public class UsuarioController {
 
 	/**
 	 * Insert the user.
-	 *
-	 * @param usuarioDTO the usuario dto
+	 * 
+	 * @param usuarioDTO
+	 *            the usuario dto
 	 * @return the mensaje dto
 	 */
 	@RequestMapping(value = "/" + recurso, method = RequestMethod.POST)
@@ -127,8 +130,9 @@ public class UsuarioController {
 
 	/**
 	 * Update the user.
-	 *
-	 * @param usuarioDTO the usuario dto
+	 * 
+	 * @param usuarioDTO
+	 *            the usuario dto
 	 * @return the mensaje dto
 	 */
 	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.POST)
@@ -154,9 +158,11 @@ public class UsuarioController {
 
 	/**
 	 * Removes the user by id.
-	 *
-	 * @param id the id
-	 * @param uiModel the ui model
+	 * 
+	 * @param id
+	 *            the id
+	 * @param uiModel
+	 *            the ui model
 	 * @return the mensaje dto
 	 */
 	@RequestMapping(value = "/usuario/{id}", method = RequestMethod.DELETE)

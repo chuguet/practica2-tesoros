@@ -1,5 +1,4 @@
-package com.movember.quizz.controller.dto;
-
+package com.movember.treasure.controller.dto;
 
 /**
  * The Class MensajeDTO.
