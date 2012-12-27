@@ -1,9 +1,5 @@
 package com.movember.treasure.model.service;
 
-import com.movember.treasure.model.bean.Estadistica;
-import com.movember.treasure.model.exception.AppException;
-
-
 /**
  * The Interface IEstadisticaService.
  */
@@ -18,5 +14,5 @@ public interface IEstadisticaService {
 	 * @throws AppException
 	 *             the app exception
 	 */
-	Estadistica retrieve(Integer pIdEncuesta) throws AppException;
+	// Estadistica retrieve(Integer pIdEncuesta) throws AppException;
 }
