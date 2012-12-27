@@ -39,7 +39,7 @@
 			<input id="fecha_fin" class="text ui-widget-content ui-corner-all" />
 		</p>
 		<fieldset style="height: 200px;">
-			<legend>Preguntas</legend>
+			<legend>Hitos</legend>
 			<div id="tree" style="height: 180px;"></div>
 		</fieldset>
 		<div class="botonera">
@@ -61,36 +61,26 @@
 
 <div id="dialog-form" title="A&ntilde;adir Pregunta">
 	<form id="frmHitos">
-	<div id="tabs">
-	    <ul>
-	        <li><a href="#tabs-1">Datos</a></li>
-	        <li><a href="#tabs-2">Geoposicionamiento</a></li>
-	    </ul>
-	    <div id="tabs-1">
-			<p>
+		<div id="tabs">
+		    <ul>
+		        <li><a href="#tabs-1">Datos</a></li>
+		        <li><a href="#tabs-2">Geoposicionamiento</a></li>
+		    </ul>
+		    <div id="tabs-1">
 				<label for="nombreHito">Hito</label> 
-				<input type="text" name="nombreHito" id="nombreHito" class="text ui-widget-content ui-corner-all" key="" />
-			</p>
-			<p> 
+				<input type="text" name="nombreHito" id="nombreHito" class="text ui-widget-content ui-corner-all" key="" /><br/>
 				<label for="codigo">C&oacute;digo</label>
-				<input type="text" name="codigo" id="codigo" value="" class="text ui-widget-content ui-corner-all" />
-			</p>
-			
-			<p>  
+				<input type="text" name="codigo" id="codigo" value="" class="text ui-widget-content ui-corner-all" /><br/><br />
 				<label for="pista">Pista</label><br /> 
 				<textarea id="pista" name="pista"></textarea>
-			</p>
-		</div>
-		<div id="tabs-2" style="position:relative;">
-			<div style="z-index:1; background-color:red; width:3px; height:3px; position:absolute;top:50px; left:50px"></div>
-			<iframe width="510" height="270" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/?ie=UTF8&amp;ll=40.420292,-3.67939&amp;spn=0.141926,0.338173&amp;t=m&amp;z=12&amp;output=embed"></iframe>
-			 
+			</div>
+			<div id="tabs-2" style="position:relative;">
+				<div id="map_canvas"></div>
 				<label for="longitud">Longitud</label>
-				<input type="text" name="longitud" id="longitud" value="" class="text ui-widget-content ui-corner-all" style="width:170px"/><input type="button" id="btnCoordinates" value="Recuperar Coordenadas" />
+				<input type="text" name="longitud" id="longitud" value="" class="text ui-widget-content ui-corner-all" /><br/>
 				<label for="latitud">Latitud</label>
-				<input type="text" name="latitud" id="latitud" value="" class="text ui-widget-content ui-corner-all" style="width:170px" />
-			
+				<input type="text" name="latitud" id="latitud" value="" class="text ui-widget-content ui-corner-all" />
+			</div>
 		</div>
-		
 	</form>
 </div>
