@@ -94,7 +94,8 @@ var ruta = {
 		$("#fecha_inicio").datepicker(datePickerParams);
 		$("#fecha_fin").datepicker(datePickerParams);
 		ruta.generateQuestionsTree("#tree");
-		 $("#pista").cleditor({width:513, height:185, useCSS:true})[0].focus();
+		 $( "#tabs" ).tabs();
+		 $("#pista").cleditor({width:515, height:185, useCSS:true})[0].focus();
 
 		$("#btnAddQuestion").button().click(function() {
 			var tree = $("#tree").dynatree("getTree");
@@ -156,11 +157,15 @@ var ruta = {
 		$('#respuestas').change(function() {
 			$('#btnDeleteResponse').button("enable");
 		});
-
+		$("#btnCoordinates").button().click(function() {
+			var x = gApplication.getMap().getCenter();
+			alert(x);
+		});
+		
 		$("#dialog-form").dialog({
 			autoOpen : false,
 			height : 540,
-			width : 550,
+			width : 600,
 			modal : true,
 			buttons : {
 				"Crear" : function() {
