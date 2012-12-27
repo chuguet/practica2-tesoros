@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -16,6 +15,7 @@
 		<link href="resources/css/jquery.alerts.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/ui.jqgrid.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/ui.graph.css" rel="stylesheet" type="text/css">
+		<link href="resources/css/jquery.cleditor.css" rel="stylesheet" type="text/css">
 		
 		<script src="resources/js/jquery.require.js" type="text/javascript"></script>
 		<script src="resources/js/jquery.mobile-detect.min.js" type="text/javascript"></script>
@@ -27,8 +27,9 @@
 		<script src="resources/js/jquery.alerts.js" type="text/javascript"></script>
 		<script src="resources/js/jquery.jqGrid.min.js" type="text/javascript"></script>
 		<script src="resources/js/i18n/grid.locale-es.js" type="text/javascript"></script>
+		<script src="resources/js/jquery.cleditor.min.js" type="text/javascript"></script>
 		
-		<script src="resources/js/views/encuesta.js" type="text/javascript"></script>
+		<script src="resources/js/views/ruta.js" type="text/javascript"></script>
 		<script src="resources/js/views/usuario.js" type="text/javascript"></script>
 		<script src="resources/js/views/estadistica.js" type="text/javascript"></script>
 	</head>
