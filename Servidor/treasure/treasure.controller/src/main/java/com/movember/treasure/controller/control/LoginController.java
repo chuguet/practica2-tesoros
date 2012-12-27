@@ -1,4 +1,4 @@
-package com.movember.quizz.controller.control;
+package com.movember.treasure.controller.control;
 
 import java.security.Principal;
 

@@ -1,7 +1,6 @@
-package com.movember.quizz.controller.dto;
+package com.movember.treasure.controller.dto;
 
-import com.movember.quizz.model.exception.AppException;
-
+import com.movember.treasure.model.exception.AppException;
 
 /**
  * The Class AbstractDTO.

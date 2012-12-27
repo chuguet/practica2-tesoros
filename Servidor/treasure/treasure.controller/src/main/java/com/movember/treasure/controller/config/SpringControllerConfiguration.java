@@ -1,4 +1,4 @@
-package com.movember.quizz.controller.config;
+package com.movember.treasure.controller.config;
 
 import java.util.ArrayList;
 import org.springframework.context.annotation.Bean;
