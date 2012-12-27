@@ -11,7 +11,7 @@ import com.movember.treasure.model.bean.Ruta;
 /**
  * The Interface IEncuestaDAO.
  */
-public interface IEncuestaDAO extends IRepositoryDAO<Ruta> {
+public interface IRutaDAO extends IRepositoryDAO<Ruta> {
 
 	/**
 	 * Find.
