@@ -14,7 +14,7 @@
 </fieldset>
 
 <script type="text/javascript">
-encuesta.formatList();
+ruta.formatList();
 function showInformationIntoView(information){
 	$("#lista").setGridParam({
 		data : information
