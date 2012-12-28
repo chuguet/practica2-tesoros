@@ -18,6 +18,9 @@ class HitoService implements IHitoService {
 	@Inject
 	private IHitoDAO hitoDAO;
 
+	@Inject
+	private IHitoUsuarioService hitoUsuarioService;
+
 	/*
 	 * (non-Javadoc)
 	 * @see
@@ -56,6 +59,7 @@ class HitoService implements IHitoService {
 	 */
 	public void delete(Hito hito) throws AppException {
 		try {
+			hitoUsuarioService.eliminarDeHito(hito.getId());
 			hitoDAO.delete(hito.getId());
 		}
 		catch (SQLException e) {
