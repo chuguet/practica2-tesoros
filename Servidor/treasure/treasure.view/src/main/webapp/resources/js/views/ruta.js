@@ -37,8 +37,6 @@ var ruta = {
 							align : 'left'
 						}
 				],
-				autowidth : true,
-				shrinkToFit : true,
 				rowNum : 20,
 				rowList : [
 						10, 20, 30
@@ -56,10 +54,12 @@ var ruta = {
 					ruta.rowID = rowid;
 				}
 			});
-			$(window).bind('resizeEnd', function() {
-				$('#lista').setGridWidth($('#parent').width() - 30, true);
+			$(window).bind('resize', function() {
+				$('#lista').setGridWidth($('.ui-jqgrid').parent().innerWidth() - 30);
 			}).trigger('resize');
 		});
+		
+		// $("#lista").fluidGrid({ example:"#grid_wrapper", offset:-10 });
 		
 		$("#btnAlta").button().click(function() {
 			generic.getForm('ruta');
@@ -81,6 +81,78 @@ var ruta = {
 	},
 
 	'formatForm' : function() {
+		this.rowID = null;
+		
+		$("#lista").jqGrid({
+			datatype : 'local',
+			data : [],
+			colNames : [
+					"Id", "Hito", "C&oacute;digo", "Latitud", "Longitud", "Pista"
+			],
+			colModel : [
+					{
+						name : 'id',
+						index : 'idRest',
+						width : 0,
+						hidden : true
+					}, {
+						name : 'nombre',
+						index : 'nombre',
+						width : 30,
+						sorttype : 'string',
+						sortable : true,
+						align : 'left'
+					}, {
+						name : 'codigo',
+						index : 'codigo',
+						width : 30,
+						sorttype : 'string',
+						sortable : true,
+						align : 'left'
+					}, {
+						name : 'latitud',
+						index : 'latitud',
+						width : 30,
+						sorttype : 'string',
+						sortable : true,
+						align : 'left'
+					}, {
+						name : 'longitud',
+						index : 'longitud',
+						width : 30,
+						sorttype : 'string',
+						sortable : true,
+						align : 'left'
+					}, {
+						name : 'pista',
+						index : 'pista',
+						width : 20,
+						sorttype : 'string',
+						sortable : true,
+						align : 'left',
+						hidden:true
+					}
+			],
+			rowNum : 20,
+			rowList : [
+					10, 20, 30
+			],
+			pager : '#paginadorLista',
+			sortname : 'nombre',
+			sortorder : 'asc',
+			viewrecords : true,
+			rownumbers : false,
+			scroll : false,
+			onSelectRow : function(rowid, status) {
+				$("#btnModifyHito").button("enable");
+				$("#btnDeleteHito").button("enable");
+				ruta.rowID = rowid;
+			}
+		});
+		$(window).bind('resize', function() {
+			$('#lista').setGridWidth($('.ui-jqgrid').parent().innerWidth() - 30);
+		}).trigger('resize');
+		
 		var datePickerParams = {
 			"dateFormat" : 'dd/mm/yy',
 			"dayNamesMin" : [
@@ -93,81 +165,61 @@ var ruta = {
 		};
 		$("#fecha_inicio").datepicker(datePickerParams);
 		$("#fecha_fin").datepicker(datePickerParams);
-		ruta.generateQuestionsTree("#tree");
-		$("#tabs").tabs();
-		// $("#pista").cleditor({width:515, height:185});
-		$('#pista').redactor({
-			iframe: true,
-	        css: "resources/css/redactor.iframe.css"
-		});
+		
+
 		this.configureGoogleMaps();
-		
-		
-		
-		
-		$("#btnAddQuestion").button().click(function() {
-			var tree = $("#tree").dynatree("getTree");
-			if (tree.getActiveNode()) {
-				tree.getActiveNode().deactivate();
+		$("#tabs").tabs();
+		$('#tabs').bind('tabsshow', function(event, ui) {
+			if (ui.panel.id == "tabs-2") {
+			    $(ui.panel).css("height","100%");
+			    ruta.map.checkResize();
 			}
-
-			$('#btnDeleteResponse').button("disable");
-			$('#dialog-form').dialog('option', 'title', 'A&ntilde;adir Pregunta');
+		})
+		$('#pista').redactor();
+		
+		
+		
+		
+		$("#btnAddHito").button().click(function() {
+			ruta.deseleccionarHito();
+			$('#dialog-form').dialog('option', 'title', 'A&ntilde;adir Hito');
 			$(".ui-dialog-buttonpane button:contains('Modificar') span").text('Crear');
+			$('#tabs').tabs('select', 0);
 			$("#dialog-form").dialog("open");
 		});
 
-		$("#btnModifyQuestion").button().click(function() {
-			var tree = $("#tree").dynatree("getTree");
-			var selectedQuestion = tree.getActiveNode();
-			$("#nombrePregunta").val(selectedQuestion.data.title);
-			$("#nombrePregunta").attr('key', selectedQuestion.data.key);
-
-			$('#btnDeleteResponse').button("disable");
-			var responses = selectedQuestion.childList;
-			for( var i = 0; i < responses.length; i++) {
-				$('#respuestas').append('<option value="' + responses[i].data.title + '" key="' + responses[i].data.key + '">' + responses[i].data.title + '</option>');
-			}
-			$('#dialog-form').dialog('option', 'title', 'Modificar Pregunta');
+		$("#btnModifyHito").button().click(function() {
+			var hito = $('#lista').jqGrid('getRowData', ruta.rowID);
+			
+			$("#nombreHito").val(hito.nombre);
+			$("#nombreHito").attr('key', hito.idRest);
+			$("#codigo").val(hito.codigo);
+			$("#pista").val(hito.pista);
+			$(".redactor_editor").html(hito.pista);
+			$('#longitud').val(hito.longitud);
+			$('#latitud').val(hito.latitud);
+			
+			$('#dialog-form').dialog('option', 'title', 'Modificar Hito');
 			$(".ui-dialog-buttonpane button:contains('Crear') span").text('Modificar');
+			$('#tabs').tabs('select', 0);
 			$("#dialog-form").dialog("open");
 		});
 
-		$("#btnDeleteQuestion").button().click(function() {
-			var tree = $("#tree").dynatree("getTree");
-			var activeNode = tree.getActiveNode();
-			activeNode.removeChildren();
-			activeNode.remove();
+		$("#btnDeleteHito").button().click(function() {
+			$('#lista').jqGrid('delRowData',ruta.rowID);
+			ruta.deseleccionarHito();
 		});
 
-		$("#btnAddResponse").button().click(function() {
-			var respuesta = $("#respuesta").val();
-			if (respuesta.length == 0) {
-				jAlert('No puede insertar respuestas vac&iacute;as', 'Error');
-			}
-			else {
-				$('#respuestas').append('<option value="' + respuesta + '" key="">' + respuesta + '</option>');
-				$("#respuesta").val('');
-			}
-		});
-		$("#btnDeleteResponse").button().click(function() {
-			$('#respuestas option:selected').remove();
-		});
+		
 
 		$("#btnCancel").button().click(function() {
+			ruta.deseleccionarHito();
 			generic.getList('ruta');
 		});
 
-		$("#btnSaveQuizz").button().click(function() {
+		$("#btnSaveTreasure").button().click(function() {
+			ruta.deseleccionarHito();
 			ruta.getParams();
-		});
-
-		$('#respuestas').change(function() {
-			$('#btnDeleteResponse').button("enable");
-		});
-		$("#btnCoordinates").button().click(function() {
-			var x = gApplication.getMap().getCenter();
-			alert(x);
 		});
 		
 		$("#dialog-form").dialog({
@@ -177,41 +229,42 @@ var ruta = {
 			modal : true,
 			buttons : {
 				"Crear" : function() {
-					if ($('#nombrePregunta').val().length == 0) {
-						jAlert('No puede insertar preguntas vac&iacute;as', 'Error');
+					var error = "";
+					if ($('#nombreHito').val().length == 0) {
+						error += ' - Debe indicar el nombre del hito <br/>';
+					}
+					if ($('#codigo').val().length == 0) {
+						error += ' - Debe indicar el c&oacute;digo del hito <br/>';
+					}
+					if ($('#pista').val() == "<p><br></p>" || $('#pista').val() == "") {
+						error += ' - Debe introducir la pista para continuar la b&uacute;squeda del tesoro <br/>';
+					}
+					if ($('#longitud').val().length == 0 || $('#latitud').val().length == 0) {
+						error += ' - Debe seleccionar una posici&oacute;n v&aacute;lida en el mapa <br/>';
+					}
+					if (error.length != 0){
+						jAlert(error, 'Error');
 						return;
 					}
-					if ($('#respuestas option').length < 2) {
-						jAlert('Debe a&ntildeadir al menos dos respuestas para la pregunta', 'Error');
-						return;
+					
+					var hito = {
+							idRest : $('#nombreHito').attr('key'),
+							nombre : $('#nombreHito').val(),
+							codigo : $('#codigo').val(),
+							longitud : $('#longitud').val(),
+							latitud : $('#latitud').val(),
+							pista : $('#pista').val()
+						};
+					
+					var lastId = 1;
+					if ($('#lista').getDataIDs().length > 0) {
+						lastId = parseInt($('#lista').getDataIDs().length) + 1;
 					}
-					var respuestas = [];
-					$("#respuestas option").each(function() {
-						respuestas.push({
-							title : this.value,
-							key : this.getAttribute('key')
-						});
-					});
-
-					var pregunta = [
-						{
-							title : $('#nombrePregunta').val(),
-							isFolder : true,
-							children : respuestas,
-							key : $('#nombrePregunta').attr('key')
-						}
-					];
-					if ($("#tree").dynatree("getTree").getActiveNode() != null) {
-						$("#tree").dynatree("getRoot").addChild(pregunta, $("#tree").dynatree("getTree").getActiveNode());
-						var newQuestion = $("#tree").dynatree("getTree").getActiveNode().getPrevSibling();
-						if ($("#tree").dynatree("getTree").getActiveNode().isExpanded()) {
-							newQuestion.expand();
-						}
-						$("#tree").dynatree("getTree").getActiveNode().remove();
-						newQuestion.activate();
+					if (ruta.rowID == null) {
+						$('#lista').jqGrid("addRowData", lastId, hito, "last");
 					}
-					else {
-						$("#tree").dynatree("getRoot").addChild(pregunta);
+					else{
+						$('#lista').jqGrid('setRowData', ruta.rowID, hito);
 					}
 
 					$(this).dialog("close");
@@ -221,19 +274,31 @@ var ruta = {
 				}
 			},
 			close : function() {
-				$("#nombrePregunta").val('');
-				$("#nombrePregunta").attr('key', '');
-				$("#respuesta").val('');
-				$('#respuestas').find('option').remove();
+				$("#nombreHito").val('');
+				$("#nombreHito").attr('key', '');
+				$("#codigo").val('');
+				$("#longitud").val('');
+				$("#latitud").val('');
+				$("#pista").val('');
+				$(".redactor_editor").html('');
+				if (ruta.newLocation != null){
+					ruta.map.removeOverlay(ruta.newLocation);
+				}
 			}
 		});
+	},
+	'deseleccionarHito' : function(){
+		this.rowID = null;
+		$('#lista').jqGrid('resetSelection');
+		$("#btnModifyHito").button("disable");
+		$("#btnDeleteHito").button("disable");
 	},
 	'getParams' : function() {
 		var id = ($("#id").val()) ? $("#id").val() : null;
 		var nombre = $("#nombre").val();
 		var fecha_inicio = $("#fecha_inicio").val();
 		var fecha_fin = $("#fecha_fin").val();
-		var hitos = ruta.getHitos();
+		var hitos = $('#lista').jqGrid('getRowData');
 		var errores = '';
 		if (nombre == '') {
 			errores = "- El nombre es obligatorio<br />";
@@ -269,14 +334,14 @@ var ruta = {
 		$(selector).dynatree({
 			selectMode : 1,
 			onActivate : function(question) {
-				$("#btnModifyQuestion").button("enable");
-				$("#btnDeleteQuestion").button("enable");
+				$("#btnModifyHito").button("enable");
+				$("#btnDeleteHito").button("enable");
 			}
 		});
 	},
 	'getHitos' : function() {
 		var hitos = [];
-		var hitosArray = $("#tree").dynatree("getTree").toDict().children;
+		var hitosArray = $('#lista').jqGrid('getRowData');
 		if (hitosArray) {
 
 			for( var i = 0; i < hitosArray.length; i++) {
@@ -285,9 +350,7 @@ var ruta = {
 
 				var hito = {
 					'id' : null,
-					'title' : h.title,
-					'key' : h.key,
-					'isFolder' : true,
+					'nombre' : h.nombre,
 					'codigo' : h.codigo,
 					'longitud' : h.longitud,
 					'latitud' : h.latitud,
@@ -301,13 +364,20 @@ var ruta = {
     'newLocation': null,
     'map': null,
 	'configureGoogleMaps' : function(){
+// var mapOptions = {
+// center: new google.maps.LatLng(40.4199, -3.694668),
+// zoom: 13,
+// mapTypeId: google.maps.MapTypeId.ROADMAP
+// };
+// this.map = new google.maps.Map(document.getElementById("map_canvas"),
+// mapOptions);
+		
+		
 		if (GBrowserIsCompatible()) {
             this.map = new GMap2(document.getElementById("map_canvas"));
             this.map.addControl(new GSmallMapControl());
-            this.map.addControl(new GMapTypeControl());
             this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
 
-			var newLocation = this.newLocation;
 			GEvent.addListener(this.map, "click", function(marker,point) {
 				if (ruta.newLocation != null){
 					ruta.map.removeOverlay(ruta.newLocation);

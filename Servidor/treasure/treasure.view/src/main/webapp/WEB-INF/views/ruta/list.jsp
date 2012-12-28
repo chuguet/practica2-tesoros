@@ -9,7 +9,7 @@
 		<input type="button" id="btnEliminar" value="Eliminar"  />
 		<input type="button" id="btnEstadistica" value="Ver estad&iacute;stica" />
 	</div>
-	<table id="lista" ></table>
+	<table id="lista"></table>
 	<div id=paginadorLista></div>
 </fieldset>
 
