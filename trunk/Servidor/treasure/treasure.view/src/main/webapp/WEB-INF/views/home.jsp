@@ -16,8 +16,8 @@
 		<link href="resources/css/ui.jqgrid.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/ui.graph.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/redactor.css" rel="stylesheet" type="text/css">
-		
-		<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAFnFO3ySluSuha6r1vYekiRQNy_ewe8RNLHRa7cwLE-yWPUZNWBSV43OE1hhpvzIXRf04qzvWdmKBEw&amp;sensor=false" type="text/javascript"></script>
+		<!--  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuX3SNPXeixU2JzGntpW2KgHvwOxq-tM&sensor=true"></script>-->
+		<script src="http://maps.google.com/maps?file=api&amp;v=2&key=AIzaSyAIuX3SNPXeixU2JzGntpW2KgHvwOxq-tM&sensor=false" type="text/javascript"></script>
 		<script src="resources/js/jquery.require.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-1.8.2.min.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-ui-1.9.1.min.js" type="text/javascript"></script>
@@ -32,8 +32,6 @@
 		<script src="resources/js/views/ruta.js" type="text/javascript"></script>
 		<script src="resources/js/views/usuario.js" type="text/javascript"></script>
 		<script src="resources/js/views/estadistica.js" type="text/javascript"></script>
-		
-		
 		
 	</head>
 	<body id="quizz" class="web">

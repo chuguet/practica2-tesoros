@@ -38,28 +38,29 @@
 			<label for="fecha_fin">Fecha de fin:</label>
 			<input id="fecha_fin" class="text ui-widget-content ui-corner-all" />
 		</p>
-		<fieldset style="height: 200px;">
+		<fieldset>
 			<legend>Hitos</legend>
-			<div id="tree" style="height: 180px;"></div>
+			<table id="lista"></table>
+			<div id=paginadorLista></div>
 		</fieldset>
 		<div class="botonera">
 			<c:choose>
 				<c:when test="${operacion == 'new'}">
-					<input type="button" id="btnSaveQuizz" value="Guardar" />
+					<input type="button" id="btnSaveTreasure" value="Guardar" />
 				</c:when>
 				<c:otherwise>
-					<input type="button" id="btnSaveQuizz" value="Modificar" />
+					<input type="button" id="btnSaveTreasure" value="Modificar" />
 				</c:otherwise>
 			</c:choose>
 			<input type="button" id="btnCancel" value="Cancelar" /> 
-			<input type="button" id="btnAddQuestion" value="Añadir Hito" />
-			<input type="button" id="btnModifyQuestion" value="Modificar Hito" disabled="true" />
-			<input type="button" id="btnDeleteQuestion" value="Eliminar" disabled="true" />
+			<input type="button" id="btnAddHito" value="Añadir Hito" />
+			<input type="button" id="btnModifyHito" value="Modificar Hito" disabled="true" />
+			<input type="button" id="btnDeleteHito" value="Eliminar" disabled="true" />
 		</div>
 	</fieldset>
 </form>
 
-<div id="dialog-form" title="A&ntilde;adir Pregunta">
+<div id="dialog-form" title="A&ntilde;adir Hito">
 	<form id="frmHitos">
 		<div id="tabs">
 		    <ul>
@@ -72,7 +73,7 @@
 				<label for="codigo">C&oacute;digo</label>
 				<input type="text" name="codigo" id="codigo" value="" class="text ui-widget-content ui-corner-all" /><br/><br />
 				<label for="pista">Pista</label><br /> 
-				<textarea id="pista" name="pista"></textarea>
+				<textarea id="pista" name="pista" style="height:200px;"></textarea>
 			</div>
 			<div id="tabs-2" style="position:relative;">
 				<div id="map_canvas"></div>

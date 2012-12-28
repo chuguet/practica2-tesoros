@@ -8,82 +8,18 @@ import com.movember.treasure.model.exception.AppException;
  */
 public class HitoDTO extends AbstractDTO {
 
-	/** The title. */
-	private String title;
-
-	/** The is folder. */
-	private boolean isFolder;
-
-	/** The key. */
-	private String key;
-
-	/** The codigo. */
+	private String nombre;
 	private String codigo;
-
-	/** The pregunta. */
 	private String latitud;
-
-	/** The longitud. */
 	private String longitud;
-
-	/** The pista. */
 	private String pista;
 
-	/**
-	 * Gets the title.
-	 * 
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	/**
-	 * Sets the title.
-	 * 
-	 * @param title
-	 *            the new title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/**
-	 * Gets the checks if is folder.
-	 * 
-	 * @return the checks if is folder
-	 */
-	public boolean getIsFolder() {
-		return isFolder;
-	}
-
-	/**
-	 * Sets the checks if is folder.
-	 * 
-	 * @param isFolder
-	 *            the new checks if is folder
-	 */
-	public void setIsFolder(boolean isFolder) {
-		this.isFolder = isFolder;
-	}
-
-	/**
-	 * Gets the key.
-	 * 
-	 * @return the key
-	 */
-	public String getKey() {
-		return key;
-	}
-
-	/**
-	 * Sets the key.
-	 * 
-	 * @param key
-	 *            the new key
-	 */
-	public void setKey(String key) {
-		this.key = key;
+	public String getNombre() {
+		return nombre;
 	}
 
 	public void setCodigo(String codigo) {
@@ -126,12 +62,8 @@ public class HitoDTO extends AbstractDTO {
 	@Override
 	public void toRest(Object object) throws AppException {
 		Hito hito = (Hito) object;
-		if (hito.getId() != null) {
-			this.key = "p" + hito.getId().toString();
-			this.setId(hito.getId());
-		}
-		this.title = hito.getNombre();
-		this.isFolder = true;
+		this.setId(hito.getId());
+		this.nombre = hito.getNombre();
 		this.codigo = hito.getCodigo();
 		this.latitud = hito.getLatitud();
 		this.longitud = hito.getLongitud();
@@ -147,10 +79,9 @@ public class HitoDTO extends AbstractDTO {
 	@Override
 	public void toBusiness(Object object) throws AppException {
 		Hito hito = (Hito) object;
-		if (this.key.indexOf('p') != -1) {
-			hito.setId(Integer.parseInt(this.key.replace("p", "")));
-		}
-		hito.setNombre(this.title);
+
+		hito.setId(this.getId());
+		hito.setNombre(this.nombre);
 		hito.setCodigo(this.codigo);
 		hito.setLatitud(this.latitud);
 		hito.setLongitud(this.longitud);
