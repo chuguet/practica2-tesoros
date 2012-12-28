@@ -1,13 +1,10 @@
-package com.movember.treasure.controller.dto;
-
-import com.movember.treasure.model.bean.HitoEstadistica;
-import com.movember.treasure.model.exception.AppException;
+package com.movember.treasure.model.bean;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class PreguntaEstadisticaDTO.
+ * The Class EncuestaContestada.
  */
-public class HitoEstadisticaDTO extends AbstractDTO {
+public class HitoEstadistica extends AbstractBean {
 
 	/** The contador_no_usuarios_identificados. */
 	private Integer contador_no_usuarios_identificados;
@@ -119,34 +116,6 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.movember.treasure.controller.dto.AbstractDTO#toBusiness(java.lang
-	 * .Object)
-	 */
-	@Override
-	public void toBusiness(Object object) throws AppException {
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.movember.treasure.controller.dto.AbstractDTO#toRest(java.lang.Object)
-	 */
-	@Override
-	public void toRest(Object object) throws AppException {
-		HitoEstadistica hitoEstadistica = (HitoEstadistica)object;
-		this.setContador_no_usuarios_identificados(hitoEstadistica.getContador_no_usuarios_identificados());
-		this.setContador_usuarios_identificados(hitoEstadistica.getContador_usuarios_identificados());
-		this.setId(hitoEstadistica.getId());
-		this.setLatitud(hitoEstadistica.getLatitud());
-		this.setLongitud(hitoEstadistica.getLongitud());
-		this.setNombre(hitoEstadistica.getNombre());
 	}
 
 }

@@ -7,4 +7,5 @@
     	<sqlMap resource="ibatis_conf/ruta_sql_map.xml" />
     	<sqlMap resource="ibatis_conf/hito_sql_map.xml" />
     	<sqlMap resource="ibatis_conf/usuario_sql_map.xml" />
+    	<sqlMap resource="ibatis_conf/estadistica_sql_map.xml" />
 </sqlMapConfig>

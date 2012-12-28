@@ -1,13 +1,17 @@
 package com.movember.treasure.controller.control;
 
 import javax.inject.Inject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.movember.treasure.controller.dto.EstadisticaDTO;
+import com.movember.treasure.model.bean.Estadistica;
+import com.movember.treasure.model.exception.AppException;
 import com.movember.treasure.model.service.IEstadisticaService;
 
 /**
@@ -40,14 +44,13 @@ public class EstadisticaController {
 	public @ResponseBody
 	EstadisticaDTO retrieve(@PathVariable("id") Integer id) {
 		EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
-		// try {
-		// estadistica estadistica = this.estadisticaservice.retrieve(id);
-		// // comversion a dto
-		// estadisticadto.torest(estadistica);
-		// }
-		// catch (appexception e) {
-		//
-		// }
+		try {
+			Estadistica estadistica = this.estadisticaService.retrieve(id);
+			// comversion a dto
+			estadisticaDTO.toRest(estadistica);
+		} catch (AppException e) {
+			e.printStackTrace();
+		}
 		return estadisticaDTO;
 	}
 
@@ -60,7 +63,8 @@ public class EstadisticaController {
 	 * @return devuelve la nueva petición REST
 	 * **/
 	@RequestMapping(value = "/" + recurso + "/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
-	public String createForm(@PathVariable("operacion") String operacion, final Model uiModel) {
+	public String createForm(@PathVariable("operacion") String operacion,
+			final Model uiModel) {
 		return recurso + "/form";
 	}
 }
