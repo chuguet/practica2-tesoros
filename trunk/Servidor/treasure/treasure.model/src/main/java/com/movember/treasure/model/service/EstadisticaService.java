@@ -52,12 +52,18 @@ class EstadisticaService implements IEstadisticaService {
 				hitoEstadistica.setNombre(hito.getNombre());
 				hitoEstadistica
 						.setContador_usuarios_identificados(estadisticaDAO
-								.recuperarHitosUsuIdent(ruta
-										.getId()));
+								.recuperarHitosUsuIdent(ruta.getId()).get(
+										hito.getId()));
 				hitoEstadistica
 						.setContador_no_usuarios_identificados(estadisticaDAO
-								.recuperarHitosUsuNoIdent(ruta
-										.getId()));
+								.recuperarHitosUsuNoIdent(ruta.getId()).get(
+										hito.getId()));
+				if (hitoEstadistica.getContador_no_usuarios_identificados() == null) {
+					hitoEstadistica.setContador_no_usuarios_identificados(0);
+				}
+				if (hitoEstadistica.getContador_usuarios_identificados() == null) {
+					hitoEstadistica.setContador_usuarios_identificados(0);
+				}
 				hitos.add(hitoEstadistica);
 			}
 		} catch (SQLException e) {
