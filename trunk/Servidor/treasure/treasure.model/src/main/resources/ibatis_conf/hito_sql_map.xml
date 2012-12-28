@@ -36,7 +36,7 @@
   		UPDATE hito 
   		SET  
   		nombre = #nombre:VARCHAR#,
-  		id_ruta = #id_ruta:INTEGER#
+  		id_ruta = #id_ruta:INTEGER#,
   		longitud = #longitud:VARCHAR#,
   		latitud = #latitud:VARCHAR#, 
   		codigo = #codigo:VARCHAR#,

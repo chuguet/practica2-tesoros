@@ -14,7 +14,7 @@
 		FROM ruta
 		WHERE id = #id:INTEGER#
 	</select>
-	
+
 	<select id="selectAll" resultMap="rutaResult">
 		SELECT id, nombre, fecha_inicio, fecha_fin
 		FROM ruta

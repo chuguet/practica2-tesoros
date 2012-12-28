@@ -11,9 +11,9 @@
 			$('#nombre').val(ruta.nombre);
 			$('#fecha_inicio').val(ruta.fecha_inicio);
 			$('#fecha_fin').val(ruta.fecha_fin);
-			for (var i= 0; i < ruta.hitosDTO.length; i++){
-				$("#tree").dynatree("getRoot").addChild(ruta.hitosDTO[i]);
-			}
+			$("#lista").setGridParam({
+				data : ruta.hitosDTO
+			}).trigger("reloadGrid");
 		};
 	</c:if>
 </script>

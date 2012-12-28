@@ -57,6 +57,7 @@ class RutaService implements IRutaService {
 			if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
 				List<Hito> hitosAntiguas = this.hitoService.recuperarDeRuta(ruta.getId());
 				for (Hito hito : ruta.getHitos()) {
+					hito.setId_ruta(ruta.getId());
 					if (hito.getId() != null) {
 						this.hitoService.update(hito);
 					}
@@ -86,8 +87,9 @@ class RutaService implements IRutaService {
 	 */
 	public void delete(Ruta ruta) throws AppException {
 		try {
-			if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
-				for (Hito hito : ruta.getHitos()) {
+			List<Hito> listaHitos = this.hitoService.recuperarDeRuta(ruta.getId());
+			if (listaHitos != null && listaHitos.size() > 0) {
+				for (Hito hito : listaHitos) {
 					this.hitoService.delete(hito);
 				}
 			}

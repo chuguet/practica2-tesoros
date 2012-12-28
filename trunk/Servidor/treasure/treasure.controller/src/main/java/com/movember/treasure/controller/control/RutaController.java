@@ -2,9 +2,7 @@ package com.movember.treasure.controller.control;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.movember.treasure.controller.dto.MensajeDTO;
 import com.movember.treasure.controller.dto.RutaDTO;
 import com.movember.treasure.model.bean.Ruta;
@@ -115,23 +112,19 @@ public class RutaController {
 	@RequestMapping(value = "/" + recurso, method = RequestMethod.POST)
 	public @ResponseBody
 	MensajeDTO insert(@RequestBody RutaDTO rutaDTO) {
-		MensajeDTO mensaje = new MensajeDTO();
 		if (rutaDTO == null) {
-			mensaje.setMensaje("Una ruta es requerida");
-			mensaje.setCorrecto(false);
-			return mensaje;
+			return new MensajeDTO("Una ruta es requerida", false);
 		}
 
 		try {
 			Ruta ruta = new Ruta();
 			rutaDTO.toBusiness(ruta);
 			rutaService.insert(ruta);
-			mensaje.setMensaje("Ruta creada correctamente");
+			return new MensajeDTO("Ruta creada correctamente", true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
 	}
 
 	/**
@@ -144,23 +137,19 @@ public class RutaController {
 	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.POST)
 	public @ResponseBody
 	MensajeDTO update(@RequestBody RutaDTO rutaDTO) {
-		MensajeDTO mensaje = new MensajeDTO();
 		if (rutaDTO == null) {
-			mensaje.setMensaje("Una ruta es requerida");
-			mensaje.setCorrecto(false);
-			return mensaje;
+			return new MensajeDTO("Una ruta es requerida", false);
 		}
 
 		try {
 			Ruta ruta = new Ruta();
 			rutaDTO.toBusiness(ruta);
 			rutaService.update(ruta);
-			mensaje.setMensaje("Ruta modificada correctamente");
+			return new MensajeDTO("Ruta modificada correctamente", true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
 	}
 
 	/**
@@ -171,18 +160,20 @@ public class RutaController {
 	 * @return mensaje de confirmación o error de eliminación
 	 * **/
 	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.DELETE)
-	public MensajeDTO remove(@PathVariable Integer id, Model uiModel) {
-		MensajeDTO mensaje = new MensajeDTO();
+	public @ResponseBody
+	MensajeDTO remove(@PathVariable Integer id, Model uiModel) {
+		if (id == null) {
+			return new MensajeDTO("Una ruta es requerida", false);
+		}
 
 		try {
 			Ruta ruta = new Ruta();
 			ruta.setId(id);
 			this.rutaService.delete(ruta);
-			mensaje.setMensaje("Ruta eliminada correctamente");
+			return new MensajeDTO("Ruta eliminada correctamente", true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
 	}
 }

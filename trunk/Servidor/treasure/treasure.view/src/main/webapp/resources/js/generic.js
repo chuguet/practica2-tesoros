@@ -48,7 +48,7 @@ var generic = {
 		var params = {
 			'id' : id
 		};
-		this.executeJSon('DELETE', entity, params, callback);
+		this.executeJSon('DELETE', entity + '/' + id, params, callback);
 	},
 	"executeJSon" : function($method, action, data, callback) {
 		if (data != null) {

@@ -52,7 +52,8 @@ public class MensajeDTO {
 	/**
 	 * Instantiates a new mensaje dto.
 	 */
-	public MensajeDTO() {
-		this.correcto = true;
+	public MensajeDTO(String mensaje, boolean correcto) {
+		this.correcto = correcto;
+		this.mensaje = mensaje;
 	}
 }

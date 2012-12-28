@@ -109,23 +109,18 @@ public class UsuarioController {
 	@RequestMapping(value = "/" + recurso, method = RequestMethod.POST)
 	public @ResponseBody
 	MensajeDTO insert(@RequestBody UsuarioDTO usuarioDTO) {
-		MensajeDTO mensaje = new MensajeDTO();
+		if (usuarioDTO == null) {
+			return new MensajeDTO("Un usuario es requerido", false);
+		}
 		try {
-			if (usuarioDTO == null) {
-				mensaje.setMensaje("Un usuario es requerido");
-				mensaje.setCorrecto(false);
-				return mensaje;
-			}
-
 			Usuario usuario = new Usuario();
 			usuarioDTO.toBusiness(usuario);
 			usuarioService.insert(usuario);
-			mensaje.setMensaje("Usuario creado correctamente");
+			return new MensajeDTO("Usuario creado correctamente", true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
 	}
 
 	/**
@@ -138,22 +133,18 @@ public class UsuarioController {
 	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.POST)
 	public @ResponseBody
 	MensajeDTO update(@RequestBody UsuarioDTO usuarioDTO) {
-		MensajeDTO mensaje = new MensajeDTO();
+		if (usuarioDTO == null) {
+			return new MensajeDTO("Un usuario es requerido", false);
+		}
 		try {
-			if (usuarioDTO == null) {
-				mensaje.setMensaje("Un usuario es requerido");
-				mensaje.setCorrecto(false);
-				return mensaje;
-			}
 			Usuario usuario = new Usuario();
 			usuarioDTO.toBusiness(usuario);
 			usuarioService.update(usuario);
-			mensaje.setMensaje("Usuario modificado correctamente");
+			return new MensajeDTO("Usuario modificado correctamente", true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
 	}
 
 	/**
@@ -166,18 +157,19 @@ public class UsuarioController {
 	 * @return the mensaje dto
 	 */
 	@RequestMapping(value = "/usuario/{id}", method = RequestMethod.DELETE)
-	public MensajeDTO remove(@PathVariable Integer id, Model uiModel) {
-
-		MensajeDTO mensaje = new MensajeDTO();
+	public @ResponseBody
+	MensajeDTO remove(@PathVariable Integer id, Model uiModel) {
+		if (id == null) {
+			return new MensajeDTO("Un usuario es requerido", false);
+		}
 		try {
 			Usuario usuario = new Usuario();
 			usuario.setId(id);
 			this.usuarioService.delete(usuario);
-			mensaje.setMensaje("Usuario eliminado correctamente");
+			return new MensajeDTO("Usuario eliminado correctamente", true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
 	}
 }

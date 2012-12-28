@@ -48,9 +48,9 @@ var ruta = {
 				rownumbers : false,
 				scroll : false,
 				onSelectRow : function(rowid, status) {
-					$("#btnEditar").attr('disabled', false);
-					$("#btnEliminar").attr('disabled', false);
-					$("#btnEstadistica").attr('disabled', false);
+					$("#btnEditar").button("enable");
+					$("#btnEliminar").button("enable");
+					$("#btnEstadistica").button("enable");
 					ruta.rowID = rowid;
 				}
 			});
@@ -67,17 +67,19 @@ var ruta = {
 		$("#btnEditar").button().click(function() {
 			generic.getForm('ruta', $('#lista').jqGrid('getRowData', ruta.rowID).id);
 		});
-		$("#btnEditar").attr("disabled", "disabled");
+		$("#btnEditar").button("disable");
 
 		$("#btnEliminar").button().click(function() {
-			generic.delete('ruta', $('#lista').jqGrid('getRowData', ruta.rowID).id);
+			generic.delete('ruta', $('#lista').jqGrid('getRowData', ruta.rowID).id, function() {
+				generic.getList('ruta');
+			});
 		});
-		$("#btnEliminar").attr("disabled", "disabled");
+		$("#btnEliminar").button("disable");
 		
 		$("#btnEstadistica").button().click(function() {
 			generic.getForm('estadistica', $('#lista').jqGrid('getRowData', ruta.rowID).id);
 		});
-		$("#btnEstadistica").attr("disabled", "disabled");
+		$("#btnEstadistica").button("disable");
 	},
 
 	'formatForm' : function() {
@@ -198,6 +200,7 @@ var ruta = {
 			$(".redactor_editor").html(hito.pista);
 			$('#longitud').val(hito.longitud);
 			$('#latitud').val(hito.latitud);
+			ruta.paintPoint(hito.latitud, hito.longitud);
 			
 			$('#dialog-form').dialog('option', 'title', 'Modificar Hito');
 			$(".ui-dialog-buttonpane button:contains('Crear') span").text('Modificar');
@@ -330,37 +333,6 @@ var ruta = {
 			});
 		}
 	},
-	'generateQuestionsTree' : function(selector) {
-		$(selector).dynatree({
-			selectMode : 1,
-			onActivate : function(question) {
-				$("#btnModifyHito").button("enable");
-				$("#btnDeleteHito").button("enable");
-			}
-		});
-	},
-	'getHitos' : function() {
-		var hitos = [];
-		var hitosArray = $('#lista').jqGrid('getRowData');
-		if (hitosArray) {
-
-			for( var i = 0; i < hitosArray.length; i++) {
-				var h = hitosArray[i];
-				
-
-				var hito = {
-					'id' : null,
-					'nombre' : h.nombre,
-					'codigo' : h.codigo,
-					'longitud' : h.longitud,
-					'latitud' : h.latitud,
-					'pista' : h.pista
-				};
-				hitos.push(hito);
-			}
-		}
-		return hitos;
-	},
     'newLocation': null,
     'map': null,
 	'configureGoogleMaps' : function(){
@@ -374,10 +346,11 @@ var ruta = {
 		
 		
 		if (GBrowserIsCompatible()) {
+			if (this.map == null){
             this.map = new GMap2(document.getElementById("map_canvas"));
             this.map.addControl(new GSmallMapControl());
             this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
-
+			}
 			GEvent.addListener(this.map, "click", function(marker,point) {
 				if (ruta.newLocation != null){
 					ruta.map.removeOverlay(ruta.newLocation);
@@ -395,5 +368,9 @@ var ruta = {
 	            }
 			});
         }
+	},
+	'paintPoint': function(lattitude, longitude){
+		ruta.newLocation = new GMarker(new GLatLng(lattitude, longitude));
+		ruta.map.addOverlay(ruta.newLocation);
 	}
 };

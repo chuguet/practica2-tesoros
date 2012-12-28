@@ -62,8 +62,8 @@ var usuario = {
 			rownumbers : false,
 			scroll : false,
 			onSelectRow : function(rowid, status) {
-				$("#btnEditar").removeAttr("disabled");
-				$("#btnEliminar").removeAttr("disabled");
+				$("#btnEditar").button("enable");
+				$("#btnEliminar").button("enable");
 				usuario.rowID = rowid;
 			}
 		});
@@ -78,12 +78,14 @@ var usuario = {
 		$("#btnEditar").button().click(function() {
 			generic.getForm('usuario', $('#lista').jqGrid('getRowData', usuario.rowID).id);
 		});
-		$("#btnEditar").attr("disabled", "disabled");
+		$("#btnEditar").button("disable");
 
 		$("#btnEliminar").button().click(function() {
-			generic.delete('usuario', $('#lista').jqGrid('getRowData', usuario.rowID).id);
+			generic.delete('usuario', $('#lista').jqGrid('getRowData', usuario.rowID).id, function() {
+				generic.getList('usuario');
+			});
 		});
-		$("#btnEliminar").attr("disabled", "disabled");
+		$("#btnEliminar").button("disable");
 	},
 
 	'formatForm' : function() {
