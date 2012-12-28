@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="estadistica">
-	<resultMap id="estadisticaResult" class="com.movember.treasure.model.bean.Estadistica">
-		<result column="id" property="id" jdbcType="INTEGER" />
+	<resultMap id="mapResult" class="java.util.HashMap">
+		<result property="key" column="id" javaType="java.lang.Integer" />
+		<result property="value" column="contador" javaType="java.lang.Integer" />
 	</resultMap>
 
 	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer"
-		resultMap="estadisticaResult">
-		SELECT count(*) as contador_identificados, h.id
+		resultMap="mapResult">
+		SELECT count(*) as contador, h.id as id
 		FROM hito h
-		LEFT JOIN hito_usuario hu ON h.id = hu.id_hito
-		WHERE h.id_ruta = #id:INTEGER# and identificado = 0
+		LEFT JOIN
+		hito_usuario hu ON h.id = hu.id_hito
+		WHERE h.id_ruta =
+		#id:INTEGER# and
+		identificado = 0
 		GROUP by id_hito
 	</select>
 
 	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer"
-		resultMap="estadisticaResult">
-		SELECT count(*) as contador_no_identificados, h.id FROM hito
+		resultMap="mapResult">
+		SELECT count(*) as contador, h.id as id FROM hito
 		h
-		LEFT JOIN hito_usuario hu ON h.id = hu.id_hito
-		WHERE h.id_ruta = #id:INTEGER# and
+		LEFT JOIN
+		hito_usuario hu ON h.id = hu.id_hito
+		WHERE h.id_ruta =
+		#id:INTEGER# and
 		identificado = 1
 		GROUP by id_hito
 	</select>
