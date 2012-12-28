@@ -1,5 +1,8 @@
 package com.movember.treasure.model.bean;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 
 // TODO: Auto-generated Javadoc
@@ -9,20 +12,20 @@ import javax.persistence.Entity;
 @Entity
 public class Estadistica extends AbstractBean {
 
-	/** The codigo. */
-	private String codigo;
+	/** The contador_total. */
+	private Integer contador_total;
+	
+	/** The fecha_fin. */
+	private Date fecha_fin;
+	
+	/** The fecha_inicio. */
+	private Date fecha_inicio;
 
 	/** The id_encuesta. */
-	private Integer id_ruta;
+	private List<HitoEstadistica> hitos;
 
-	/** The pregunta. */
-	private String latitud;
-
-	/** The longitud. */
-	private String longitud;
-
-	/** The pista. */
-	private String pista;
+	/** The codigo. */
+	private String ruta;
 
 	/*
 	 * (non-Javadoc)
@@ -35,97 +38,94 @@ public class Estadistica extends AbstractBean {
 	}
 
 	/**
-	 * Gets the codigo.
-	 * 
-	 * @return the codigo
+	 * Gets the contador_total.
+	 *
+	 * @return the contador_total
 	 */
-	public String getCodigo() {
-		return codigo;
+	public Integer getContador_total() {
+		return contador_total;
 	}
 
 	/**
-	 * Gets the id_hito.
-	 * 
-	 * @return the id_hito
+	 * Gets the fecha_fin.
+	 *
+	 * @return the fecha_fin
 	 */
-	public Integer getId_ruta() {
-		return id_ruta;
+	public Date getFecha_fin() {
+		return fecha_fin;
 	}
 
 	/**
-	 * Gets the latitud.
-	 * 
-	 * @return the latitud
+	 * Gets the fecha_inicio.
+	 *
+	 * @return the fecha_inicio
 	 */
-	public String getLatitud() {
-		return latitud;
+	public Date getFecha_inicio() {
+		return fecha_inicio;
 	}
 
 	/**
-	 * Gets the longitud.
-	 * 
-	 * @return the longitud
+	 * Gets the hitos.
+	 *
+	 * @return the hitos
 	 */
-	public String getLongitud() {
-		return longitud;
+	public List<HitoEstadistica> getHitos() {
+		return hitos;
 	}
 
 	/**
-	 * Gets the pista.
-	 * 
-	 * @return the pista
+	 * Gets the ruta.
+	 *
+	 * @return the ruta
 	 */
-	public String getPista() {
-		return pista;
+	public String getRuta() {
+		return ruta;
+	}
+	
+	/**
+	 * Sets the contador_total.
+	 *
+	 * @param contador_total the new contador_total
+	 */
+	public void setContador_total(Integer contador_total) {
+		this.contador_total = contador_total;
 	}
 
 	/**
-	 * Sets the codigo.
-	 * 
-	 * @param codigo
-	 *            the new codigo
+	 * Sets the fecha_fin.
+	 *
+	 * @param fecha_fin the new fecha_fin
 	 */
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setFecha_fin(Date fecha_fin) {
+		this.fecha_fin = fecha_fin;
 	}
 
 	/**
-	 * Sets the id_ruta.
-	 * 
-	 * @param id_ruta
-	 *            the new id_ruta
+	 * Sets the fecha_inicio.
+	 *
+	 * @param fecha_inicio the new fecha_inicio
 	 */
-	public void setId_ruta(Integer id_ruta) {
-		this.id_ruta = id_ruta;
+	public void setFecha_inicio(Date fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
 	}
 
 	/**
-	 * Sets the latitud.
-	 * 
-	 * @param latitud
-	 *            the new latitud
+	 * Sets the hitos.
+	 *
+	 * @param hitos the new hitos
 	 */
-	public void setLatitud(String latitud) {
-		this.latitud = latitud;
+	public void setHitos(List<HitoEstadistica> hitos) {
+		this.hitos = hitos;
 	}
 
 	/**
-	 * Sets the longitud.
-	 * 
-	 * @param longitud
-	 *            the new longitud
+	 * Sets the ruta.
+	 *
+	 * @param ruta the new ruta
 	 */
-	public void setLongitud(String longitud) {
-		this.longitud = longitud;
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
 	}
 
-	/**
-	 * Sets the pista.
-	 * 
-	 * @param pista
-	 *            the new pista
-	 */
-	public void setPista(String pista) {
-		this.pista = pista;
-	}
+	
 }

@@ -1,7 +1,19 @@
 package com.movember.treasure.model.service;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
+
+import com.movember.treasure.model.bean.Estadistica;
+import com.movember.treasure.model.bean.Hito;
+import com.movember.treasure.model.bean.HitoEstadistica;
+import com.movember.treasure.model.bean.Ruta;
+import com.movember.treasure.model.dao.IEstadisticaDAO;
+import com.movember.treasure.model.exception.AppException;
 
 /**
  * The Class EstadisticaService.
@@ -9,82 +21,58 @@ import org.springframework.stereotype.Service;
 @Service
 class EstadisticaService implements IEstadisticaService {
 
-	/** The encuesta service. */
+	@Inject
+	private IEstadisticaDAO estadisticaDAO;
 	@Inject
 	private IRutaService rutaService;
 
-	// /*
-	// * (non-Javadoc)
-	// * @see
-	// * com.movember.quizz.model.service.IEstadisticaService#retrieve(java.lang
-	// * .Integer)
-	// */
-	// public Estadistica retrieve(Integer pId) throws AppException {
-	// Estadistica estadistica = new Estadistica();
-	//
-	// Ruta encuesta = encuestaService.retrieve(pId);
-	// estadistica.setEncuesta(encuesta.getNombre());
-	// estadistica.setIdEncuesta(encuesta.getId());
-	// estadistica.setPreguntas(getPreguntasEstadistica(encuesta.getPreguntas(),
-	// encuesta.getId()));
-	//
-	// return estadistica;
-	// }
-	//
-	// /**
-	// * Gets the preguntas estadistica.
-	// *
-	// * @param preguntas
-	// * the preguntas
-	// * @param idEncuesta
-	// * the id encuesta
-	// * @return the preguntas estadistica
-	// */
-	// private List<PreguntaEstadistica> getPreguntasEstadistica(List<Pregunta>
-	// preguntas, Integer idEncuesta) {
-	// List<PreguntaEstadistica> result = new ArrayList<PreguntaEstadistica>();
-	// PreguntaEstadistica preguntaEstadistica;
-	//
-	// for (Pregunta pregunta : preguntas) {
-	// preguntaEstadistica = new PreguntaEstadistica();
-	// preguntaEstadistica.setIdEncuesta(idEncuesta);
-	// preguntaEstadistica.setPregunta(pregunta.getPregunta());
-	// preguntaEstadistica.setRespuestas(getRespuestasEstadistica(pregunta.getRespuestas(),
-	// pregunta.getId()));
-	// result.add(preguntaEstadistica);
-	// }
-	//
-	// return result;
-	// }
-	//
-	// /**
-	// * Gets the respuestas estadistica.
-	// *
-	// * @param respuestas
-	// * the respuestas
-	// * @param idPregunta
-	// * the id pregunta
-	// * @return the respuestas estadistica
-	// */
-	// private List<HitoEstadistica> getRespuestasEstadistica(List<Respuesta>
-	// respuestas, Integer idPregunta) {
-	// List<HitoEstadistica> result = null;
-	// try {
-	// result = new ArrayList<HitoEstadistica>();
-	// HitoEstadistica respuestaEstadistica;
-	//
-	// for (Respuesta respuesta : respuestas) {
-	// respuestaEstadistica = new HitoEstadistica();
-	// respuestaEstadistica.setIdPregunta(idPregunta);
-	// respuestaEstadistica.setRespuesta(respuesta.getRespuesta());
-	// respuestaEstadistica.setVecesContestada(respuestaService.recuperarVecesContestadas(respuesta.getId()));
-	// result.add(respuestaEstadistica);
-	// }
-	//
-	// }
-	// catch (AppException e) {
-	// e.printStackTrace();
-	// }
-	// return result;
-	// }
+	public Estadistica retrieve(Integer pId) throws AppException {
+		Estadistica estadistica = new Estadistica();
+
+		Ruta ruta = rutaService.retrieve(pId);
+		estadistica.setId(ruta.getId());
+		estadistica.setFecha_fin(ruta.getFecha_fin());
+		estadistica.setFecha_inicio(ruta.getFecha_inicio());
+		estadistica.setRuta(ruta.getNombre());
+		estadistica.setHitos(getHitoEstadistica(ruta));
+		estadistica.setContador_total(getContadorTotal(estadistica.getHitos()));
+
+		return estadistica;
+	}
+
+	private List<HitoEstadistica> getHitoEstadistica(Ruta ruta) {
+		List<HitoEstadistica> hitos = new ArrayList<HitoEstadistica>();
+		try {
+			HitoEstadistica hitoEstadistica;
+			for (Hito hito : ruta.getHitos()) {
+				hitoEstadistica = new HitoEstadistica();
+				hitoEstadistica.setId(hito.getId());
+				hitoEstadistica.setLatitud(hito.getLatitud());
+				hitoEstadistica.setLongitud(hito.getLongitud());
+				hitoEstadistica.setNombre(hito.getNombre());
+				hitoEstadistica
+						.setContador_usuarios_identificados(estadisticaDAO
+								.recuperarHitosUsuIdent(ruta
+										.getId()));
+				hitoEstadistica
+						.setContador_no_usuarios_identificados(estadisticaDAO
+								.recuperarHitosUsuNoIdent(ruta
+										.getId()));
+				hitos.add(hitoEstadistica);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return hitos;
+	}
+
+	private Integer getContadorTotal(List<HitoEstadistica> hitos) {
+		Integer contador = 0;
+		for (HitoEstadistica hitoEstadistica : hitos) {
+			contador = contador
+					+ hitoEstadistica.getContador_no_usuarios_identificados()
+					+ hitoEstadistica.getContador_usuarios_identificados();
+		}
+		return contador;
+	}
 }
