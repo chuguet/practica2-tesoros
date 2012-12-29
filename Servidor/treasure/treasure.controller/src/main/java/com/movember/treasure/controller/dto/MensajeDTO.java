@@ -11,6 +11,8 @@ public class MensajeDTO {
 	/** The correcto. */
 	private Boolean correcto;
 
+	private Object parameter;
+
 	/**
 	 * Gets the mensaje.
 	 * 
@@ -55,5 +57,19 @@ public class MensajeDTO {
 	public MensajeDTO(String mensaje, boolean correcto) {
 		this.correcto = correcto;
 		this.mensaje = mensaje;
+	}
+
+	public MensajeDTO(String mensaje, boolean correcto, Object parameter) {
+		this.correcto = correcto;
+		this.mensaje = mensaje;
+		this.parameter = parameter;
+	}
+
+	public void setParameter(Object parameter) {
+		this.parameter = parameter;
+	}
+
+	public Object getParameter() {
+		return parameter;
 	}
 }

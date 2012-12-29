@@ -116,23 +116,19 @@ public class EncontrarHitoController {
 	@RequestMapping(value = "/" + recurso, method = RequestMethod.POST)
 	public @ResponseBody
 	MensajeDTO insert(@RequestBody HitoEncontradoDTO hitoEncontradoDTO) {
-		MensajeDTO mensaje = new MensajeDTO();
 		if (hitoEncontradoDTO == null) {
-			mensaje.setMensaje("Debe encontrar un hito");
-			mensaje.setCorrecto(false);
-			return mensaje;
+			return new MensajeDTO("Debe encontrar un hito", false);
 		}
 		try {
 			Hito hito = new Hito();
 			hitoEncontradoDTO.toBusiness(hito);
 			String securityToken = hitoEncontradoDTO.getSecurityToken();
 			String message = rutaService.encontrarHito(hito, securityToken);
-			mensaje.setMensaje(message);
+			return new MensajeDTO(message, true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
 	}
 
 	/**
@@ -145,46 +141,17 @@ public class EncontrarHitoController {
 	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.POST)
 	public @ResponseBody
 	MensajeDTO update(@RequestBody RutaDTO rutaDTO) {
-		MensajeDTO mensaje = new MensajeDTO();
 		if (rutaDTO == null) {
-			mensaje.setMensaje("Una ruta es requerida");
-			mensaje.setCorrecto(false);
-			return mensaje;
+			return new MensajeDTO("Debe encontrar un hito para poderlo actualizar", false);
 		}
 		try {
 			Ruta ruta = new Ruta();
 			rutaDTO.toBusiness(ruta);
 			rutaService.update(ruta);
-			mensaje.setMensaje("Ruta modificada correctamente");
+			return new MensajeDTO("El hito encontrado se ha actualizado correctamente", true);
 		}
 		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
+			return new MensajeDTO(e.getMessage(), false);
 		}
-		return mensaje;
-	}
-
-	/**
-	 * Removes the.
-	 * 
-	 * @param id
-	 *            the id
-	 * @param uiModel
-	 *            the ui model
-	 * @return the mensaje dto
-	 */
-	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.DELETE)
-	public MensajeDTO remove(@PathVariable Integer id, Model uiModel) {
-
-		MensajeDTO mensaje = new MensajeDTO();
-		try {
-			Ruta ruta = new Ruta();
-			ruta.setId(id);
-			this.rutaService.delete(ruta);
-			mensaje.setMensaje("Ruta eliminada correctamente");
-		}
-		catch (AppException e) {
-			mensaje.setMensaje(e.getMessage());
-		}
-		return mensaje;
 	}
 }
