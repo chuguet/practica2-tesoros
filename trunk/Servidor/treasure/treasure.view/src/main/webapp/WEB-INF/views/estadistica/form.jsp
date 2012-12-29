@@ -4,12 +4,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <script type="text/javascript">
-	function showInformationIntoView(registro){
+	function showInformationIntoView(registro) {
 		estadistica.mostrarEstadistica(registro);
 	};
 </script>
 
 <fieldset id="estadistica">
-	<legend class="quizzText">Resultados de la encuesta </legend>
-	
+	<legend id="rutaText">Resultados de la ruta </legend>
+	<p id="fecha_inicio"></p> 
+	<p id="fecha_fin"></p>
+	<p id="hitos_check"></p>
+	<div id="map_canvas" style="width:100%; height:300px"></div>
 </fieldset>
