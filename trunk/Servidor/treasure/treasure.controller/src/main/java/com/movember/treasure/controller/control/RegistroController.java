@@ -1,7 +1,5 @@
 package com.movember.treasure.controller.control;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,14 +24,14 @@ import com.movember.treasure.model.service.IUsuarioService;
  * 
  */
 @Controller
-public class UsuarioController {
+public class RegistroController {
 
 	/** The usuario service. */
 	@Inject
 	private IUsuarioService usuarioService;
 
 	/** The Constant recurso. */
-	private static final String recurso = "usuario";
+	private static final String recurso = "registro";
 
 	/**
 	 * Retrieve one User.
@@ -54,49 +52,6 @@ public class UsuarioController {
 
 		}
 		return usuarioDTO;
-	}
-
-	/**
-	 * List all users.
-	 * 
-	 * @return the list
-	 */
-	@RequestMapping(value = "/" + recurso, method = RequestMethod.GET)
-	public @ResponseBody
-	List<UsuarioDTO> listAll() {
-		List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
-
-		try {
-			List<Usuario> usuarios = this.usuarioService.selectAll();
-
-			for (Usuario usuario : usuarios) {
-				UsuarioDTO e = new UsuarioDTO();
-				e.toRest(usuario);
-				usuariosDTO.add(e);
-			}
-		}
-		catch (AppException e) {
-
-		}
-		return usuariosDTO;
-	}
-
-	/**
-	 * Creates the form.
-	 * 
-	 * @param operacion
-	 *            the operacion
-	 * @param uiModel
-	 *            the ui model
-	 * @return the string
-	 */
-	@RequestMapping(value = "/" + recurso + "/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
-	public String createForm(@PathVariable("operacion") String operacion, final Model uiModel) {
-		uiModel.addAttribute("operacion", operacion);
-		if (!operacion.equals("list")) {
-			operacion = "form";
-		}
-		return recurso + "/" + operacion;
 	}
 
 	/**
