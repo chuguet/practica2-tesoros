@@ -1,5 +1,6 @@
 package com.movember.treasure.controller.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import com.movember.treasure.model.exception.AppException;
  * The Class EstadisticaDTO.
  */
 public class EstadisticaDTO extends AbstractDTO {
-
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	/** The contador_total. */
 	private Integer contador_total;
 
@@ -34,8 +35,8 @@ public class EstadisticaDTO extends AbstractDTO {
 		this.setRuta(estadistica.getRuta());
 		this.setId(estadistica.getId());
 		this.setContador_total(estadistica.getContador_total());
-		this.setFecha_fin(estadistica.getFecha_fin().toString());
-		this.setFecha_inicio(estadistica.getFecha_inicio().toString());
+		this.setFecha_fin(sdf.format(estadistica.getFecha_fin()));
+		this.setFecha_inicio(sdf.format(estadistica.getFecha_inicio()));
 		if (estadistica.getHitos() != null && estadistica.getHitos().size() > 0) {
 			HitoEstadisticaDTO hitoEstadisticaDTO;
 			for (HitoEstadistica hito : estadistica.getHitos()) {
