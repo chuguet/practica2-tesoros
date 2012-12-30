@@ -51,9 +51,9 @@
   		nombre = #nombre:VARCHAR#,
   		fecha_inicio = #fecha_inicio:DATE#,
   		fecha_fin = #fecha_fin:DATE#,
-  		hitos_necesarios = #hitos_necesarios:INTEGER#
-  		premio_identificados = #premio_identificados:TEXT#
-  		premio_no_identificados = #premio_identificados:TEXT#
+  		hitos_necesarios = #hitos_necesarios:INTEGER#,
+  		premio_identificados = #premio_identificados:TEXT#,
+  		premio_no_identificados = #premio_no_identificados:TEXT#
 	 	WHERE id = #id:INTEGER#
   	</update>
 	
