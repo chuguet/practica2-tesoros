@@ -12,13 +12,13 @@
 		WHERE id = #id:INTEGER#
 	</select>
 	
-	<select id="selectByUUID" parameterClass="java.lang.Integer" resultMap="dispositivoResult">
+	<select id="selectByUUID" parameterClass="java.lang.String" resultMap="dispositivoResult">
 		SELECT id, uuid
 		FROM dispositivo
 		WHERE uuid = #uuid:VARCHAR#
 	</select>
 	
-	<select id="selectAll" resultMap="hitoResult">
+	<select id="selectAll" resultMap="dispositivoResult">
 		SELECT id, uuid
 		FROM dispositivo
 	</select>

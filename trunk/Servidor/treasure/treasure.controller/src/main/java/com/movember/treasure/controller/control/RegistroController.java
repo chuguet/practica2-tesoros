@@ -59,7 +59,7 @@ public class RegistroController {
 			Dispositivo dispositivo = new Dispositivo();
 			dispositivo.setUuid(usuarioDTO.getUuid());
 			dispositivoService.insert(dispositivo);
-			return new MensajeDTO("Dispositivo registrado correctamente", true);
+			return new MensajeDTO("Dispositivo registrado correctamente", true, usuarioDTO.getUuid());
 		}
 		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);
