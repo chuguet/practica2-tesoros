@@ -1,12 +1,14 @@
 var ruta = {
 	'rowID' : null,
+	'premioIdentificados' : null,
+	'premioNoIdentificados' : null,
 	'formatList' : function() {
 		$(function() {
 			$("#lista").jqGrid({
 				datatype : 'local',
 				data : [],
 				colNames : [
-						"Id", "Tesoro", "Fecha Inicio", "Fecha Fin"
+						"Id", "Tesoro", "Fecha Inicio", "Fecha Fin", "Hitos Necesarios"
 				],
 				colModel : [
 						{
@@ -17,7 +19,7 @@ var ruta = {
 						}, {
 							name : 'nombre',
 							index : 'nombre',
-							width : 60,
+							width : 50,
 							sorttype : 'string',
 							sortable : true,
 							align : 'left'
@@ -35,6 +37,13 @@ var ruta = {
 							sorttype : 'string',
 							sortable : true,
 							align : 'left'
+						}, {
+							name : 'hitos_necesarios',
+							index : 'hitos_necesarios',
+							width : 10,
+							sorttype : 'string',
+							sortable : true,
+							align : 'right'
 						}
 				],
 				rowNum : 20,
@@ -170,6 +179,8 @@ var ruta = {
 		
 
 		this.configureGoogleMaps();
+
+		//Configuracion como objetos de jquery los siguientes elementos de hitos
 		$("#tabs").tabs();
 		$('#tabs').bind('tabsshow', function(event, ui) {
 			if (ui.panel.id == "tabs-2") {
@@ -178,10 +189,12 @@ var ruta = {
 			}
 		})
 		$('#pista').redactor();
-		
-		
-		
-		
+		//Configuracion como objetos de jquery los siguientes elementos de premios
+		$("#tabs-premios").tabs();
+		$('#premio-identificados').redactor();
+		$('#premio-no-identificados').redactor();
+
+		/*********************************GESTION DE BOTONES DE HITOS************************************************/
 		$("#btnAddHito").button().click(function() {
 			ruta.deseleccionarHito();
 			$('#dialog-form').dialog('option', 'title', 'A&ntilde;adir Hito');
@@ -213,8 +226,26 @@ var ruta = {
 			ruta.deseleccionarHito();
 		});
 
-		
+		/*********************************GESTION DE BOTONES DE PREMIOS************************************************/
+		$("#btnAddPremio").button().click(function() {
+			$('#dialog-form-premios').dialog('option', 'title', 'A&ntilde;adir Premio');
+			$(".ui-dialog-buttonpane button:contains('Modificar') span").text('Crear');
+			$('#tabs-premios').tabs('select', 0);
+			$("#dialog-form-premios").dialog("open");
+		});
 
+		 $("#btnModifyPremio").button().click(function() {	
+			 $("#premio-identificados").setCode(ruta.premioIdentificados);
+			 $("#premio-identificados").val(ruta.premioIdentificados);
+			 $("#premio-no-identificados").setCode(ruta.premioNoIdentificados);
+			 $("#premio-no-identificados").val(ruta.premioNoIdentificados);
+			 
+			 $('#dialog-form-premios').dialog('option', 'title', 'Modificar Premio');
+			 $(".ui-dialog-buttonpane button:contains('Crear') span").text('Modificar');
+			 $('#tabs-premios').tabs('select', 0);
+			 $("#dialog-form-premios").dialog("open");
+		 });
+		
 		$("#btnCancel").button().click(function() {
 			ruta.deseleccionarHito();
 			generic.getList('ruta');
@@ -289,6 +320,47 @@ var ruta = {
 				}
 			}
 		});
+		
+		
+		$("#dialog-form-premios").dialog({
+			autoOpen : false,
+			height : 540,
+			width : 600,
+			modal : true,
+			buttons : {
+				"Crear" : function() {
+					var error = "";
+					if($('#premio-identificados').val() == "<p><br></p>" || $('#premio-identificados').val() == ""){
+						error += ' - Debe indicar el premio de usuarios identificados <br/>';
+					}
+					if ($('#premio-no-identificados').val() == "<p><br></p>" || $('#premio-no-identificados').val() == "") {
+						error += ' - Debe indicar el premio de usuarios no identificados <br/>';
+					}
+					if (error.length != 0){
+						jAlert(error, 'Error');
+						return;
+					}
+					
+					ruta.premioIdentificados = $('#premio-identificados').val();
+					ruta.premioNoIdentificados = $('#premio-no-identificados').val();
+					
+					$(this).dialog("close");
+					// Pongo uno de los botones activo y otro inactivo
+					$("#btnAddPremio").button("disable");
+					$("#btnModifyPremio").button("enable");
+				},
+				Cancel : function() {
+					$(this).dialog("close");
+				}
+			},
+			close : function() {
+				$("#premio-identificados").val('');
+				$("#premio-identificados").setCode('');
+				$("#premio-no-identificados").val('');
+				$("#premio-no-identificados").setCode('');
+			}
+		});
+		
 	},
 	'deseleccionarHito' : function(){
 		this.rowID = null;
@@ -302,6 +374,9 @@ var ruta = {
 		var fecha_inicio = $("#fecha_inicio").val();
 		var fecha_fin = $("#fecha_fin").val();
 		var hitos = $('#lista').jqGrid('getRowData');
+		var hitos_necesarios = $('#hitos_necesarios').val();
+		var premio_identificados = ruta.premioIdentificados;
+		var premio_no_identificados = ruta.premioNoIdentificados;
 		var errores = '';
 		if (nombre == '') {
 			errores = "- El nombre es obligatorio<br />";
@@ -312,7 +387,12 @@ var ruta = {
 		if (fecha_fin == '') {
 			errores += "- La fecha de finalizaci&oacute;n es obligatoria<br />";
 		}
-
+		if (hitos_necesarios>hitos.length){
+			errores += "- El n&uacute;mero de hitos necesarios para encontrar el tesoro no puede superar al n&uacute;mero de hitos del tesoro<br />";
+		}
+		if(premio_identificados == null || premio_no_identificados == null){
+			errores += "- Deben introducirse los premios correspondientes a la ruta<br />";
+		}
 		if (hitos.length == 0) {
 			errores += "- Debe introducir al menos un hito";
 		}
@@ -325,7 +405,10 @@ var ruta = {
 				nombre : nombre,
 				fecha_inicio : fecha_inicio,
 				fecha_fin : fecha_fin,
-				hitosDTO : hitos
+				hitosDTO : hitos,
+				hitos_necesarios : hitos_necesarios,
+				premio_identificados : premio_identificados,
+				premio_no_identificados : premio_no_identificados
 			};
 			var entity = (id != null) ? 'ruta/' + id : 'ruta';
 			generic.post(entity, data, function() {
