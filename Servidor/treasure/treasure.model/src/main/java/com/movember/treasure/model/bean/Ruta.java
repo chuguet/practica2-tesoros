@@ -23,9 +23,6 @@ public class Ruta extends AbstractBean {
 	/** The hitos_necesarios. */
 	private Integer hitos_necesarios;
 
-	/** The id. */
-	private Integer id;
-
 	/** The nombre. */
 	private String nombre;
 

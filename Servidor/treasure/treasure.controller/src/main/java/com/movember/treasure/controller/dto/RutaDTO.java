@@ -8,27 +8,31 @@ import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.exception.AppException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class RutaDTO.
  */
 public class RutaDTO extends AbstractDTO {
 
-	/** The nombre. */
-	private String nombre;
+	/** The fecha_fin. */
+	private String fecha_fin;
 
 	/** The fecha_inicio. */
 	private String fecha_inicio;
 
-	/** The fecha_fin. */
-	private String fecha_fin;
+	/** The hitos_necesarios. */
+	private Integer hitos_necesarios;
 
 	/** The hitos dto. */
 	private List<HitoDTO> hitosDTO;
 
-	private Integer hitos_necesarios;
+	/** The nombre. */
+	private String nombre;
 
+	/** The premio_identificados. */
 	private String premio_identificados;
 
+	/** The premio_no_identificados. */
 	private String premio_no_identificados;
 
 	/**
@@ -39,22 +43,12 @@ public class RutaDTO extends AbstractDTO {
 	}
 
 	/**
-	 * Gets the nombre.
+	 * Gets the fecha_fin.
 	 * 
-	 * @return the nombre
+	 * @return the fecha_fin
 	 */
-	public String getNombre() {
-		return nombre;
-	}
-
-	/**
-	 * Sets the nombre.
-	 * 
-	 * @param nombre
-	 *            the new nombre
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public String getFecha_fin() {
+		return fecha_fin;
 	}
 
 	/**
@@ -67,22 +61,38 @@ public class RutaDTO extends AbstractDTO {
 	}
 
 	/**
-	 * Sets the fecha_inicio.
+	 * Gets the hitos_necesarios.
 	 * 
-	 * @param fecha_inicio
-	 *            the new fecha_inicio
+	 * @return the hitos_necesarios
 	 */
-	public void setFecha_inicio(String fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public Integer getHitos_necesarios() {
+		return hitos_necesarios;
 	}
 
 	/**
-	 * Gets the fecha_fin.
+	 * Gets the hitos dto.
 	 * 
-	 * @return the fecha_fin
+	 * @return the hitos dto
 	 */
-	public String getFecha_fin() {
-		return fecha_fin;
+	public List<HitoDTO> getHitosDTO() {
+		return hitosDTO;
+	}
+
+	/**
+	 * Gets the nombre.
+	 * 
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getPremio_identificados() {
+		return premio_identificados;
+	}
+
+	public String getPremio_no_identificados() {
+		return premio_no_identificados;
 	}
 
 	/**
@@ -96,12 +106,23 @@ public class RutaDTO extends AbstractDTO {
 	}
 
 	/**
-	 * Gets the hitos dto.
+	 * Sets the fecha_inicio.
 	 * 
-	 * @return the hitos dto
+	 * @param fecha_inicio
+	 *            the new fecha_inicio
 	 */
-	public List<HitoDTO> getHitosDTO() {
-		return hitosDTO;
+	public void setFecha_inicio(String fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
+	}
+
+	/**
+	 * Sets the hitos_necesarios.
+	 * 
+	 * @param hitos_necesarios
+	 *            the new hitos_necesarios
+	 */
+	public void setHitos_necesarios(Integer hitos_necesarios) {
+		this.hitos_necesarios = hitos_necesarios;
 	}
 
 	/**
@@ -114,31 +135,22 @@ public class RutaDTO extends AbstractDTO {
 		this.hitosDTO = hitosDTO;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Sets the nombre.
 	 * 
-	 * @see
-	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
+	 * @param nombre
+	 *            the new nombre
 	 */
-	@Override
-	public void toRest(Object object) throws AppException {
-		Ruta ruta = (Ruta) object;
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		this.setId(ruta.getId());
-		this.nombre = ruta.getNombre();
-		this.fecha_inicio = sdf.format(ruta.getFecha_inicio());
-		this.fecha_fin = sdf.format(ruta.getFecha_fin());
-		this.hitos_necesarios = ruta.getHitos_necesarios();
-		this.premio_identificados = ruta.getPremio_identificados();
-		this.premio_no_identificados = ruta.getPremio_no_identificados();
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-		if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
-			for (Hito hito : ruta.getHitos()) {
-				HitoDTO hitoDTO = new HitoDTO();
-				hitoDTO.toRest(hito);
-				this.hitosDTO.add(hitoDTO);
-			}
-		}
+	public void setPremio_identificados(String premio_identificados) {
+		this.premio_identificados = premio_identificados;
+	}
+
+	public void setPremio_no_identificados(String premio_no_identificados) {
+		this.premio_no_identificados = premio_no_identificados;
 	}
 
 	/*
@@ -174,11 +186,30 @@ public class RutaDTO extends AbstractDTO {
 		}
 	}
 
-	public Integer getHitos_necesarios() {
-		return hitos_necesarios;
-	}
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
+	 */
+	@Override
+	public void toRest(Object object) throws AppException {
+		Ruta ruta = (Ruta) object;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		this.setId(ruta.getId());
+		this.nombre = ruta.getNombre();
+		this.fecha_inicio = sdf.format(ruta.getFecha_inicio());
+		this.fecha_fin = sdf.format(ruta.getFecha_fin());
+		this.hitos_necesarios = ruta.getHitos_necesarios();
+		this.premio_identificados = ruta.getPremio_identificados();
+		this.premio_no_identificados = ruta.getPremio_no_identificados();
 
-	public void setHitos_necesarios(Integer hitos_necesarios) {
-		this.hitos_necesarios = hitos_necesarios;
+		if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
+			for (Hito hito : ruta.getHitos()) {
+				HitoDTO hitoDTO = new HitoDTO();
+				hitoDTO.toRest(hito);
+				this.hitosDTO.add(hitoDTO);
+			}
+		}
 	}
 }
