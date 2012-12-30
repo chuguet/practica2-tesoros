@@ -106,17 +106,16 @@ class RutaService implements IRutaService {
 	 * com.movember.quizz.model.service.IService#retrieve(java.lang.Integer)
 	 */
 	public Ruta retrieve(Integer id) throws AppException {
-		Ruta ruta = null;
 		try {
-			ruta = rutaDAO.retrieve(id);
+			Ruta ruta = rutaDAO.retrieve(id);
 			if (ruta != null) {
 				ruta.setHitos(this.hitoService.recuperarDeRuta(id));
 			}
+			return ruta;
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al recuperar la ruta");
 		}
-		return ruta;
 	}
 
 	/*
@@ -124,14 +123,12 @@ class RutaService implements IRutaService {
 	 * @see com.movember.quizz.model.service.IService#selectAll()
 	 */
 	public List<Ruta> selectAll() throws AppException {
-		List<Ruta> rutas = null;
 		try {
-			rutas = rutaDAO.selectAll();
+			return rutaDAO.selectAll();
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al recuperar todas las rutas");
 		}
-		return rutas;
 	}
 
 	/*

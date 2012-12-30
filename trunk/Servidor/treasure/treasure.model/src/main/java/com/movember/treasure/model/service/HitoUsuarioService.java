@@ -4,17 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
-import com.movember.treasure.model.bean.HitoUsuario;
-import com.movember.treasure.model.dao.IHitoUsuarioDAO;
+import com.movember.treasure.model.bean.HitoDispositivo;
+import com.movember.treasure.model.dao.IHitoDispositivoDAO;
 import com.movember.treasure.model.exception.AppException;
 
 @Service
 class HitoUsuarioService implements IHitoUsuarioService {
 
 	@Inject
-	private IHitoUsuarioDAO hitoUsuarioDAO;
+	private IHitoDispositivoDAO hitoUsuarioDAO;
 
-	public void insert(HitoUsuario hitoUsuario) throws AppException {
+	public void insert(HitoDispositivo hitoUsuario) throws AppException {
 		try {
 			hitoUsuarioDAO.insert(hitoUsuario);
 		}
@@ -23,7 +23,7 @@ class HitoUsuarioService implements IHitoUsuarioService {
 		}
 	}
 
-	public void update(HitoUsuario hitoUsuario) throws AppException {
+	public void update(HitoDispositivo hitoUsuario) throws AppException {
 		try {
 			hitoUsuarioDAO.update(hitoUsuario);
 		}
@@ -32,7 +32,7 @@ class HitoUsuarioService implements IHitoUsuarioService {
 		}
 	}
 
-	public void delete(HitoUsuario hitoUsuario) throws AppException {
+	public void delete(HitoDispositivo hitoUsuario) throws AppException {
 		try {
 			hitoUsuarioDAO.delete(hitoUsuario.getId());
 		}
@@ -41,7 +41,7 @@ class HitoUsuarioService implements IHitoUsuarioService {
 		}
 	}
 
-	public HitoUsuario retrieve(Integer id) throws AppException {
+	public HitoDispositivo retrieve(Integer id) throws AppException {
 		try {
 			return hitoUsuarioDAO.retrieve(id);
 		}
@@ -54,7 +54,7 @@ class HitoUsuarioService implements IHitoUsuarioService {
 	 * (non-Javadoc)
 	 * @see com.movember.quizz.model.service.IService#selectAll()
 	 */
-	public List<HitoUsuario> selectAll() throws AppException {
+	public List<HitoDispositivo> selectAll() throws AppException {
 		try {
 			return hitoUsuarioDAO.selectAll();
 		}

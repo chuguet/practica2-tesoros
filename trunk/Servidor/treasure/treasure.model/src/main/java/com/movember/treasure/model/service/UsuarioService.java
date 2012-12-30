@@ -5,8 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.movember.treasure.model.bean.Dispositivo;
 import com.movember.treasure.model.bean.Usuario;
 import com.movember.treasure.model.dao.IUsuarioDAO;
+import com.movember.treasure.model.exception.AppException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -19,102 +21,128 @@ class UsuarioService implements IUsuarioService {
 	@Inject
 	private IUsuarioDAO usuarioDAO;
 
+	@Inject
+	private IDispositivoService dispositivoService;
+
 	/** The password encoder. */
 	private Md5PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.model.service.IService#insert(com.movember.quizz.model
 	 * .bean.AbstractBean)
 	 */
-	public void insert(Usuario usuario) {
+	public void insert(Usuario usuario) throws AppException {
 		try {
 			this.encriptPwd(usuario);
-			usuarioDAO.insert(usuario);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			Usuario usuarioExistente = this.usuarioDAO.selectByUser(usuario.getUsuario());
+			if (usuarioExistente == null) {
+				usuarioDAO.insert(usuario);
+			}
+			else {
+				throw new AppException("El usuario ya existe en la BBDD. Seleccione uno distinto");
+			}
+		}
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al insertar el usuario");
+		}
+	}
+
+	public void insertWithDevice(Usuario usuario, String uuid) throws AppException {
+		try {
+			this.encriptPwd(usuario);
+			Usuario usuarioExistente = this.usuarioDAO.selectByUser(usuario.getUsuario());
+			if (usuarioExistente == null) {
+				Dispositivo dispositivo = this.dispositivoService.selectByUUID(uuid);
+				if (dispositivo == null) {
+					dispositivo = new Dispositivo();
+					dispositivo.setUuid(uuid);
+					this.dispositivoService.insert(dispositivo);
+				}
+				usuario.setId_dispositivo(dispositivo.getId());
+				usuarioDAO.insert(usuario);
+			}
+			else {
+				throw new AppException("El usuario ya existe en la BBDD. Seleccione uno distinto");
+			}
+		}
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al insertar el usuario");
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.model.service.IService#update(com.movember.quizz.model
 	 * .bean.AbstractBean)
 	 */
-	public void update(Usuario usuario) {
+	public void update(Usuario usuario) throws AppException {
 		try {
 			this.encriptPwd(usuario);
 			usuarioDAO.update(usuario);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al actualizar el usuario");
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.model.service.IService#delete(com.movember.quizz.model
 	 * .bean.AbstractBean)
 	 */
-	public void delete(Usuario usuario) {
+	public void delete(Usuario usuario) throws AppException {
 		try {
 			usuarioDAO.delete(usuario.getId());
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al eliminar el usuario");
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.model.service.IService#retrieve(java.lang.Integer)
 	 */
-	public Usuario retrieve(Integer id) {
-		Usuario usuario = null;
+	public Usuario retrieve(Integer id) throws AppException {
 		try {
-			usuario = usuarioDAO.retrieve(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return usuarioDAO.retrieve(id);
 		}
-		return usuario;
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al recuperar el usuario");
+		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see com.movember.quizz.model.service.IService#selectAll()
 	 */
-	public List<Usuario> selectAll() {
-		List<Usuario> usuarios = null;
+	public List<Usuario> selectAll() throws AppException {
 		try {
-			usuarios = usuarioDAO.selectAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return usuarioDAO.selectAll();
 		}
-		return usuarios;
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al recuperar todos los usuarios");
+		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.model.service.IUsuarioService#selectByUser(java.lang
 	 * .String)
 	 */
-	public Usuario selectByUser(String usuarioNombre) {
-		Usuario usuario = null;
+	public Usuario selectByUser(String usuarioNombre) throws AppException {
 		try {
-			usuario = usuarioDAO.selectByUser(usuarioNombre);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			return usuarioDAO.selectByUser(usuarioNombre);
 		}
-		return usuario;
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al recuperar un usuario por su identificador");
+		}
 	}
 
 	/**
@@ -127,5 +155,4 @@ class UsuarioService implements IUsuarioService {
 		String pwd = passwordEncoder.encodePassword(usuario.getPwd(), null);
 		usuario.setPwd(pwd);
 	}
-
 }

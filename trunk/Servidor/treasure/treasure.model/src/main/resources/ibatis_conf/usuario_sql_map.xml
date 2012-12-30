@@ -9,30 +9,31 @@
 		<result column="usuario" property="usuario" jdbcType="VARCHAR" />
 		<result column="pwd" property="pwd" jdbcType="VARCHAR" />	
 		<result column="admin" property="admin" jdbcType="INTEGER" />	
+		<result column="id_dispositivo" property="id_dispositivo" jdbcType="INTEGER" />
 	</resultMap>
 	
 	<select id="selectById" parameterClass="java.lang.Integer" resultMap="usuarioResult">
-		SELECT id, nombre, apellidos, email, usuario, pwd, admin
+		SELECT id, nombre, apellidos, email, usuario, pwd, admin, id_dispositivo
 		FROM usuario
 		WHERE id = #id:INTEGER#
 	</select>
 	
 	<select id="selectByUser" parameterClass="java.lang.String" resultMap="usuarioResult">
-		SELECT id, nombre, apellidos, email, usuario, pwd, admin
+		SELECT id, nombre, apellidos, email, usuario, pwd, admin, id_dispositivo
 		FROM usuario
 		WHERE usuario = #usuarioNombre:VARCHAR#
 	</select>
 	
 	<select id="selectAll" resultMap="usuarioResult">
-		SELECT id, nombre, apellidos, email, usuario, pwd, admin
+		SELECT id, nombre, apellidos, email, usuario, pwd, admin, id_dispositivo
 		FROM usuario
 	</select>
 	
 	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.Usuario"> 
 	 	INSERT INTO usuario 
-    	(nombre, apellidos, email, usuario, pwd, admin)
+    	(nombre, apellidos, email, usuario, pwd, admin, id_dispositivo)
 	 	VALUES  
-	 	(#nombre:VARCHAR#, #apellidos:VARCHAR#, #email:VARCHAR#, #usuario:VARCHAR#, #pwd:VARCHAR#, #admin:INTEGER#)
+	 	(#nombre:VARCHAR#, #apellidos:VARCHAR#, #email:VARCHAR#, #usuario:VARCHAR#, #pwd:VARCHAR#, #admin:INTEGER#, #id_dispositivo:INTEGER#)
 	 	<selectKey resultClass="int" keyProperty="id">
 			select LAST_INSERT_ID()
 	 	</selectKey> 

@@ -6,27 +6,19 @@
 		<result property="value" column="contador" javaType="java.lang.Integer" />
 	</resultMap>
 
-	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer"
-		resultMap="mapResult">
+	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
 		SELECT count(*) as contador, h.id as id
 		FROM hito h
-		LEFT JOIN
-		hito_usuario hu ON h.id = hu.id_hito
-		WHERE h.id_ruta =
-		#id:INTEGER# and
-		identificado = 0
+		LEFT JOIN hito_dispositivo hu ON h.id = hu.id_hito
+		WHERE h.id_ruta = #id:INTEGER# AND identificado = 0
 		GROUP by id_hito
 	</select>
 
-	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer"
-		resultMap="mapResult">
-		SELECT count(*) as contador, h.id as id FROM hito
-		h
-		LEFT JOIN
-		hito_usuario hu ON h.id = hu.id_hito
-		WHERE h.id_ruta =
-		#id:INTEGER# and
-		identificado = 1
+	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
+		SELECT count(*) as contador, h.id as id
+		FROM hito h
+		LEFT JOIN hito_dispositivo hu ON h.id = hu.id_hito
+		WHERE h.id_ruta = #id:INTEGER# AND identificado = 1
 		GROUP by id_hito
 	</select>
 
