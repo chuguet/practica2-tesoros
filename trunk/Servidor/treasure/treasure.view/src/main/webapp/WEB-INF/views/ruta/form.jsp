@@ -11,6 +11,7 @@
 			$('#nombre').val(ruta.nombre);
 			$('#fecha_inicio').val(ruta.fecha_inicio);
 			$('#fecha_fin').val(ruta.fecha_fin);
+			$('#hitos_necesarios').val(ruta.hitos_necesarios);
 			$("#lista").setGridParam({
 				data : ruta.hitosDTO
 			}).trigger("reloadGrid");
@@ -21,8 +22,8 @@
 	<fieldset>
 		<legend>
 		<c:choose>
-			<c:when test="${operacion == 'new'}">Alta de Encuesta</c:when>
-			<c:otherwise>Edici&oacute;n de Encuesta</c:otherwise>
+			<c:when test="${operacion == 'new'}">Alta de Ruta</c:when>
+			<c:otherwise>Edici&oacute;n de Ruta</c:otherwise>
 		</c:choose>
 		</legend>
 		<input type="hidden" id="id" />
@@ -33,10 +34,12 @@
 		<p>
 			<label for="fecha_inicio">Fecha de inicio:</label>
 			<input id="fecha_inicio" class="text ui-widget-content ui-corner-all" />
+			<label for="fecha_fin" style="margin-left:30px">Fecha de fin:</label>
+			<input id="fecha_fin" class="text ui-widget-content ui-corner-all" />
 		</p>
 		<p>
-			<label for="fecha_fin">Fecha de fin:</label>
-			<input id="fecha_fin" class="text ui-widget-content ui-corner-all" />
+			<label for="hitos_necesarios">Hitos necesarios para ganar:</label>
+			<input id="hitos_necesarios" class="text ui-widget-content ui-corner-all" />
 		</p>
 		<fieldset>
 			<legend>Hitos</legend>
@@ -55,7 +58,9 @@
 			<input type="button" id="btnCancel" value="Cancelar" /> 
 			<input type="button" id="btnAddHito" value="Añadir Hito" />
 			<input type="button" id="btnModifyHito" value="Modificar Hito" disabled="true" />
-			<input type="button" id="btnDeleteHito" value="Eliminar" disabled="true" />
+			<input type="button" id="btnDeleteHito" value="Eliminar Hito" disabled="true" />
+			<input type="button" id="btnAddPremio" value="Añadir Premio" />
+			<input type="button" id="btnModifyPremio" value="Modificar Premio" disabled="true" />
 		</div>
 	</fieldset>
 </form>
@@ -81,6 +86,25 @@
 				<input type="text" name="longitud" id="longitud" value="" class="text ui-widget-content ui-corner-all" /><br/>
 				<label for="latitud">Latitud</label>
 				<input type="text" name="latitud" id="latitud" value="" class="text ui-widget-content ui-corner-all" />
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="dialog-form-premios" title="A&ntilde;adir Premio">
+	<form id="frmPremios">
+		<div id="tabs-premios">
+		    <ul>
+		        <li><a href="#tabs-premios-1">Usuarios identificados</a></li>
+		        <li><a href="#tabs-premios-2">Usuarios no identificados</a></li>
+		    </ul>
+		    <div id="tabs-premios-1">
+				<label for="premio-identificados">Premio usuarios identificados</label><br /> 
+				<textarea id="premio-identificados" name="premio-identificados" style="height:200px;"></textarea>
+			</div>
+			<div id="tabs-premios-2" style="position:relative;">
+				<label for="premio-no-identificados">Premio usuarios no identificados</label>
+				<textarea id="premio-no-identificados" name="premio-no-identificados" style="height:200px;"></textarea>
 			</div>
 		</div>
 	</form>

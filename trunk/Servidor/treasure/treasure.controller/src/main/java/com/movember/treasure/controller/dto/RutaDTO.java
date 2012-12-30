@@ -25,6 +25,12 @@ public class RutaDTO extends AbstractDTO {
 	/** The hitos dto. */
 	private List<HitoDTO> hitosDTO;
 
+	private Integer hitos_necesarios;
+
+	private String premio_identificados;
+
+	private String premio_no_identificados;
+
 	/**
 	 * Instantiates a new ruta dto.
 	 */
@@ -110,6 +116,7 @@ public class RutaDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
@@ -121,6 +128,9 @@ public class RutaDTO extends AbstractDTO {
 		this.nombre = ruta.getNombre();
 		this.fecha_inicio = sdf.format(ruta.getFecha_inicio());
 		this.fecha_fin = sdf.format(ruta.getFecha_fin());
+		this.hitos_necesarios = ruta.getHitos_necesarios();
+		this.premio_identificados = ruta.getPremio_identificados();
+		this.premio_no_identificados = ruta.getPremio_no_identificados();
 
 		if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
 			for (Hito hito : ruta.getHitos()) {
@@ -133,6 +143,7 @@ public class RutaDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toBusiness(java.lang.Object
 	 * )
@@ -143,11 +154,13 @@ public class RutaDTO extends AbstractDTO {
 		Ruta ruta = (Ruta) object;
 		ruta.setId(this.getId());
 		ruta.setNombre(this.nombre);
+		ruta.setHitos_necesarios(this.hitos_necesarios);
+		ruta.setPremio_identificados(this.premio_identificados);
+		ruta.setPremio_no_identificados(this.premio_no_identificados);
 		try {
 			ruta.setFecha_inicio(formatoDelTexto.parse(this.fecha_inicio));
 			ruta.setFecha_fin(formatoDelTexto.parse(this.fecha_fin));
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			throw new AppException("Error en la conversión de fechas");
 		}
 
@@ -159,5 +172,13 @@ public class RutaDTO extends AbstractDTO {
 				ruta.getHitos().add(hito);
 			}
 		}
+	}
+
+	public Integer getHitos_necesarios() {
+		return hitos_necesarios;
+	}
+
+	public void setHitos_necesarios(Integer hitos_necesarios) {
+		this.hitos_necesarios = hitos_necesarios;
 	}
 }

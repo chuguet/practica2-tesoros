@@ -5,31 +5,77 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.annotations.Entity;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Encuesta.
  */
 @Entity
 public class Ruta extends AbstractBean {
 
-	private Integer id;
-	
-	/** The nombre. */
-	private String nombre;
-
-	/** The fecha_inicio. */
-	private Date fecha_inicio;
-
 	/** The fecha_fin. */
 	private Date fecha_fin;
 
+	/** The fecha_inicio. */
+	private Date fecha_inicio;
 	/** The preguntas. */
 	private List<Hito> hitos;
+
+	/** The hitos_necesarios. */
+	private Integer hitos_necesarios;
+
+	/** The id. */
+	private Integer id;
+
+	/** The nombre. */
+	private String nombre;
+
+	/** The premio_identificados. */
+	private String premio_identificados;
+
+	/** The premio_no_identificados. */
+	private String premio_no_identificados;
 
 	/**
 	 * Instantiates a new encuesta.
 	 */
 	public Ruta() {
 		this.setHitos(new ArrayList<Hito>());
+	}
+
+	/**
+	 * Gets the fecha_fin.
+	 * 
+	 * @return the fecha_fin
+	 */
+	public Date getFecha_fin() {
+		return fecha_fin;
+	}
+
+	/**
+	 * Gets the fecha_inicio.
+	 * 
+	 * @return the fecha_inicio
+	 */
+	public Date getFecha_inicio() {
+		return fecha_inicio;
+	}
+
+	/**
+	 * Gets the hitos.
+	 * 
+	 * @return the hitos
+	 */
+	public List<Hito> getHitos() {
+		return hitos;
+	}
+
+	/**
+	 * Gets the hitos_necesarios.
+	 * 
+	 * @return the hitos_necesarios
+	 */
+	public Integer getHitos_necesarios() {
+		return hitos_necesarios;
 	}
 
 	/**
@@ -42,22 +88,31 @@ public class Ruta extends AbstractBean {
 	}
 
 	/**
-	 * Sets the nombre.
+	 * Gets the premio_identificados.
 	 * 
-	 * @param nombre
-	 *            the new nombre
+	 * @return the premio_identificados
 	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public String getPremio_identificados() {
+		return premio_identificados;
 	}
 
 	/**
-	 * Gets the fecha_inicio.
+	 * Gets the premio_no_identificados.
 	 * 
-	 * @return the fecha_inicio
+	 * @return the premio_no_identificados
 	 */
-	public Date getFecha_inicio() {
-		return fecha_inicio;
+	public String getPremio_no_identificados() {
+		return premio_no_identificados;
+	}
+
+	/**
+	 * Sets the fecha_fin.
+	 * 
+	 * @param fecha_fin
+	 *            the new fecha_fin
+	 */
+	public void setFecha_fin(Date fecha_fin) {
+		this.fecha_fin = fecha_fin;
 	}
 
 	/**
@@ -71,30 +126,53 @@ public class Ruta extends AbstractBean {
 	}
 
 	/**
-	 * Gets the fecha_fin.
+	 * Sets the hitos.
 	 * 
-	 * @return the fecha_fin
+	 * @param hitos
+	 *            the new hitos
 	 */
-	public Date getFecha_fin() {
-		return fecha_fin;
+	public void setHitos(List<Hito> hitos) {
+		this.hitos = hitos;
 	}
 
 	/**
-	 * Sets the fecha_fin.
+	 * Sets the hitos_necesarios.
 	 * 
-	 * @param fecha_fin
-	 *            the new fecha_fin
+	 * @param hitos_necesarios
+	 *            the new hitos_necesarios
 	 */
-	public void setFecha_fin(Date fecha_fin) {
-		this.fecha_fin = fecha_fin;
+	public void setHitos_necesarios(Integer hitos_necesarios) {
+		this.hitos_necesarios = hitos_necesarios;
 	}
 
-	public List<Hito> getHitos() {
-		return hitos;
+	/**
+	 * Sets the nombre.
+	 * 
+	 * @param nombre
+	 *            the new nombre
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public void setHitos(List<Hito> hitos) {
-		this.hitos = hitos;
+	/**
+	 * Sets the premio_identificados.
+	 * 
+	 * @param premio_identificados
+	 *            the new premio_identificados
+	 */
+	public void setPremio_identificados(String premio_identificados) {
+		this.premio_identificados = premio_identificados;
+	}
+
+	/**
+	 * Sets the premio_no_identificados.
+	 * 
+	 * @param premio_no_identificados
+	 *            the new premio_no_identificados
+	 */
+	public void setPremio_no_identificados(String premio_no_identificados) {
+		this.premio_no_identificados = premio_no_identificados;
 	}
 
 }
