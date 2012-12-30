@@ -16,7 +16,7 @@
 	<http auto-config="true" use-expressions="false" entry-point-ref="authenticationEntryPoint">
 		<intercept-url pattern="/home" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
 		<intercept-url pattern="/usuario/**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/registro" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
+		<intercept-url pattern="/registro**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
 		<intercept-url pattern="/ruta/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/estadistica/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
 		<intercept-url pattern="/logout" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />

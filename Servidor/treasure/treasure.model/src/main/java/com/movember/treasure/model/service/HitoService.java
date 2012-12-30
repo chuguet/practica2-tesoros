@@ -19,7 +19,7 @@ class HitoService implements IHitoService {
 	private IHitoDAO hitoDAO;
 
 	@Inject
-	private IHitoUsuarioService hitoUsuarioService;
+	private IHitoDispositivoService hitoUsuarioService;
 
 	public void insert(Hito hito) throws AppException {
 		try {

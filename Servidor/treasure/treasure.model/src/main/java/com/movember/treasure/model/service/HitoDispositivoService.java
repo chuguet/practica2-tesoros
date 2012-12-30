@@ -9,32 +9,32 @@ import com.movember.treasure.model.dao.IHitoDispositivoDAO;
 import com.movember.treasure.model.exception.AppException;
 
 @Service
-class HitoUsuarioService implements IHitoUsuarioService {
+class HitoDispositivoService implements IHitoDispositivoService {
 
 	@Inject
-	private IHitoDispositivoDAO hitoUsuarioDAO;
+	private IHitoDispositivoDAO hitoDispositivoDAO;
 
-	public void insert(HitoDispositivo hitoUsuario) throws AppException {
+	public void insert(HitoDispositivo hitoDispositivo) throws AppException {
 		try {
-			hitoUsuarioDAO.insert(hitoUsuario);
+			hitoDispositivoDAO.insert(hitoDispositivo);
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al insertar un chequeo de hito");
 		}
 	}
 
-	public void update(HitoDispositivo hitoUsuario) throws AppException {
+	public void update(HitoDispositivo hitoDispositivo) throws AppException {
 		try {
-			hitoUsuarioDAO.update(hitoUsuario);
+			hitoDispositivoDAO.update(hitoDispositivo);
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al actualizar un chequeo de hito");
 		}
 	}
 
-	public void delete(HitoDispositivo hitoUsuario) throws AppException {
+	public void delete(HitoDispositivo hitoDispositivo) throws AppException {
 		try {
-			hitoUsuarioDAO.delete(hitoUsuario.getId());
+			hitoDispositivoDAO.delete(hitoDispositivo.getId());
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al borrar un chequeo de hito");
@@ -43,7 +43,7 @@ class HitoUsuarioService implements IHitoUsuarioService {
 
 	public HitoDispositivo retrieve(Integer id) throws AppException {
 		try {
-			return hitoUsuarioDAO.retrieve(id);
+			return hitoDispositivoDAO.retrieve(id);
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al recuperar un chequeo de hito");
@@ -56,7 +56,7 @@ class HitoUsuarioService implements IHitoUsuarioService {
 	 */
 	public List<HitoDispositivo> selectAll() throws AppException {
 		try {
-			return hitoUsuarioDAO.selectAll();
+			return hitoDispositivoDAO.selectAll();
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al recuperar todos los chequeos de hitos");
@@ -65,7 +65,7 @@ class HitoUsuarioService implements IHitoUsuarioService {
 
 	public void eliminarDeHito(Integer idHito) throws AppException {
 		try {
-			hitoUsuarioDAO.deleteByHito(idHito);
+			hitoDispositivoDAO.deleteByHito(idHito);
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al eliminar todos los chequeos de un hito");

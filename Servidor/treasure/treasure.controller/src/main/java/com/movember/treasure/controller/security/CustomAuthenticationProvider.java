@@ -70,17 +70,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("Contraseña incorrecta");
 		}
 
-		// Here's the main logic of this custom authentication manager
-		// Username and password must be the same to authenticate
-		if (auth.getName().equals(auth.getCredentials()) == true) {
-			logger.debug("El usuario y la contraseña introducidos son los mismos!");
-			throw new BadCredentialsException("El usuario y la contraseña son iguales.");
-		}
-		else {
-			logger.debug("Los detalles del usuario son correctos");
-
-			return new UsernamePasswordAuthenticationToken(usuario, auth.getCredentials(), getAuthorities(usuario.getAdmin()));
-		}
+		logger.debug("Los detalles del usuario son correctos");
+		return new UsernamePasswordAuthenticationToken(usuario, auth.getCredentials(), getAuthorities(usuario.getAdmin()));
 	}
 
 	/**
