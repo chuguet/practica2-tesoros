@@ -2,10 +2,10 @@ package com.movember.treasure.model.bean;
 
 import java.util.Date;
 
-public class HitoUsuario extends AbstractBean {
+public class HitoDispositivo extends AbstractBean {
 
 	private Integer id_hito;
-	private Integer id_usuario;
+	private Integer id_dispositivo;
 	private String longitud;
 	private String latitud;
 	private Integer identificado;
@@ -19,12 +19,12 @@ public class HitoUsuario extends AbstractBean {
 		this.id_hito = id_hito;
 	}
 
-	public Integer getId_usuario() {
-		return id_usuario;
+	public Integer getId_dispositivo() {
+		return id_dispositivo;
 	}
 
-	public void setId_usuario(Integer id_usuario) {
-		this.id_usuario = id_usuario;
+	public void setId_dispositivo(Integer id_dispositivo) {
+		this.id_dispositivo = id_dispositivo;
 	}
 
 	public String getLongitud() {

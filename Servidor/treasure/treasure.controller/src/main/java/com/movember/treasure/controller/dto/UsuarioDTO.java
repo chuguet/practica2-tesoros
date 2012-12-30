@@ -9,23 +9,13 @@ import com.movember.treasure.model.exception.AppException;
  */
 public class UsuarioDTO extends AbstractDTO {
 
-	/** The nombre. */
 	private String nombre;
-
-	/** The apellidos. */
 	private String apellidos;
-
-	/** The email. */
 	private String email;
-
-	/** The usuario. */
 	private String usuario;
-
-	/** The pwd. */
 	private String pwd;
-
-	/** The admin. */
 	private Integer admin;
+	private String uuid;
 
 	/**
 	 * Gets the nombre.
@@ -141,6 +131,14 @@ public class UsuarioDTO extends AbstractDTO {
 		this.admin = admin;
 	}
 
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see
@@ -173,6 +171,9 @@ public class UsuarioDTO extends AbstractDTO {
 		usuario.setEmail(this.email);
 		usuario.setUsuario(this.usuario);
 		usuario.setPwd(this.pwd);
+		if (this.admin == null) {
+			this.admin = 0;
+		}
 		usuario.setAdmin(this.admin);
 	}
 }

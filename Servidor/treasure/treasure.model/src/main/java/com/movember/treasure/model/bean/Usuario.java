@@ -8,23 +8,13 @@ import javax.persistence.Entity;
 @Entity
 public class Usuario extends AbstractBean {
 
-	/** The nombre. */
 	private String nombre;
-
-	/** The apellidos. */
 	private String apellidos;
-
-	/** The email. */
 	private String email;
-
-	/** The usuario. */
 	private String usuario;
-
-	/** The pwd. */
 	private String pwd;
-
-	/** The admin. */
 	private Integer admin;
+	private Integer id_dispositivo;
 
 	/**
 	 * Gets the nombre.
@@ -140,6 +130,14 @@ public class Usuario extends AbstractBean {
 		this.admin = admin;
 	}
 
+	public void setId_dispositivo(Integer id_dispositivo) {
+		this.id_dispositivo = id_dispositivo;
+	}
+
+	public Integer getId_dispositivo() {
+		return id_dispositivo;
+	}
+
 	/**
 	 * Instantiates a new usuario.
 	 */
@@ -162,8 +160,7 @@ public class Usuario extends AbstractBean {
 	 * @param admin
 	 *            the admin
 	 */
-	public Usuario(String nombre, String apellidos, String email,
-			String usuario, String pwd, Integer admin) {
+	public Usuario(String nombre, String apellidos, String email, String usuario, String pwd, Integer admin) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;

@@ -2,16 +2,16 @@ package com.movember.treasure.controller.control;
 
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.movember.treasure.controller.dto.MensajeDTO;
 import com.movember.treasure.controller.dto.UsuarioDTO;
+import com.movember.treasure.model.bean.Dispositivo;
 import com.movember.treasure.model.bean.Usuario;
 import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IDispositivoService;
 import com.movember.treasure.model.service.IUsuarioService;
 
 /**
@@ -26,102 +26,40 @@ import com.movember.treasure.model.service.IUsuarioService;
 @Controller
 public class RegistroController {
 
-	/** The usuario service. */
 	@Inject
 	private IUsuarioService usuarioService;
 
-	/** The Constant recurso. */
-	private static final String recurso = "registro";
+	@Inject
+	private IDispositivoService dispositivoService;
 
-	/**
-	 * Retrieve one User.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the usuario dto
-	 */
-	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/registroUsuario", method = RequestMethod.POST)
 	public @ResponseBody
-	UsuarioDTO retrieve(@PathVariable("id") Integer id) {
-		UsuarioDTO usuarioDTO = new UsuarioDTO();
-		try {
-			Usuario usuario = this.usuarioService.retrieve(id);
-			usuarioDTO.toRest(usuario);
-		}
-		catch (AppException e) {
-
-		}
-		return usuarioDTO;
-	}
-
-	/**
-	 * Insert the user.
-	 * 
-	 * @param usuarioDTO
-	 *            the usuario dto
-	 * @return the mensaje dto
-	 */
-	@RequestMapping(value = "/" + recurso, method = RequestMethod.POST)
-	public @ResponseBody
-	MensajeDTO insert(@RequestBody UsuarioDTO usuarioDTO) {
+	MensajeDTO insertUsuario(@RequestBody UsuarioDTO usuarioDTO) {
 		if (usuarioDTO == null) {
 			return new MensajeDTO("Un usuario es requerido", false);
 		}
 		try {
 			Usuario usuario = new Usuario();
 			usuarioDTO.toBusiness(usuario);
-			usuarioService.insert(usuario);
-			return new MensajeDTO("Usuario creado correctamente", true);
+			usuarioService.insertWithDevice(usuario, usuarioDTO.getUuid());
+			return new MensajeDTO("Usuario registrado correctamente", true);
 		}
 		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);
 		}
 	}
 
-	/**
-	 * Update the user.
-	 * 
-	 * @param usuarioDTO
-	 *            the usuario dto
-	 * @return the mensaje dto
-	 */
-	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/registroDispositivo", method = RequestMethod.POST)
 	public @ResponseBody
-	MensajeDTO update(@RequestBody UsuarioDTO usuarioDTO) {
+	MensajeDTO insertDevice(@RequestBody UsuarioDTO usuarioDTO) {
 		if (usuarioDTO == null) {
 			return new MensajeDTO("Un usuario es requerido", false);
 		}
 		try {
-			Usuario usuario = new Usuario();
-			usuarioDTO.toBusiness(usuario);
-			usuarioService.update(usuario);
-			return new MensajeDTO("Usuario modificado correctamente", true);
-		}
-		catch (AppException e) {
-			return new MensajeDTO(e.getMessage(), false);
-		}
-	}
-
-	/**
-	 * Removes the user by id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @param uiModel
-	 *            the ui model
-	 * @return the mensaje dto
-	 */
-	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.DELETE)
-	public @ResponseBody
-	MensajeDTO remove(@PathVariable Integer id, Model uiModel) {
-		if (id == null) {
-			return new MensajeDTO("Un usuario es requerido", false);
-		}
-		try {
-			Usuario usuario = new Usuario();
-			usuario.setId(id);
-			this.usuarioService.delete(usuario);
-			return new MensajeDTO("Usuario eliminado correctamente", true);
+			Dispositivo dispositivo = new Dispositivo();
+			dispositivo.setUuid(usuarioDTO.getUuid());
+			dispositivoService.insert(dispositivo);
+			return new MensajeDTO("Dispositivo registrado correctamente", true);
 		}
 		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);

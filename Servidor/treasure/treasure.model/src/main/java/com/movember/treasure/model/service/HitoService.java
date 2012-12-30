@@ -21,91 +21,58 @@ class HitoService implements IHitoService {
 	@Inject
 	private IHitoUsuarioService hitoUsuarioService;
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * com.movember.quizz.model.service.IService#insert(com.movember.quizz.model
-	 * .bean.AbstractBean)
-	 */
 	public void insert(Hito hito) throws AppException {
 		try {
 			hitoDAO.insert(hito);
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al insertar una hito");
+			throw new AppException("Se ha producido un error al insertar un hito");
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * com.movember.quizz.model.service.IService#update(com.movember.quizz.model
-	 * .bean.AbstractBean)
-	 */
 	public void update(Hito hito) throws AppException {
 		try {
 			hitoDAO.update(hito);
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al actualizar una hito");
+			throw new AppException("Se ha producido un error al actualizar un hito");
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * com.movember.quizz.model.service.IService#delete(com.movember.quizz.model
-	 * .bean.AbstractBean)
-	 */
 	public void delete(Hito hito) throws AppException {
 		try {
 			hitoUsuarioService.eliminarDeHito(hito.getId());
 			hitoDAO.delete(hito.getId());
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al borrar una hito");
+			throw new AppException("Se ha producido un error al borrar un hito");
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * com.movember.quizz.model.service.IService#retrieve(java.lang.Integer)
-	 */
 	public Hito retrieve(Integer id) throws AppException {
 		try {
 			return hitoDAO.retrieve(id);
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al recuperar una hito");
+			throw new AppException("Se ha producido un error al recuperar un hito");
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.movember.quizz.model.service.IService#selectAll()
-	 */
 	public List<Hito> selectAll() throws AppException {
 		try {
 			return hitoDAO.selectAll();
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al recuperar una hito");
+			throw new AppException("Se ha producido un error al recuperar un hito");
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.movember.quizz.model.service.IHitoService#recuperarDeRuta
-	 * (java.lang.Integer)
-	 */
 	public List<Hito> recuperarDeRuta(Integer idRuta) throws AppException {
 		try {
-			List<Hito> hitos = this.hitoDAO.recuperarDeRuta(idRuta);
-			return hitos;
+			return this.hitoDAO.recuperarDeRuta(idRuta);
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al recuperar las hitos de una ruta");
+			throw new AppException("Se ha producido un error al recuperar los hitos de una ruta");
 		}
 	}
 }

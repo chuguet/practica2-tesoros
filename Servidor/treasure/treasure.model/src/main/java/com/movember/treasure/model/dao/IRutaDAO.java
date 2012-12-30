@@ -2,7 +2,7 @@ package com.movember.treasure.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import com.movember.treasure.model.bean.HitoUsuario;
+import com.movember.treasure.model.bean.HitoDispositivo;
 import com.movember.treasure.model.bean.ParametrosRuta;
 import com.movember.treasure.model.bean.Ruta;
 
@@ -30,5 +30,5 @@ public interface IRutaDAO extends IRepositoryDAO<Ruta> {
 	 * @throws SQLException
 	 *             the sQL exception
 	 */
-	void contestar(HitoUsuario encuestaRellenada) throws SQLException;
+	void contestar(HitoDispositivo encuestaRellenada) throws SQLException;
 }

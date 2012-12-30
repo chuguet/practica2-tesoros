@@ -3,7 +3,7 @@ package com.movember.treasure.model.dao;
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Repository;
-import com.movember.treasure.model.bean.HitoEstadistica;
+import com.movember.treasure.model.bean.HitoDispositivo;
 import com.movember.treasure.model.bean.ParametrosRuta;
 import com.movember.treasure.model.bean.Ruta;
 
@@ -85,7 +85,7 @@ class RutaDAO extends AbstractDAO implements IRutaDAO {
 	 * @see com.movember.quizz.model.dao.IRutaDAO#contestar(com.movember.quizz
 	 * .model.bean.RutaContestada)
 	 */
-	public void contestar(HitoEstadistica rutaContestada) throws SQLException {
+	public void contestar(HitoDispositivo rutaContestada) throws SQLException {
 		Integer id = (Integer) this.getSqlMapClient().insert("ruta.contestar", rutaContestada);
 		rutaContestada.setId(id);
 	}

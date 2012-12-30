@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="hitoUsuario">
-	<resultMap id="hitoUsuarioResult" class="com.movember.treasure.model.bean.HitoUsuario">
+	<resultMap id="hitoUsuarioResult" class="com.movember.treasure.model.bean.HitoDispositivo">
 		<result column="id" property="id" jdbcType="INTEGER" />
 		<result column="id_hito" property="id_hito" jdbcType="INTEGER" />
-		<result column="id_usuario" property="id_usuario" jdbcType="INTEGER" />
+		<result column="id_dispositivo" property="id_dispositivo" jdbcType="INTEGER" />
 		<result column="longitud" property="longitud" jdbcType="VARCHAR" />
 		<result column="latitud" property="latitud" jdbcType="VARCHAR" />
 		<result column="identificado" property="identificado" jdbcType="TINYINT" />
@@ -12,31 +12,31 @@
 	</resultMap>
 	
 	<select id="selectById" parameterClass="java.lang.Integer" resultMap="hitoUsuarioResult">
-		SELECT id, id_hito, id_usuario, longitud, latitud, identificado, fecha
+		SELECT id, id_hito, id_dispositivo, longitud, latitud, identificado, fecha
 		FROM hito_usuario
 		WHERE id = #id:INTEGER#
 	</select>
 	
 	<select id="selectAll" resultMap="hitoUsuarioResult">
-		SELECT id, id_hito, id_usuario, longitud, latitud, identificado, fecha
+		SELECT id, id_hito, id_dispositivo, longitud, latitud, identificado, fecha
 		FROM hito_usuario
 	</select>
 	
-	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.HitoUsuario"> 
+	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.HitoDispositivo"> 
 	 	INSERT INTO hito_usuario
-    	(id_hito, id_usuario, longitud, latitud, identificado, fecha)
+    	(id_hito, id_dispositivo, longitud, latitud, identificado, fecha)
 	 	VALUES  
-	 	(#id_hito:INTEGER#, #id_usuario:INTEGER#, #longitud:VARCHAR#, #latitud:VARCHAR#, #identificado:TINYINT#, #fecha:DATETIME#)
+	 	(#id_hito:INTEGER#, #id_dispositivo:INTEGER#, #longitud:VARCHAR#, #latitud:VARCHAR#, #identificado:TINYINT#, #fecha:DATETIME#)
 	 	<selectKey resultClass="int" keyProperty="id">
 			select LAST_INSERT_ID()
 	 	</selectKey> 
 	</insert>
 	
-	<update id="updateByPrimaryKey" parameterClass="com.movember.treasure.model.bean.HitoUsuario"> 
+	<update id="updateByPrimaryKey" parameterClass="com.movember.treasure.model.bean.HitoDispositivo"> 
   		UPDATE hito 
   		SET  
   		id_hito = #id_hito:INTEGER#,
-  		id_usuario = #id_usuario:INTEGER#,
+  		id_dispositivo = #id_dispositivo:INTEGER#,
   		longitud = #longitud:VARCHAR#, 
   		latitud = #latitud:VARCHAR#, 
   		identificado = #identificado:TINYINT#,
