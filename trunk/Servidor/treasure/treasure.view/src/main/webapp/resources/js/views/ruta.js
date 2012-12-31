@@ -1,7 +1,5 @@
 var ruta = {
 	'rowID' : null,
-	'premioIdentificados' : null,
-	'premioNoIdentificados' : null,
 	'formatList' : function() {
 		$(function() {
 			$("#lista").jqGrid({
@@ -227,24 +225,12 @@ var ruta = {
 		});
 
 		/*********************************GESTION DE BOTONES DE PREMIOS************************************************/
-		$("#btnAddPremio").button().click(function() {
-			$('#dialog-form-premios').dialog('option', 'title', 'A&ntilde;adir Premio');
-			$(".ui-dialog-buttonpane button:contains('Modificar') span").text('Crear');
+		$("#btnPremio").button().click(function() {
+			$('#dialog-form-premios').dialog('option', 'title', 'Premios');
 			$('#tabs-premios').tabs('select', 0);
 			$("#dialog-form-premios").dialog("open");
 		});
 
-		 $("#btnModifyPremio").button().click(function() {	
-			 $("#premio-identificados").setCode(ruta.premioIdentificados);
-			 $("#premio-identificados").val(ruta.premioIdentificados);
-			 $("#premio-no-identificados").setCode(ruta.premioNoIdentificados);
-			 $("#premio-no-identificados").val(ruta.premioNoIdentificados);
-			 
-			 $('#dialog-form-premios').dialog('option', 'title', 'Modificar Premio');
-			 $(".ui-dialog-buttonpane button:contains('Crear') span").text('Modificar');
-			 $('#tabs-premios').tabs('select', 0);
-			 $("#dialog-form-premios").dialog("open");
-		 });
 		
 		$("#btnCancel").button().click(function() {
 			ruta.deseleccionarHito();
@@ -328,7 +314,7 @@ var ruta = {
 			width : 600,
 			modal : true,
 			buttons : {
-				"Crear" : function() {
+				"Aceptar" : function() {
 					var error = "";
 					if($('#premio-identificados').val() == "<p><br></p>" || $('#premio-identificados').val() == ""){
 						error += ' - Debe indicar el premio de usuarios identificados <br/>';
@@ -341,26 +327,20 @@ var ruta = {
 						return;
 					}
 					
-					ruta.premioIdentificados = $('#premio-identificados').val();
-					ruta.premioNoIdentificados = $('#premio-no-identificados').val();
-					
 					$(this).dialog("close");
-					// Pongo uno de los botones activo y otro inactivo
-					$("#btnAddPremio").button("disable");
-					$("#btnModifyPremio").button("enable");
 				},
-				Cancel : function() {
+				"Cancelar" : function() {
 					$(this).dialog("close");
 				}
 			},
 			close : function() {
-				$("#premio-identificados").val('');
-				$("#premio-identificados").setCode('');
-				$("#premio-no-identificados").val('');
-				$("#premio-no-identificados").setCode('');
 			}
 		});
-		
+		//Se limpian los textArea de premios a no ser que sean de edicion que funcionaria el show information
+		$('#premio-identificados').setCode('');
+		$('#premio-identificados').val('');
+		$('#premio-no-identificados').setCode('');
+		$('#premio-identificados').val('');
 	},
 	'deseleccionarHito' : function(){
 		this.rowID = null;
@@ -375,8 +355,8 @@ var ruta = {
 		var fecha_fin = $("#fecha_fin").val();
 		var hitos = $('#lista').jqGrid('getRowData');
 		var hitos_necesarios = $('#hitos_necesarios').val();
-		var premio_identificados = ruta.premioIdentificados;
-		var premio_no_identificados = ruta.premioNoIdentificados;
+		var premio_identificados = $('#premio-identificados').val();
+		var premio_no_identificados = $('#premio-no-identificados').val();
 		var errores = '';
 		if (nombre == '') {
 			errores = "- El nombre es obligatorio<br />";
@@ -390,7 +370,7 @@ var ruta = {
 		if (hitos_necesarios>hitos.length){
 			errores += "- El n&uacute;mero de hitos necesarios para encontrar el tesoro no puede superar al n&uacute;mero de hitos del tesoro<br />";
 		}
-		if(premio_identificados == null || premio_no_identificados == null){
+		if(premio_identificados.length == 0 || premio_no_identificados.length == 0){
 			errores += "- Deben introducirse los premios correspondientes a la ruta<br />";
 		}
 		if (hitos.length == 0) {
