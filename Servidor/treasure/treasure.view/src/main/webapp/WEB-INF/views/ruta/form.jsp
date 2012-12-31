@@ -12,6 +12,10 @@
 			$('#fecha_inicio').val(ruta.fecha_inicio);
 			$('#fecha_fin').val(ruta.fecha_fin);
 			$('#hitos_necesarios').val(ruta.hitos_necesarios);
+			$('#premio-identificados').setCode(ruta.premio_identificados);
+			$('#premio-identificados').val(ruta.premio_identificados);
+			$('#premio-no-identificados').setCode(ruta.premio_no_identificados);
+			$('#premio-identificados').val(ruta.premio_identificados);
 			$("#lista").setGridParam({
 				data : ruta.hitosDTO
 			}).trigger("reloadGrid");
@@ -59,8 +63,7 @@
 			<input type="button" id="btnAddHito" value="Añadir Hito" />
 			<input type="button" id="btnModifyHito" value="Modificar Hito" disabled="true" />
 			<input type="button" id="btnDeleteHito" value="Eliminar Hito" disabled="true" />
-			<input type="button" id="btnAddPremio" value="Añadir Premio" />
-			<input type="button" id="btnModifyPremio" value="Modificar Premio" disabled="true" />
+			<input type="button" id="btnPremio" value="Premios" />
 		</div>
 	</fieldset>
 </form>
