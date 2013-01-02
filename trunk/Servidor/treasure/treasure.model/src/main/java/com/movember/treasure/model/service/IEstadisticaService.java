@@ -1,6 +1,7 @@
 package com.movember.treasure.model.service;
 
-import com.movember.treasure.model.bean.Estadistica;
+import com.movember.treasure.model.bean.EstadisticaRuta;
+import com.movember.treasure.model.bean.EstadisticaUsuario;
 import com.movember.treasure.model.exception.AppException;
 
 /**
@@ -17,5 +18,7 @@ public interface IEstadisticaService {
 	 * @throws AppException
 	 *             the app exception
 	 */
-	Estadistica retrieve(Integer pIdEncuesta) throws AppException;
+	EstadisticaRuta retrieveEstadisticaRuta(Integer pIdEncuesta) throws AppException;
+	
+	EstadisticaUsuario retrieveEstadisticaUsuario(Integer pIdUsuario) throws AppException;
 }

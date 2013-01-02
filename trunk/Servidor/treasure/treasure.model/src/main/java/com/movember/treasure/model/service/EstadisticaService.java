@@ -8,10 +8,12 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.movember.treasure.model.bean.Estadistica;
+import com.movember.treasure.model.bean.EstadisticaRuta;
+import com.movember.treasure.model.bean.EstadisticaUsuario;
 import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.HitoEstadistica;
 import com.movember.treasure.model.bean.Ruta;
+import com.movember.treasure.model.bean.RutaHitoPorcentaje;
 import com.movember.treasure.model.dao.IEstadisticaDAO;
 import com.movember.treasure.model.exception.AppException;
 
@@ -25,9 +27,14 @@ class EstadisticaService implements IEstadisticaService {
 	private IEstadisticaDAO estadisticaDAO;
 	@Inject
 	private IRutaService rutaService;
+	@Inject
+	private IUsuarioService usuarioService;
+	@Inject
+	private IHitoService hitoService;
 
-	public Estadistica retrieve(Integer pId) throws AppException {
-		Estadistica estadistica = new Estadistica();
+	public EstadisticaRuta retrieveEstadisticaRuta(Integer pId)
+			throws AppException {
+		EstadisticaRuta estadistica = new EstadisticaRuta();
 
 		Ruta ruta = rutaService.retrieve(pId);
 		estadistica.setId(ruta.getId());
@@ -80,5 +87,64 @@ class EstadisticaService implements IEstadisticaService {
 					+ hitoEstadistica.getContador_usuarios_identificados();
 		}
 		return contador;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.movember.treasure.model.service.IEstadisticaService#
+	 * retrieveEstadisticaUsuario(java.lang.Integer)
+	 */
+	public EstadisticaUsuario retrieveEstadisticaUsuario(Integer pIdUsuario)
+			throws AppException {
+		EstadisticaUsuario estadisticaUsuario = new EstadisticaUsuario();
+		try {
+			// Recuperamos el usuario
+			estadisticaUsuario.setUsuario(usuarioService.retrieve(pIdUsuario));
+			// Recuperamos numero totales de rutas y de hitos
+			estadisticaUsuario.setNum_hitos_totales(estadisticaDAO
+					.recuperarNumeroTotalesHitos());
+			estadisticaUsuario.setNum_rutas_totales(estadisticaDAO
+					.recuperarNumeroTotalesRutas());
+			// Recuperamos las rutas terminadas e hitos terminados
+			List<Hito> hitosTerminados = estadisticaDAO
+					.recuperarNumeroHitosTerminados(pIdUsuario);
+			List<Ruta> rutasTerminadas = estadisticaDAO
+					.recuperarNumeroRutasTerminadas(pIdUsuario);
+			estadisticaUsuario.setHitos_terminados(hitosTerminados.size());
+			estadisticaUsuario.setRutas_terminadas(rutasTerminadas.size());
+			List<RutaHitoPorcentaje> listaRutaHitoPorcentaje = new ArrayList<RutaHitoPorcentaje>();
+			for (Ruta ruta : rutaService.selectAll()) {
+				RutaHitoPorcentaje rutaHitoPorcentaje = new RutaHitoPorcentaje();
+				rutaHitoPorcentaje.setRuta(ruta.getNombre());
+				rutaHitoPorcentaje.setNum_hitos_necesarios(ruta
+						.getHitos_necesarios());
+				List<Hito> hitoRutas = getListHitosDeRuta(ruta.getId(),
+						hitoService.recuperarDeRuta(ruta.getId()));
+				List<Hito> hitoPorcentaje = getListHitosDeRuta(ruta.getId(),
+						hitosTerminados);
+				rutaHitoPorcentaje.setNum_hitos_checkeados(hitoPorcentaje
+						.size());
+				rutaHitoPorcentaje.setNum_hitos_totales(hitoRutas.size());
+				listaRutaHitoPorcentaje.add(rutaHitoPorcentaje);
+			}
+			estadisticaUsuario
+					.setPorcentaje_rutas_hitos(listaRutaHitoPorcentaje);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return estadisticaUsuario;
+	}
+
+	private List<Hito> getListHitosDeRuta(Integer idRuta,
+			List<Hito> hitosTerminados) {
+		List<Hito> result = new ArrayList<Hito>();
+		for (Hito hito : hitosTerminados) {
+			if (hito.getId_ruta().equals(idRuta)) {
+				result.add(hito);
+			}
+		}
+		return result;
 	}
 }
