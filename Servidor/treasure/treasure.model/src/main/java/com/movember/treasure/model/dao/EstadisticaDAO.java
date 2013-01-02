@@ -1,9 +1,13 @@
 package com.movember.treasure.model.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
+import com.movember.treasure.model.bean.Hito;
+import com.movember.treasure.model.bean.Ruta;
 
 @Repository
 public class EstadisticaDAO extends AbstractDAO implements IEstadisticaDAO {
@@ -18,5 +22,25 @@ public class EstadisticaDAO extends AbstractDAO implements IEstadisticaDAO {
 			throws SQLException {
 		return (Map<Integer, Integer>) this.getSqlMapClient().queryForMap(
 				"estadistica.selectCountHitoNotIdent", idRuta, "key", "value");
+	}
+
+	public Integer recuperarNumeroTotalesHitos() throws SQLException {
+		return (Integer) this.getSqlMapClient().queryForObject(
+				"estadistica.selectCountHitos");
+	}
+
+	public Integer recuperarNumeroTotalesRutas() throws SQLException {
+		return (Integer) this.getSqlMapClient().queryForObject(
+				"estadistica.selectCountRutas");
+	}
+
+	public List<Hito> recuperarNumeroHitosTerminados(Integer pIdUsuario) throws SQLException {
+		return (List<Hito>) this.getSqlMapClient().queryForList(
+				"estadistica.selectHitosTerminados", pIdUsuario);
+	}
+
+	public List<Ruta> recuperarNumeroRutasTerminadas(Integer pIdUsuario) throws SQLException {
+		return (List<Ruta>) this.getSqlMapClient().queryForList(
+				"estadistica.selectRutasTerminadas", pIdUsuario);
 	}
 }

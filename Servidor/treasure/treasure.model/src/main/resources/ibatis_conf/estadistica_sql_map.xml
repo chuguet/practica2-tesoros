@@ -6,20 +6,87 @@
 		<result property="value" column="contador" javaType="java.lang.Integer" />
 	</resultMap>
 
-	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
+	<resultMap id="rutaResult" class="com.movember.treasure.model.bean.Ruta">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
+		<result column="fecha_inicio" property="fecha_inicio" jdbcType="DATE" />		
+		<result column="fecha_fin" property="fecha_fin" jdbcType="DATE" />	
+		<result column="hitos_necesarios" property="hitos_necesarios" jdbcType="INTEGER" />
+		<result column="premio_identificados" property="premio_identificados" jdbcType="TEXT" />
+		<result column="premio_no_identificados" property="premio_no_identificados" jdbcType="TEXT" />
+	</resultMap>
+	
+	<resultMap id="hitoResult" class="com.movember.treasure.model.bean.Hito">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
+		<result column="id_ruta" property="id_ruta" jdbcType="INTEGER" />
+		<result column="longitud" property="longitud" jdbcType="VARCHAR" />
+		<result column="latitud" property="latitud" jdbcType="VARCHAR" />
+		<result column="codigo" property="codigo" jdbcType="VARCHAR" />
+		<result column="pista" property="pista" jdbcType="TEXT" />
+	</resultMap>
+
+	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer"
+		resultMap="mapResult">
 		SELECT count(*) as contador, h.id as id
 		FROM hito h
-		LEFT JOIN hito_dispositivo hu ON h.id = hu.id_hito
-		WHERE h.id_ruta = #id:INTEGER# AND identificado = 0
+		LEFT JOIN
+		hito_dispositivo hu ON h.id = hu.id_hito
+		WHERE h.id_ruta = #id:INTEGER#
+		AND identificado = 0
 		GROUP by id_hito
 	</select>
 
-	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
+	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer"
+		resultMap="mapResult">
 		SELECT count(*) as contador, h.id as id
 		FROM hito h
-		LEFT JOIN hito_dispositivo hu ON h.id = hu.id_hito
-		WHERE h.id_ruta = #id:INTEGER# AND identificado = 1
+		LEFT JOIN
+		hito_dispositivo hu ON h.id = hu.id_hito
+		WHERE h.id_ruta = #id:INTEGER#
+		AND identificado = 1
 		GROUP by id_hito
+	</select>
+
+	<select id="selectCountHitos" resultClass="java.lang.Integer">
+		select count(*) from
+		hito
+	</select>
+	<select id="selectCountRutas" resultClass="java.lang.Integer">
+		select count(*) from
+		ruta
+	</select>
+
+	<select id="selectHitosTerminados" parameterClass="java.lang.Integer"
+		resultMap="hitoResult">
+		SELECT h.*
+		FROM hito_dispositivo hd
+		INNER JOIN dispositivo d
+		on hd.id_dispositivo = d.id
+		INNER JOIN usuario u on u.id_dispositivo =
+		d.id
+		INNER JOIN hito h on h.id = hd.id_hito
+		WHERE u.id= #id:INTEGER#
+	</select>
+
+	<select id="selectRutasTerminadas" parameterClass="java.lang.Integer"
+		resultMap="rutaResult">
+		SELECT r.*
+		FROM ruta r
+		INNER JOIN (SELECT
+		h.id_ruta, count(*)
+		AS contador
+		FROM hito_dispositivo hd
+		INNER JOIN dispositivo d on
+		hd.id_dispositivo = d.id
+		INNER JOIN usuario
+		u on u.id_dispositivo = d.id
+		INNER JOIN hito h on h.id = hd.id_hito
+		WHERE u.id=#id:INTEGER#
+		GROUP BY
+		h.id_ruta) h ON r.id = h.id_ruta
+		WHERE
+		h.contador >= r.hitos_necesarios
 	</select>
 
 </sqlMap>
