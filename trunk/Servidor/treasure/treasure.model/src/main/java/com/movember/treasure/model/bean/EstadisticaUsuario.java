@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * The Class EstadisticaUsuario.
  */
-public class EstadisticaUsuario {
+public class EstadisticaUsuario extends AbstractBean{
 
 	/** The usuario. */
 	private Usuario usuario;

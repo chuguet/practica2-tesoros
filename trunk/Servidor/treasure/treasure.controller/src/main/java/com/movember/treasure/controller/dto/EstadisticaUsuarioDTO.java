@@ -14,6 +14,8 @@ import com.movember.treasure.model.exception.AppException;
  */
 public class EstadisticaUsuarioDTO extends AbstractDTO {
 
+	private Integer id;
+
 	/** The Constant df. */
 	private static final DecimalFormat df = new DecimalFormat("0.00");
 
@@ -193,16 +195,17 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 	public void toRest(Object object) throws AppException {
 		EstadisticaUsuario estadisticaUsuario = (EstadisticaUsuario) object;
 
+		this.id = estadisticaUsuario.getId();
 		this.porcentaje_hitos_totales = calculoPorcentaje(
 				estadisticaUsuario.getHitos_terminados(),
 				estadisticaUsuario.getNum_hitos_totales());
 		this.porcentaje_rutas_totales = calculoPorcentaje(
 				estadisticaUsuario.getRutas_terminadas(),
 				estadisticaUsuario.getNum_rutas_totales());
-		this.num_hitos_terminados=estadisticaUsuario.getHitos_terminados();
-		this.num_hitos_totales=estadisticaUsuario.getNum_hitos_totales();
-		this.num_rutas_terminadas=estadisticaUsuario.getRutas_terminadas();
-		this.num_rutas_totales=estadisticaUsuario.getNum_rutas_totales();
+		this.num_hitos_terminados = estadisticaUsuario.getHitos_terminados();
+		this.num_hitos_totales = estadisticaUsuario.getNum_hitos_totales();
+		this.num_rutas_terminadas = estadisticaUsuario.getRutas_terminadas();
+		this.num_rutas_totales = estadisticaUsuario.getNum_rutas_totales();
 		RutaHitoPorcentajeDTO hitoPorcentajeDTO;
 		List<RutaHitoPorcentajeDTO> listRutaHitoPorcentajeDTO = new ArrayList<RutaHitoPorcentajeDTO>();
 		for (RutaHitoPorcentaje rutaHitoPorcentaje : estadisticaUsuario
@@ -214,6 +217,14 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 		this.setPorcentaje_rutas_hitos(listRutaHitoPorcentajeDTO);
 		this.usuario = estadisticaUsuario.getUsuario().getNombre() + " "
 				+ estadisticaUsuario.getUsuario().getApellidos();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

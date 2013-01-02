@@ -4,7 +4,7 @@ package com.movember.treasure.model.bean;
 /**
  * The Class RutaHitoPorcentaje.
  */
-public class RutaHitoPorcentaje {
+public class RutaHitoPorcentaje extends AbstractBean{
 
 	/** The num_hitos_totales. */
 	private Integer num_hitos_totales;

@@ -11,4 +11,7 @@
 
 <fieldset id="estadistica">
 	<legend id="usuarioText">Estadistica del usuario </legend>
+	<p id="fieldRuta"></p>
+	<p id="fieldHito"></p>
+	<div id="tabla_rutas"></div>
 </fieldset>
