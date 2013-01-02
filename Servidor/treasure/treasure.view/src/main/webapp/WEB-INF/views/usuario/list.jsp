@@ -7,6 +7,7 @@
 		<input type="button" id="btnAlta" value="Alta" />
 		<input type="button" id="btnEditar" value="Editar" />
 		<input type="button" id="btnEliminar" value="Eliminar" />
+		<input type="button" id="btnEstadistica" value="Estadistica" />
 	</div>
 	<table id="lista"></table>
 	<div id=paginadorLista></div>
