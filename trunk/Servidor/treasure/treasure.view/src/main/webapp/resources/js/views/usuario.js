@@ -64,6 +64,7 @@ var usuario = {
 			onSelectRow : function(rowid, status) {
 				$("#btnEditar").button("enable");
 				$("#btnEliminar").button("enable");
+				$("#btnEstadistica").button("enable");
 				usuario.rowID = rowid;
 			}
 		});
@@ -71,7 +72,7 @@ var usuario = {
 			$('#lista').setGridWidth($('.ui-jqgrid').parent().innerWidth() - 30);
 		}).trigger('resize');
 		
-		
+		/*******Configuración de los botones del formulario de usuarios***********/
 		$("#btnAlta").button().click(function() {
 			generic.getForm('usuario');
 		});
@@ -86,6 +87,11 @@ var usuario = {
 			});
 		});
 		$("#btnEliminar").button("disable");
+		
+		$("#btnEstadistica").button().click(function() {
+			generic.getForm('estadisticaUsuario', $('#lista').jqGrid('getRowData', usuario.rowID).id);
+		});
+		$("#btnEstadistica").button("disable");
 	},
 
 	'formatForm' : function() {

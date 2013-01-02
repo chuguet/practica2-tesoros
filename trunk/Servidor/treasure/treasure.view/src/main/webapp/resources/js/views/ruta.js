@@ -84,7 +84,7 @@ var ruta = {
 		$("#btnEliminar").button("disable");
 		
 		$("#btnEstadistica").button().click(function() {
-			generic.getForm('estadistica', $('#lista').jqGrid('getRowData', ruta.rowID).id);
+			generic.getForm('estadisticaRuta', $('#lista').jqGrid('getRowData', ruta.rowID).id);
 		});
 		$("#btnEstadistica").button("disable");
 	},
