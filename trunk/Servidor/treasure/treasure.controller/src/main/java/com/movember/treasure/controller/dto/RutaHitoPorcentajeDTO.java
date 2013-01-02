@@ -5,54 +5,144 @@ import java.text.DecimalFormat;
 import com.movember.treasure.model.bean.RutaHitoPorcentaje;
 import com.movember.treasure.model.exception.AppException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RutaHitoPorcentajeDTO.
+ */
 public class RutaHitoPorcentajeDTO extends AbstractDTO {
-	private static final DecimalFormat df = new DecimalFormat("0.00");
-	/** The num_hitos_totales. */
-	private Integer num_hitos_totales;
 
+	/** The Constant df. */
+	private static final DecimalFormat df = new DecimalFormat("0.00");
+	
 	/** The num_hitos_checkeados. */
 	private Integer num_hitos_checkeados;
-
-	private String porcentaje_finalizado;
 
 	/** The num_hitos_necesarios. */
 	private Integer num_hitos_necesarios;
 
+	/** The num_hitos_totales. */
+	private Integer num_hitos_totales;
+
+	/** The porcentaje_finalizado. */
+	private String porcentaje_finalizado;
+
 	/** The ruta. */
 	private String ruta;
 
-	public Integer getNum_hitos_totales() {
-		return num_hitos_totales;
-	}
-
-	public void setNum_hitos_totales(Integer num_hitos_totales) {
-		this.num_hitos_totales = num_hitos_totales;
-	}
-
+	/**
+	 * Gets the num_hitos_checkeados.
+	 * 
+	 * @return the num_hitos_checkeados
+	 */
 	public Integer getNum_hitos_checkeados() {
 		return num_hitos_checkeados;
 	}
 
-	public void setNum_hitos_checkeados(Integer num_hitos_checkeados) {
-		this.num_hitos_checkeados = num_hitos_checkeados;
-	}
-
+	/**
+	 * Gets the num_hitos_necesarios.
+	 * 
+	 * @return the num_hitos_necesarios
+	 */
 	public Integer getNum_hitos_necesarios() {
 		return num_hitos_necesarios;
 	}
 
-	public void setNum_hitos_necesarios(Integer num_hitos_necesarios) {
-		this.num_hitos_necesarios = num_hitos_necesarios;
+	/**
+	 * Gets the num_hitos_totales.
+	 * 
+	 * @return the num_hitos_totales
+	 */
+	public Integer getNum_hitos_totales() {
+		return num_hitos_totales;
 	}
 
+	/**
+	 * Gets the porcentaje_finalizado.
+	 * 
+	 * @return the porcentaje_finalizado
+	 */
+	public String getPorcentaje_finalizado() {
+		return porcentaje_finalizado;
+	}
+
+	/**
+	 * Gets the ruta.
+	 * 
+	 * @return the ruta
+	 */
 	public String getRuta() {
 		return ruta;
 	}
 
+	/**
+	 * Sets the num_hitos_checkeados.
+	 * 
+	 * @param num_hitos_checkeados
+	 *            the new num_hitos_checkeados
+	 */
+	public void setNum_hitos_checkeados(Integer num_hitos_checkeados) {
+		this.num_hitos_checkeados = num_hitos_checkeados;
+	}
+
+	/**
+	 * Sets the num_hitos_necesarios.
+	 * 
+	 * @param num_hitos_necesarios
+	 *            the new num_hitos_necesarios
+	 */
+	public void setNum_hitos_necesarios(Integer num_hitos_necesarios) {
+		this.num_hitos_necesarios = num_hitos_necesarios;
+	}
+
+	/**
+	 * Sets the num_hitos_totales.
+	 * 
+	 * @param num_hitos_totales
+	 *            the new num_hitos_totales
+	 */
+	public void setNum_hitos_totales(Integer num_hitos_totales) {
+		this.num_hitos_totales = num_hitos_totales;
+	}
+
+	/**
+	 * Sets the porcentaje_finalizado.
+	 * 
+	 * @param porcentaje_finalizado
+	 *            the new porcentaje_finalizado
+	 */
+	public void setPorcentaje_finalizado(String porcentaje_finalizado) {
+		this.porcentaje_finalizado = porcentaje_finalizado;
+	}
+
+	/**
+	 * Sets the ruta.
+	 * 
+	 * @param ruta
+	 *            the new ruta
+	 */
 	public void setRuta(String ruta) {
 		this.ruta = ruta;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.movember.treasure.controller.dto.AbstractDTO#toBusiness(java.lang
+	 * .Object)
+	 */
+	@Override
+	public void toBusiness(Object object) throws AppException {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.movember.treasure.controller.dto.AbstractDTO#toRest(java.lang.Object)
+	 */
 	@Override
 	public void toRest(Object object) throws AppException {
 		RutaHitoPorcentaje rutaHitoPorcentaje = (RutaHitoPorcentaje) object;
@@ -73,19 +163,5 @@ public class RutaHitoPorcentajeDTO extends AbstractDTO {
 			porcentaje = new Float(100.00);
 		}
 		this.porcentaje_finalizado = df.format(porcentaje).toString() + "%";
-	}
-
-	@Override
-	public void toBusiness(Object object) throws AppException {
-		// TODO Auto-generated method stub
-
-	}
-
-	public String getPorcentaje_finalizado() {
-		return porcentaje_finalizado;
-	}
-
-	public void setPorcentaje_finalizado(String porcentaje_finalizado) {
-		this.porcentaje_finalizado = porcentaje_finalizado;
 	}
 }
