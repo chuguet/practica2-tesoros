@@ -13,7 +13,7 @@ public class RutaHitoPorcentajeDTO extends AbstractDTO {
 
 	/** The Constant df. */
 	private static final DecimalFormat df = new DecimalFormat("0.00");
-	
+
 	/** The num_hitos_checkeados. */
 	private Integer num_hitos_checkeados;
 
@@ -152,6 +152,7 @@ public class RutaHitoPorcentajeDTO extends AbstractDTO {
 				.getNum_hitos_necesarios();
 		this.num_hitos_totales = rutaHitoPorcentaje.getNum_hitos_totales();
 		this.ruta = rutaHitoPorcentaje.getRuta();
+		this.setId(rutaHitoPorcentaje.getId());
 		Float porcentaje;
 		if (!num_hitos_necesarios.equals(0)) {
 			porcentaje = Float.valueOf(num_hitos_checkeados)

@@ -101,6 +101,8 @@ class EstadisticaService implements IEstadisticaService {
 		try {
 			// Recuperamos el usuario
 			estadisticaUsuario.setUsuario(usuarioService.retrieve(pIdUsuario));
+			//Seteamos el id de usuario
+			estadisticaUsuario.setId(pIdUsuario);
 			// Recuperamos numero totales de rutas y de hitos
 			estadisticaUsuario.setNum_hitos_totales(estadisticaDAO
 					.recuperarNumeroTotalesHitos());
@@ -116,6 +118,7 @@ class EstadisticaService implements IEstadisticaService {
 			List<RutaHitoPorcentaje> listaRutaHitoPorcentaje = new ArrayList<RutaHitoPorcentaje>();
 			for (Ruta ruta : rutaService.selectAll()) {
 				RutaHitoPorcentaje rutaHitoPorcentaje = new RutaHitoPorcentaje();
+				rutaHitoPorcentaje.setId(ruta.getId());
 				rutaHitoPorcentaje.setRuta(ruta.getNombre());
 				rutaHitoPorcentaje.setNum_hitos_necesarios(ruta
 						.getHitos_necesarios());
