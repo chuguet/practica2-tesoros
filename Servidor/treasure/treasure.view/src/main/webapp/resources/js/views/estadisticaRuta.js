@@ -1,5 +1,5 @@
-var estadistica = {
-	'mostrarEstadistica' : function(registro) {
+var estadisticaRuta = {
+	'mostrarEstadisticaRuta' : function(registro) {
 		// Introduzco nombre de la encuesta en un span del jsp
 		var nombreRuta = $('#rutaText').text() + registro.ruta;
 		$('#rutaText').text(nombreRuta);
