@@ -10,7 +10,7 @@ import javax.persistence.Entity;
  * The Class Pregunta.
  */
 @Entity
-public class Estadistica extends AbstractBean {
+public class EstadisticaRuta extends AbstractBean {
 
 	/** The contador_total. */
 	private Integer contador_total;
@@ -33,7 +33,7 @@ public class Estadistica extends AbstractBean {
 	 */
 	@Override
 	public boolean equals(Object otra) {
-		Estadistica hito = (Estadistica) otra;
+		EstadisticaRuta hito = (EstadisticaRuta) otra;
 		return this.getId().equals(hito.getId());
 	}
 
