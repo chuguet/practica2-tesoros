@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.movember.treasure.controller.dto.EstadisticaDTO;
-import com.movember.treasure.model.bean.Estadistica;
+import com.movember.treasure.controller.dto.EstadisticaRutaDTO;
+import com.movember.treasure.controller.dto.EstadisticaUsuarioDTO;
+import com.movember.treasure.model.bean.EstadisticaRuta;
+import com.movember.treasure.model.bean.EstadisticaUsuario;
 import com.movember.treasure.model.exception.AppException;
 import com.movember.treasure.model.service.IEstadisticaService;
 
@@ -29,24 +31,35 @@ public class EstadisticaController {
 	private IEstadisticaService estadisticaService;
 
 	/**
-	 * Recurso principal del controlador en la peticiones rest
-	 * **/
-	private static final String recurso = "estadistica";
-
-	/**
 	 * Petición REST que nos devuelve una sola estadistica por ID
 	 * 
 	 * @param id
 	 *            es el id de la estadistica
 	 * @return devuelve la estadistica con el id seleccionado
 	 * **/
-	@RequestMapping(value = "/" + recurso + "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/estadisticaRuta/{id}", method = RequestMethod.GET)
 	public @ResponseBody
-	EstadisticaDTO retrieve(@PathVariable("id") Integer id) {
-		EstadisticaDTO estadisticaDTO = new EstadisticaDTO();
+	EstadisticaRutaDTO retrieveRuta(@PathVariable("id") Integer id) {
+		EstadisticaRutaDTO estadisticaDTO = new EstadisticaRutaDTO();
 		try {
-			Estadistica estadistica = this.estadisticaService.retrieve(id);
-			// comversion a dto
+			EstadisticaRuta estadistica = this.estadisticaService
+					.retrieveEstadisticaRuta(id);
+			// conversion a dto
+			estadisticaDTO.toRest(estadistica);
+		} catch (AppException e) {
+			e.printStackTrace();
+		}
+		return estadisticaDTO;
+	}
+	
+	@RequestMapping(value = "/estadisticaUsuario/{id}", method = RequestMethod.GET)
+	public @ResponseBody
+	EstadisticaUsuarioDTO retrieveUsuario(@PathVariable("id") Integer id) {
+		EstadisticaUsuarioDTO estadisticaDTO = new EstadisticaUsuarioDTO();
+		try {
+			EstadisticaUsuario estadistica = this.estadisticaService
+					.retrieveEstadisticaUsuario(id);
+			// conversion a dto
 			estadisticaDTO.toRest(estadistica);
 		} catch (AppException e) {
 			e.printStackTrace();
@@ -62,9 +75,14 @@ public class EstadisticaController {
 	 *            es el identificador para saber si vamos a listar
 	 * @return devuelve la nueva petición REST
 	 * **/
-	@RequestMapping(value = "/" + recurso + "/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
-	public String createForm(@PathVariable("operacion") String operacion,
+	@RequestMapping(value = "/estadisticaRuta/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
+	public String createEstadisticaRuta(@PathVariable("operacion") String operacion,
 			final Model uiModel) {
-		return recurso + "/form";
+		return "ruta/estadistica";
+	}
+	@RequestMapping(value = "/estadisticaUsuario/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
+	public String createEstadisticaUsuario(@PathVariable("operacion") String operacion,
+			final Model uiModel) {
+		return "usuario/estadistica";
 	}
 }
