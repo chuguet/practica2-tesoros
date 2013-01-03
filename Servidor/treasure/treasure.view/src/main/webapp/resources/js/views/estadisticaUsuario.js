@@ -13,13 +13,24 @@ var estadisticaUsuario = {
 				+ ' hitos realizados. [' + registro.porcentaje_hitos_totales
 				+ ' completado]';
 		$('#fieldHito').text(porcentajeHitos);
-		//Añadimos la tabla de porcentajes
-		for(var i=0; i<registro.porcentaje_rutas_hitos.length ;i++){
+		// Añadimos la tabla de porcentajes
+		for ( var i = 0; i < registro.porcentaje_rutas_hitos.length; i++) {
 			var rutaHitoPorcentaje = registro.porcentaje_rutas_hitos[i];
-			$('#tabla_rutas').append('<ul id="' + rutaHitoPorcentaje.id + '">Ruta: '+rutaHitoPorcentaje.ruta+'</ul>');
-			$('#'+rutaHitoPorcentaje.id).append('<li>Numero de hitos totales de la ruta: ' + rutaHitoPorcentaje.num_hitos_totales + '.</li>');
-			$('#'+rutaHitoPorcentaje.id).append('<li>Numero de hitos necesarios para superar la ruta: ' + rutaHitoPorcentaje.num_hitos_necesarios + '.</li>');
-			$('#'+rutaHitoPorcentaje.id).append('<li>Numero de hitos totales chequeados por el usuario: ' + rutaHitoPorcentaje.num_hitos_checkeados + '. [' + rutaHitoPorcentaje.porcentaje_finalizado + ' completado]</li>');
+
+			$('#tabla_rutas')
+					.append(
+							'<ul><li><a>Ruta: <b>'
+									+ rutaHitoPorcentaje.ruta
+									+ '</b></a><ul><li><a>Numero de hitos totales de la ruta: '
+									+ rutaHitoPorcentaje.num_hitos_totales
+									+ '.</a></li><li><a>Numero de hitos necesarios para superar la ruta: '
+									+ rutaHitoPorcentaje.num_hitos_necesarios
+									+ '.</a></li><li><a>Numero de hitos totales chequeados por el usuario: '
+									+ rutaHitoPorcentaje.num_hitos_checkeados
+									+ '. ['
+									+ rutaHitoPorcentaje.porcentaje_finalizado
+									+ ' completado]</a></li></ul></li></ul>');
 		}
+		$('#tabla_rutas').jstree();
 	}
 };
