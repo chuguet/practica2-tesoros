@@ -9,6 +9,7 @@
 		<title>Treasures Administrator</title>
 		
 		<link href="resources/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+		<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 		<link href="resources/css/generic.css" rel="stylesheet" type="text/css" />
 		<link href="resources/css/ui.dynatree.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/prettify.css" rel="stylesheet" type="text/css">
@@ -21,6 +22,7 @@
 		<script src="resources/js/jquery.require.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-1.8.2.min.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-ui-1.9.1.min.js" type="text/javascript"></script>
+		<script src="resources/js/jquery.jstree.js" type="text/javascript"></script>
 		<script src="resources/js/generic.js" type="text/javascript"></script>
 		
 	  	<script src="resources/js/jquery.dynatree.js" type="text/javascript"></script>
