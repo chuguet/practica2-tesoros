@@ -6,7 +6,7 @@ var estadisticaUsuario = {
 		var porcentajeRutas = 'Hay un global de ' + registro.num_rutas_totales
 				+ ' rutas, con un total de ' + registro.num_rutas_terminadas
 				+ ' rutas realizadas. [' + registro.porcentaje_rutas_totales
-				+ ' completado]';
+				+ '  completado]';
 		$('#fieldRuta').text(porcentajeRutas);
 		var porcentajeHitos = 'Hay un global de ' + registro.num_hitos_totales
 				+ ' hitos, con un total de ' + registro.num_hitos_terminados
@@ -27,9 +27,9 @@ var estadisticaUsuario = {
 									+ rutaHitoPorcentaje.num_hitos_necesarios
 									+ '.</a></li><li><a>Numero de hitos totales chequeados por el usuario: '
 									+ rutaHitoPorcentaje.num_hitos_checkeados
-									+ '. ['
+									+ '. <b>['
 									+ rutaHitoPorcentaje.porcentaje_finalizado
-									+ ' completado]</a></li></ul></li></ul>');
+									+ ' completado]</b></a></li></ul></li></ul>');
 		}
 		$('#tabla_rutas').jstree();
 	}
