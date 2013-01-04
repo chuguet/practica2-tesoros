@@ -18,6 +18,7 @@
 				$('input:radio[name=tipoUsuario]')[2].checked = true;
 			} else if (usuario.admin ==2){
 				$('input:radio[name=tipoUsuario]')[1].checked = true;
+				$("#btnRutas").button("enable");
 			}
 		};
 	</c:if>
@@ -61,12 +62,17 @@
 			<c:choose>
 				<c:when test="${operacion == 'new'}">
 					<input type="button" id="btnSaveQuizz" value="Guardar" />
+					<input type="button" id="btnRutas" value="Asignar Rutas" />
 				</c:when>
 				<c:otherwise>
 					<input type="button" id="btnSaveQuizz" value="Modificar" />
+					<input type="button" id="btnRutas" value="Modificar Rutas" />
 				</c:otherwise>
 			</c:choose>
 			<input type="button" id="btnCancel" value="Cancelar" />
+		</div>
+		<div id="dialog-form" title="Asignar rutas">
+			<div id="list-box"></div>
 		</div>
 	</fieldset>
 </form>

@@ -22,7 +22,7 @@ public interface IRepositoryDAO<T extends AbstractBean> {
 	 * @throws SQLException
 	 *             the sQL exception
 	 */
-	void insert(T t) throws SQLException;
+	Integer insert(T t) throws SQLException;
 
 	/**
 	 * Update.

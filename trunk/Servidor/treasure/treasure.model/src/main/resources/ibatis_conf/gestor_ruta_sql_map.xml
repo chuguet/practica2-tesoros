@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="gestor_ruta">
+	
+	<insert id="insert" parameterClass="com.movember.treasure.model.bean.GestorRuta"> 
+	 	INSERT INTO gestor_ruta 
+    	(id_ruta, id_usuario)
+	 	VALUES  
+	 	(#id_ruta:INTEGER#, #id_usuario:INTEGER#)
+	</insert>
+	
+	<select id="retrieveByIdGestor" resultClass="java.lang.Integer"
+		parameterClass="java.lang.Integer">
+		SELECT id_ruta
+		FROM gestor_ruta 
+		WHERE id_usuario = #id_usuario:INTEGER#
+	</select>
+	
+	<delete id="deleteAllByIdGestor" parameterClass="java.lang.Integer">
+  		DELETE FROM gestor_ruta 
+  		WHERE id_usuario = #id:INTEGER# 
+  	</delete>
+</sqlMap>

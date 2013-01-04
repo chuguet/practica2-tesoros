@@ -1,5 +1,7 @@
 package com.movember.treasure.controller.dto;
 
+import java.util.List;
+
 import com.movember.treasure.model.bean.Usuario;
 import com.movember.treasure.model.exception.AppException;
 
@@ -16,6 +18,7 @@ public class UsuarioDTO extends AbstractDTO {
 	private String pwd;
 	private Integer admin;
 	private String uuid;
+	private List<Integer> id_rutas;
 
 	/**
 	 * Gets the nombre.
@@ -154,6 +157,7 @@ public class UsuarioDTO extends AbstractDTO {
 		this.usuario = usuario.getUsuario();
 		this.pwd = usuario.getPwd();
 		this.admin = usuario.getAdmin();
+		this.id_rutas = usuario.getRutas_asignadas();
 	}
 
 	/*
@@ -175,5 +179,14 @@ public class UsuarioDTO extends AbstractDTO {
 			this.admin = 0;
 		}
 		usuario.setAdmin(this.admin);
+		usuario.setRutas_asignadas(this.id_rutas);
+	}
+
+	public List<Integer> getId_rutas() {
+		return id_rutas;
+	}
+
+	public void setId_rutas(List<Integer> id_rutas) {
+		this.id_rutas = id_rutas;
 	}
 }

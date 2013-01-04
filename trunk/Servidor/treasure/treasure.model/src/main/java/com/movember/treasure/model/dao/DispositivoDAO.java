@@ -11,9 +11,8 @@ class DispositivoDAO extends AbstractDAO implements IDispositivoDAO {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	public void insert(Dispositivo dispositivo) throws SQLException {
-		Integer id = (Integer) this.getSqlMapClient().insert("dispositivo.insertReturnId", dispositivo);
-		dispositivo.setId(id);
+	public Integer insert(Dispositivo dispositivo) throws SQLException {
+		return (Integer) this.getSqlMapClient().insert("dispositivo.insertReturnId", dispositivo);
 	}
 
 	public void update(Dispositivo dispositivo) throws SQLException {
