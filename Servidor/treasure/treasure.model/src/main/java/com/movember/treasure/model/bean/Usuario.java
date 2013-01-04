@@ -1,5 +1,7 @@
 package com.movember.treasure.model.bean;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 
 /**
@@ -15,6 +17,7 @@ public class Usuario extends AbstractBean {
 	private String pwd;
 	private Integer admin;
 	private Integer id_dispositivo;
+	private List<Integer> rutas_asignadas;
 
 	/**
 	 * Gets the nombre.
@@ -167,5 +170,13 @@ public class Usuario extends AbstractBean {
 		this.usuario = usuario;
 		this.pwd = pwd;
 		this.admin = admin;
+	}
+
+	public List<Integer> getRutas_asignadas() {
+		return rutas_asignadas;
+	}
+
+	public void setRutas_asignadas(List<Integer> rutas_asignadas) {
+		this.rutas_asignadas = rutas_asignadas;
 	}
 }

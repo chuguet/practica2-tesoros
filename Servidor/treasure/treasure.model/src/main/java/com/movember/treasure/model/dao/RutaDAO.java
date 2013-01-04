@@ -22,9 +22,8 @@ class RutaDAO extends AbstractDAO implements IRutaDAO {
 	 * com.movember.quizz.model.dao.IRepositoryDAO#insert(com.movember.quizz
 	 * .model.bean.AbstractBean)
 	 */
-	public void insert(Ruta ruta) throws SQLException {
-		Integer id = (Integer) this.getSqlMapClient().insert("ruta.insertReturnId", ruta);
-		ruta.setId(id);
+	public Integer insert(Ruta ruta) throws SQLException {
+		return (Integer) this.getSqlMapClient().insert("ruta.insertReturnId", ruta);
 	}
 
 	/*

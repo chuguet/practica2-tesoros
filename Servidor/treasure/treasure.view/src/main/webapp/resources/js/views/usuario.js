@@ -99,7 +99,21 @@ var usuario = {
 			$('#lista').setGridWidth($('.ui-jqgrid').parent().innerWidth() - 30);
 		}).trigger('resize');
 		
+		$("#btnRutas").button().click(function() {
+			$("#dialog-form").dialog("open");
+		});
+
+		$("#btnRutas").button("disable");
+
+		$('input:radio[name=tipoUsuario]')[0].checked = true;
 		
+		$("input:radio[name=tipoUsuario]").change(function() {
+			if($('input:radio[name=tipoUsuario]')[1].checked == true){
+				$("#btnRutas").button("enable");
+			}else{
+				$("#btnRutas").button("disable");
+			}
+		});
 		
 		$("#btnCancel").button().click(function() {
 			generic.getList('usuario');
@@ -108,69 +122,41 @@ var usuario = {
 		$("#btnSaveQuizz").button().click(function() {
 			usuario.getParams();
 		});
-
+		
+		//Petición al servidor para recuperar todas las rutas y ejecutar la funcion de rellenar los checkboxs
+		generic.get('ruta', null, usuario.rellenarListBox);
+		
+		//Cuadro de dialogo de jquery para los checkbox
 		$("#dialog-form").dialog({
 			autoOpen : false,
 			height : 400,
-			width : 550,
+			width : 250,
 			modal : true,
 			buttons : {
-				"Crear" : function() {
-					if ($('#nombrePregunta').val().length == 0) {
-						jAlert('No puede insertar preguntas vac&iacute;as', 'Error');
-						return;
-					}
-					if ($('#respuestas option').length < 2) {
-						jAlert('Debe a&ntildeadir al menos dos respuestas para la pregunta', 'Error');
-						return;
-					}
-					var respuestas = [];
-					$("#respuestas option").each(function() {
-						respuestas.push({
-							title : this.value,
-							key : this.getAttribute('key')
-						});
-					});
-
-					var pregunta = [
-						{
-							title : $('#nombrePregunta').val(),
-							isFolder : true,
-							children : respuestas,
-							key : $('#nombrePregunta').attr('key')
-						}
-					];
-					if ($("#tree").dynatree("getTree").getActiveNode() != null) {
-						$("#tree").dynatree("getRoot").addChild(pregunta, $("#tree").dynatree("getTree").getActiveNode());
-						var newQuestion = $("#tree").dynatree("getTree").getActiveNode().getPrevSibling();
-						if ($("#tree").dynatree("getTree").getActiveNode().isExpanded()) {
-							newQuestion.expand();
-						}
-						$("#tree").dynatree("getTree").getActiveNode().remove();
-						newQuestion.activate();
-					}
-					else {
-						$("#tree").dynatree("getRoot").addChild(pregunta);
-					}
-
+				"Aceptar" : function() {
 					$(this).dialog("close");
 				},
-				Cancel : function() {
+				"Cancelar" : function() {
 					$(this).dialog("close");
 				}
 			},
 			close : function() {
-				allFields.val("");
 			}
 		});
 	},
+	'rellenarListBox' : function(rutas){
+		$("#list-box > .checkbox").remove();
+		for(var i=0;i<rutas.length;i++){
+			$("#list-box").append('<label class="checkbox"><input type="checkbox" value="'+rutas[i].id+'">'+rutas[i].nombre+'</br></label>');
+		}
+	},
 	'getParams' : function() {
 		var id = ($("#id").val()) ? $("#id").val() : null;
-		var usuario = $("input[id=usuario]").val();
+		var input_usuario = $("input[id=usuario]").val();
 		var pwd = $("input[id=pwd]").val();
 
 		var errores = '';
-		if (usuario == '') {
+		if (input_usuario == '') {
 			errores = '- Debe introducir un usuario<br />';
 		}
 		if (pwd == '') {
@@ -185,14 +171,22 @@ var usuario = {
 				nombre : $("input[id=nombre]").val(),
 				apellidos : $("input[id=apellidos]").val(),
 				email : $("input[id=email]").val(),
-				usuario : usuario,
+				usuario : input_usuario,
 				pwd : pwd,
-				admin : $("input:radio[name='tipoUsuario']:checked").val()
+				admin : $("input:radio[name='tipoUsuario']:checked").val(),
+				id_rutas : usuario.recuperarRutasSeleccionadas()
 			};
 			var entity = (id != null) ? 'usuario/' + id : 'usuario';
 			generic.post(entity, data, function() {
 				generic.getList('usuario');
 			});
 		}
+	},
+	'recuperarRutasSeleccionadas' : function(){
+		var rutasSeleccionadas = new Array();
+		$('#list-box input[type=checkbox]:checked').each(function (){
+			rutasSeleccionadas.push(this.value);
+		});
+		return rutasSeleccionadas;
 	}
 }
