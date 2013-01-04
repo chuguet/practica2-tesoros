@@ -18,6 +18,7 @@
 		<intercept-url pattern="/usuario/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/registro**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/ruta/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/configuracion/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/estadisticaRuta/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/estadisticaUsuario/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/logout" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />

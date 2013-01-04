@@ -10,13 +10,9 @@ import com.movember.treasure.model.bean.Mensaje;
 import com.movember.treasure.model.dao.IConfiguracionDAO;
 import com.movember.treasure.model.exception.AppException;
 
-/**
- * The Class EncuestaService.
- */
 @Service
-class ConfiguracionService {
+class ConfiguracionService implements IConfiguracionService {
 
-	/** The configuracion dao. */
 	@Inject
 	private IConfiguracionDAO configuracionDAO;
 
