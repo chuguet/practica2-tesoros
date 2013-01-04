@@ -14,14 +14,14 @@
 	<context:component-scan base-package="com.movember.quizz.controller"/>
 
 	<http auto-config="true" use-expressions="false" entry-point-ref="authenticationEntryPoint">
-		<intercept-url pattern="/home" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
+		<intercept-url pattern="/home" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/usuario/**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/registro**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
+		<intercept-url pattern="/registro**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/ruta/**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/estadisticaRuta/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
-		<intercept-url pattern="/estadisticaUsuario/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
-		<intercept-url pattern="/logout" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
-		<intercept-url pattern="/encontrarHito**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN" />
+		<intercept-url pattern="/estadisticaRuta/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
+		<intercept-url pattern="/estadisticaUsuario/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
+		<intercept-url pattern="/logout" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
+		<intercept-url pattern="/encontrarHito**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<form-login login-page="/login" default-target-url="/home" authentication-failure-url="/loginfailed" login-processing-url="/j_spring_security_check" />
 		<logout logout-success-url="/login" />
 	</http>
