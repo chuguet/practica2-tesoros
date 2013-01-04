@@ -13,17 +13,49 @@
 	
 	<select id="selectById" parameterClass="java.lang.Integer" resultMap="hitoUsuarioResult">
 		SELECT id, id_hito, id_dispositivo, longitud, latitud, identificado, fecha
-		FROM hito_usuario
+		FROM hito_dispositivo
 		WHERE id = #id:INTEGER#
 	</select>
 	
 	<select id="selectAll" resultMap="hitoUsuarioResult">
 		SELECT id, id_hito, id_dispositivo, longitud, latitud, identificado, fecha
-		FROM hito_usuario
+		FROM hito_dispositivo
+	</select>
+	
+	<select id="selectByCriterios" resultMap="hitoUsuarioResult" parameterClass="com.movember.treasure.model.bean.HitoDispositivoCriterios">
+		SELECT hd.id AS id, hd.id_hito AS id_hito, hd.id_dispositivo AS id_dispositivo, 
+		hd.longitud AS longitud, hd.latitud AS latitud, hd.identificado AS identificado, hd.fecha AS fecha
+		FROM hito_dispositivo hd
+		<isNotNull property="id_ruta">
+			INNER JOIN hito h ON h.id = hd.id_hito
+		</isNotNull>
+		<dynamic prepend="WHERE">
+		  	<isNotNull property="id_hito" prepend="AND">
+				id_hito = #id_hito:INTEGER#
+			</isNotNull>
+	  		<isNotNull property="id_dispositivo" prepend="AND">
+				id_dispositivo = #id_dispositivo:INTEGER#
+			</isNotNull>
+			<isNotNull property="longitud" prepend="AND">
+				longitud = #longitud:VARCHAR#
+			</isNotNull>
+			<isNotNull property="latitud" prepend="AND">
+				latitud = #latitud:VARCHAR#
+			</isNotNull>
+			<isNotNull property="identificado" prepend="AND">
+				identificado = #identificado:INTEGER#
+			</isNotNull>
+			<isNotNull property="fecha" prepend="AND">
+				fecha = #fecha:DATETIME#
+			</isNotNull>
+			<isNotNull property="id_ruta" prepend="AND">
+				h.id_ruta = #id_ruta:INTEGER#
+			</isNotNull>
+		</dynamic>
 	</select>
 	
 	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.HitoDispositivo"> 
-	 	INSERT INTO hito_usuario
+	 	INSERT INTO hito_dispositivo
     	(id_hito, id_dispositivo, longitud, latitud, identificado, fecha)
 	 	VALUES  
 	 	(#id_hito:INTEGER#, #id_dispositivo:INTEGER#, #longitud:VARCHAR#, #latitud:VARCHAR#, #identificado:TINYINT#, #fecha:DATETIME#)
@@ -33,7 +65,7 @@
 	</insert>
 	
 	<update id="updateByPrimaryKey" parameterClass="com.movember.treasure.model.bean.HitoDispositivo"> 
-  		UPDATE hito 
+  		UPDATE hito_dispositivo 
   		SET  
   		id_hito = #id_hito:INTEGER#,
   		id_dispositivo = #id_dispositivo:INTEGER#,
@@ -45,7 +77,7 @@
   	</update>
 	
 	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer">
-  		DELETE FROM hito_usuario 
+  		DELETE FROM hito_dispositivo 
   		WHERE id = #id:INTEGER# 
   	</delete>
   	

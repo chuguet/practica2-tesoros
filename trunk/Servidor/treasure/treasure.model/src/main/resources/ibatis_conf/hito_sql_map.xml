@@ -17,6 +17,12 @@
 		WHERE id = #id:INTEGER#
 	</select>
 	
+	<select id="selectByCodigo" parameterClass="java.lang.String" resultMap="hitoResult">
+		SELECT id, nombre, id_ruta, longitud, latitud, codigo, pista
+		FROM hito
+		WHERE codigo = #codigo:VARCHAR#
+	</select>
+	
 	<select id="selectAll" resultMap="hitoResult">
 		SELECT id, nombre, id_ruta, longitud, latitud, codigo, pista
 		FROM hito

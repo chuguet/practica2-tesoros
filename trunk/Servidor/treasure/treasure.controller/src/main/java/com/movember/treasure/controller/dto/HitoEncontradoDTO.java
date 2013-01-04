@@ -4,11 +4,10 @@ import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.exception.AppException;
 
 public class HitoEncontradoDTO extends AbstractDTO {
-
 	private String codigo;
 	private String latitud;
 	private String longitud;
-	private String securityToken;
+	private String uuid;
 
 	public String getCodigo() {
 		return codigo;
@@ -34,12 +33,12 @@ public class HitoEncontradoDTO extends AbstractDTO {
 		this.longitud = longitud;
 	}
 
-	public String getSecurityToken() {
-		return securityToken;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setSecurityToken(String securityToken) {
-		this.securityToken = securityToken;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	/*

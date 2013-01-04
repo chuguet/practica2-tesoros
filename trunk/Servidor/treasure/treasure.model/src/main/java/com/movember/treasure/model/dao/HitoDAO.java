@@ -77,4 +77,8 @@ class HitoDAO extends AbstractDAO implements IHitoDAO {
 	public List<Hito> recuperarDeRuta(Integer idRuta) throws SQLException {
 		return (List<Hito>) this.getSqlMapClient().queryForList("hito.recuperarDeRuta", idRuta);
 	}
+
+	public Hito selectByCodigo(String codigo) throws SQLException {
+		return (Hito) this.getSqlMapClient().queryForObject("hito.selectByCodigo", codigo);
+	}
 }

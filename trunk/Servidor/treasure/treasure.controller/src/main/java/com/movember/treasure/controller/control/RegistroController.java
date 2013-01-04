@@ -6,12 +6,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.movember.treasure.controller.dto.HitoEncontradoDTO;
 import com.movember.treasure.controller.dto.MensajeDTO;
 import com.movember.treasure.controller.dto.UsuarioDTO;
 import com.movember.treasure.model.bean.Dispositivo;
+import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.Usuario;
 import com.movember.treasure.model.exception.AppException;
 import com.movember.treasure.model.service.IDispositivoService;
+import com.movember.treasure.model.service.IHitoService;
 import com.movember.treasure.model.service.IUsuarioService;
 
 /**
@@ -31,6 +34,9 @@ public class RegistroController {
 
 	@Inject
 	private IDispositivoService dispositivoService;
+
+	@Inject
+	private IHitoService hitoService;
 
 	@RequestMapping(value = "/registroUsuario", method = RequestMethod.POST)
 	public @ResponseBody
@@ -60,6 +66,23 @@ public class RegistroController {
 			dispositivo.setUuid(usuarioDTO.getUuid());
 			dispositivoService.insert(dispositivo);
 			return new MensajeDTO("Dispositivo registrado correctamente", true, usuarioDTO.getUuid());
+		}
+		catch (AppException e) {
+			return new MensajeDTO(e.getMessage(), false);
+		}
+	}
+
+	@RequestMapping(value = "/registroHito", method = RequestMethod.POST)
+	public @ResponseBody
+	MensajeDTO insertHito(@RequestBody HitoEncontradoDTO hitoEncontradoDTO) {
+		if (hitoEncontradoDTO == null) {
+			return new MensajeDTO("Un hito es requerido", false);
+		}
+		try {
+			Hito hito = new Hito();
+			hitoEncontradoDTO.toBusiness(hito);
+			String mensaje = hitoService.checkHito(hito, hitoEncontradoDTO.getUuid());
+			return new MensajeDTO("Usuario registrado correctamente", true, mensaje);
 		}
 		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);

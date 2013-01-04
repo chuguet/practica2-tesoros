@@ -24,6 +24,12 @@
 		WHERE usuario = #usuarioNombre:VARCHAR#
 	</select>
 	
+	<select id="selectByIdDispositivo" parameterClass="java.lang.Integer" resultMap="usuarioResult">
+		SELECT id, nombre, apellidos, email, usuario, pwd, admin, id_dispositivo
+		FROM usuario
+		WHERE id_dispositivo = #idDispositivo:INTEGER#
+	</select>
+	
 	<select id="selectAll" resultMap="usuarioResult">
 		SELECT id, nombre, apellidos, email, usuario, pwd, admin, id_dispositivo
 		FROM usuario
