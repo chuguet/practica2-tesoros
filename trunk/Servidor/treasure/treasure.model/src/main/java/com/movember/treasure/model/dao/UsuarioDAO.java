@@ -2,6 +2,7 @@ package com.movember.treasure.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import com.movember.treasure.model.bean.Usuario;
 
@@ -20,9 +21,8 @@ class UsuarioDAO extends AbstractDAO implements IUsuarioDAO {
 	 * com.movember.quizz.model.dao.IRepositoryDAO#insert(com.movember.quizz
 	 * .model.bean.AbstractBean)
 	 */
-	public void insert(Usuario usuario) throws SQLException {
-		Integer id = (Integer) this.getSqlMapClient().insert("usuario.insertReturnId", usuario);
-		usuario.setId(id);
+	public Integer insert(Usuario usuario) throws SQLException {
+		return Integer id = (Integer) this.getSqlMapClient().insert("usuario.insertReturnId", usuario);
 	}
 
 	/*
