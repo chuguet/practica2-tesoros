@@ -37,8 +37,7 @@ public class ConfiguracionController {
 	ConfiguracionDTO retrieve(@PathVariable("id") Integer id) {
 		ConfiguracionDTO configuracionDTO = new ConfiguracionDTO();
 		try {
-			Configuracion configuracion = this.configuracionService.retrieve(id);
-			// Comversion a DTO
+			Configuracion configuracion = this.configuracionService.retrieve();
 			configuracionDTO.toRest(configuracion);
 		}
 		catch (AppException e) {
