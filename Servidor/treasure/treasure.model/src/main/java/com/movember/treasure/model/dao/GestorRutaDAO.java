@@ -30,7 +30,7 @@ public class GestorRutaDAO extends AbstractDAO implements IGestorRutaDAO{
 	public List<Integer> retrieveByIdGestor(Integer pIdGestor) {
 		List<Integer> result = new ArrayList<Integer>();
 		try {
-			result = (List<Integer>) this.getSqlMapClient().queryForList("gestor_ruta.retrieveByIdGestor");
+			result = (List<Integer>) this.getSqlMapClient().queryForList("gestor_ruta.retrieveByIdGestor", pIdGestor);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
