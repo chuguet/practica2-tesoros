@@ -10,9 +10,6 @@ import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.dao.IRutaDAO;
 import com.movember.treasure.model.exception.AppException;
 
-/**
- * The Class EncuestaService.
- */
 @Service
 class RutaService implements IRutaService {
 

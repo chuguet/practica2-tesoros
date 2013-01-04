@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="configuracion">
+	<resultMap id="configuracionResult" class="com.movember.treasure.model.bean.Mensaje">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="mensaje" property="mensaje" jdbcType="TEXT" />
+	</resultMap>
+	
+	<select id="selectAll" resultMap="configuracionResult">
+		SELECT id, mensaje
+		FROM configuracion
+		ORDER BY id
+	</select>
+	
+	<insert id="insert" parameterClass="com.movember.treasure.model.bean.Mensaje"> 
+	 	INSERT INTO configuracion 
+    	(id, mensaje)
+	 	VALUES  
+	 	(#id:INTEGER#, #mensaje:TEXT#)
+	</insert>
+	
+	<delete id="deleteAll">
+  		DELETE FROM configuracion
+  	</delete>
+  	
+</sqlMap>
