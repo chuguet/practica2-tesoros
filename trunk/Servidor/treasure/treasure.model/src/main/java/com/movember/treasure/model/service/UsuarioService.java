@@ -31,7 +31,7 @@ class UsuarioService implements IUsuarioService {
 	private IDispositivoService dispositivoService;
 
 	@Inject
-	private IGestorRutaDAO gestorRutaDAO;
+	private IGestorRutaService gestorRutaService;
 
 	/** The password encoder. */
 	private Md5PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
@@ -53,9 +53,9 @@ class UsuarioService implements IUsuarioService {
 				if (usuario.getRutas_asignadas().size() > 0) {
 					List<GestorRuta> gestorRutaList = crearListaGestorRuta(
 							usuario.getRutas_asignadas(), idUsuario);
-					gestorRutaDAO.deleteAllByIdGestor(idUsuario);
+					gestorRutaService.deleteAllByIdGestor(idUsuario);
 					for (GestorRuta gestorRuta : gestorRutaList) {
-						gestorRutaDAO.insert(gestorRuta);
+						gestorRutaService.insert(gestorRuta);
 					}
 				}
 			} else {
@@ -107,9 +107,9 @@ class UsuarioService implements IUsuarioService {
 			if (usuario.getRutas_asignadas().size() > 0) {
 				List<GestorRuta> gestorRutaList = crearListaGestorRuta(
 						usuario.getRutas_asignadas(), usuario.getId());
-				gestorRutaDAO.deleteAllByIdGestor(usuario.getId());
+				gestorRutaService.deleteAllByIdGestor(usuario.getId());
 				for (GestorRuta gestorRuta : gestorRutaList) {
-					gestorRutaDAO.insert(gestorRuta);
+					gestorRutaService.insert(gestorRuta);
 				}
 			}
 			usuarioDAO.update(usuario);
@@ -141,7 +141,7 @@ class UsuarioService implements IUsuarioService {
 	 */
 	public void delete(Usuario usuario) throws AppException {
 		try {
-			gestorRutaDAO.deleteAllByIdGestor(usuario.getId());
+			gestorRutaService.deleteAllByIdGestor(usuario.getId());
 			usuarioDAO.delete(usuario.getId());
 		} catch (SQLException e) {
 			throw new AppException(
