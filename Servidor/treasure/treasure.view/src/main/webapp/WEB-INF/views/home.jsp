@@ -46,6 +46,7 @@
 		<div id="menu">
 			<a href="javascript:void" onclick="javascript:generic.getList('usuario');" title="Ver usuarios" class="itemMenu">Usuarios</a>
 			<a href="javascript:void" onclick="javascript:generic.getList('ruta');" title="Ver rutas del tesoro" class="itemMenu">Rutas del tesoro</a>
+			<a href="javascript:void" onclick="javascript:generic.getForm('configuracion', 1);" title="Ver configuraci&oacute;n del sistema" class="itemMenu">Configuraci&oacute;n</a>
 			<div id="usuario">
 				<span>Usuario : ${nombre} ${apellidos}</span> 
 				<a href="<c:url value="/j_spring_security_logout" />" id="btnUnlogin" title="Salir"><span>Salir</span></a>

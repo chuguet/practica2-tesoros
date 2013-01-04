@@ -4,7 +4,6 @@ import javax.inject.Inject;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-
 /**
  * The Class AbstractDAO.
  */
@@ -27,8 +26,7 @@ public abstract class AbstractDAO {
 	 * @param transactionManager
 	 *            the new transaction manager
 	 */
-	public void setTransactionManager(
-			DataSourceTransactionManager transactionManager) {
+	public void setTransactionManager(DataSourceTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;
 	}
 
