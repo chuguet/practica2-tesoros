@@ -20,9 +20,8 @@ class HitoDAO extends AbstractDAO implements IHitoDAO {
 	 * com.movember.quizz.model.dao.IRepositoryDAO#insert(com.movember.quizz
 	 * .model.bean.AbstractBean)
 	 */
-	public void insert(Hito hito) throws SQLException {
-		Integer id = (Integer) this.getSqlMapClient().insert("hito.insertReturnId", hito);
-		hito.setId(id);
+	public Integer insert(Hito hito) throws SQLException {
+		return (Integer) this.getSqlMapClient().insert("hito.insertReturnId", hito);
 	}
 
 	/*

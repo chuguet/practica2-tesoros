@@ -12,9 +12,8 @@ class HitoDispositivoDAO extends AbstractDAO implements IHitoDispositivoDAO {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	public void insert(HitoDispositivo hitoUsuario) throws SQLException {
-		Integer id = (Integer) this.getSqlMapClient().insert("hitoUsuario.insertReturnId", hitoUsuario);
-		hitoUsuario.setId(id);
+	public Integer insert(HitoDispositivo hitoUsuario) throws SQLException {
+		return (Integer) this.getSqlMapClient().insert("hitoUsuario.insertReturnId", hitoUsuario);
 	}
 
 	public void update(HitoDispositivo hitoUsuario) throws SQLException {
