@@ -4,10 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import com.movember.treasure.model.bean.HitoDispositivo;
+import com.movember.treasure.model.bean.HitoDispositivoCriterios;
 
-/**
- * The Class HitoDAO.
- */
 @Repository
 class HitoDispositivoDAO extends AbstractDAO implements IHitoDispositivoDAO {
 
@@ -41,5 +39,9 @@ class HitoDispositivoDAO extends AbstractDAO implements IHitoDispositivoDAO {
 
 	public void deleteByHito(Integer idHito) throws SQLException {
 		this.getSqlMapClient().delete("hitoUsuario.deleteByHito", idHito);
+	}
+
+	public List<HitoDispositivo> selectByCriterios(HitoDispositivoCriterios criterios) throws SQLException {
+		return (List<HitoDispositivo>) this.getSqlMapClient().queryForList("hitoUsuario.selectByCriterios", criterios);
 	}
 }

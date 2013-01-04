@@ -20,4 +20,6 @@ public interface IHitoDAO extends IRepositoryDAO<Hito> {
 	 */
 	List<Hito> recuperarDeRuta(Integer idRuta) throws SQLException;
 
+	Hito selectByCodigo(String codigo) throws SQLException;
+
 }

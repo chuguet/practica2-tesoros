@@ -21,4 +21,6 @@ public interface IUsuarioService extends IService<Usuario> {
 
 	void insertWithDevice(Usuario usuario, String uuid) throws AppException;
 
+	Usuario selectByIdDispositivo(Integer id) throws AppException;
+
 }

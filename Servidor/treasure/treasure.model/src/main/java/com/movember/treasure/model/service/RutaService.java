@@ -32,6 +32,15 @@ class RutaService implements IRutaService {
 	 */
 	public void insert(Ruta ruta) throws AppException {
 		try {
+			// Se comprueba que ningún hito tenga el código duplicado
+			Hito hitoBBDD;
+			for (Hito hito : ruta.getHitos()) {
+				hitoBBDD = this.hitoService.recuperarPorCodigo(hito.getCodigo());
+				if (hitoBBDD != null) {
+					throw new AppException("Ya existe un hito con el código " + hito.getCodigo());
+				}
+			}
+
 			rutaDAO.insert(ruta);
 			if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
 				for (Hito hito : ruta.getHitos()) {
@@ -53,6 +62,17 @@ class RutaService implements IRutaService {
 	 */
 	public void update(Ruta ruta) throws AppException {
 		try {
+			Hito hitoBBDD;
+			// Verificamos que no haya codigos duplicados
+			for (Hito hito : ruta.getHitos()) {
+				hitoBBDD = this.hitoService.recuperarPorCodigo(hito.getCodigo());
+				if (hitoBBDD != null) {
+					if ((hito.getId() != null && !hitoBBDD.getId().equals(hito.getId())) || hito.getId() == null) {
+						throw new AppException("Ya existe un hito con el código " + hito.getCodigo());
+					}
+				}
+			}
+
 			rutaDAO.update(ruta);
 			if (ruta.getHitos() != null && ruta.getHitos().size() > 0) {
 				List<Hito> hitosAntiguas = this.hitoService.recuperarDeRuta(ruta.getId());

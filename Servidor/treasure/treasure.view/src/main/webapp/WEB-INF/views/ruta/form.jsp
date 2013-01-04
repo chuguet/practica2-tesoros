@@ -94,20 +94,18 @@
 	</form>
 </div>
 
-<div id="dialog-form-premios" title="A&ntilde;adir Premio">
+<div id="dialog-form-premios" title="Premios usuario">
 	<form id="frmPremios">
 		<div id="tabs-premios">
 		    <ul>
-		        <li><a href="#tabs-premios-1">Usuarios identificados</a></li>
-		        <li><a href="#tabs-premios-2">Usuarios no identificados</a></li>
+		        <li><a href="#tabs-premios-1">Premio identificados</a></li>
+		        <li><a href="#tabs-premios-2">Premio no identificados</a></li>
 		    </ul>
 		    <div id="tabs-premios-1">
-				<label for="premio-identificados">Premio usuarios identificados</label><br /> 
-				<textarea id="premio-identificados" name="premio-identificados" style="height:200px;"></textarea>
+				<textarea id="premio-identificados" name="premio-identificados" style="height:400px;"></textarea>
 			</div>
 			<div id="tabs-premios-2" style="position:relative;">
-				<label for="premio-no-identificados">Premio usuarios no identificados</label>
-				<textarea id="premio-no-identificados" name="premio-no-identificados" style="height:200px;"></textarea>
+				<textarea id="premio-no-identificados" name="premio-no-identificados" style="height:400px;"></textarea>
 			</div>
 		</div>
 	</form>

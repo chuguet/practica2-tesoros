@@ -178,7 +178,8 @@ var ruta = {
 
 		this.configureGoogleMaps();
 
-		//Configuracion como objetos de jquery los siguientes elementos de hitos
+		// Configuracion como objetos de jquery los siguientes elementos de
+		// hitos
 		$("#tabs").tabs();
 		$('#tabs').bind('tabsshow', function(event, ui) {
 			if (ui.panel.id == "tabs-2") {
@@ -187,12 +188,16 @@ var ruta = {
 			}
 		})
 		$('#pista').redactor();
-		//Configuracion como objetos de jquery los siguientes elementos de premios
+		// Configuracion como objetos de jquery los siguientes elementos de
+		// premios
 		$("#tabs-premios").tabs();
 		$('#premio-identificados').redactor();
 		$('#premio-no-identificados').redactor();
 
-		/*********************************GESTION DE BOTONES DE HITOS************************************************/
+		/**
+		 * *******************************GESTION DE BOTONES DE
+		 * HITOS***********************************************
+		 */
 		$("#btnAddHito").button().click(function() {
 			ruta.deseleccionarHito();
 			$('#dialog-form').dialog('option', 'title', 'A&ntilde;adir Hito');
@@ -224,9 +229,7 @@ var ruta = {
 			ruta.deseleccionarHito();
 		});
 
-		/*********************************GESTION DE BOTONES DE PREMIOS************************************************/
 		$("#btnPremio").button().click(function() {
-			$('#dialog-form-premios').dialog('option', 'title', 'Premios');
 			$('#tabs-premios').tabs('select', 0);
 			$("#dialog-form-premios").dialog("open");
 		});
@@ -336,7 +339,8 @@ var ruta = {
 			close : function() {
 			}
 		});
-		//Se limpian los textArea de premios a no ser que sean de edicion que funcionaria el show information
+		// Se limpian los textArea de premios a no ser que sean de edicion que
+		// funcionaria el show information
 		$('#premio-identificados').setCode('');
 		$('#premio-identificados').val('');
 		$('#premio-no-identificados').setCode('');

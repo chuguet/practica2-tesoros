@@ -155,4 +155,13 @@ class UsuarioService implements IUsuarioService {
 		String pwd = passwordEncoder.encodePassword(usuario.getPwd(), null);
 		usuario.setPwd(pwd);
 	}
+
+	public Usuario selectByIdDispositivo(Integer idDispositivo) throws AppException {
+		try {
+			return usuarioDAO.selectByIdDispositivo(idDispositivo);
+		}
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error de BBDD al recuperar un usuario por su identificador de dispositivo");
+		}
+	}
 }

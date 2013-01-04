@@ -19,4 +19,8 @@ public interface IHitoService extends IService<Hito> {
 	 *             the app exception
 	 */
 	List<Hito> recuperarDeRuta(Integer idRuta) throws AppException;
+
+	String checkHito(Hito hito, String uuid) throws AppException;
+
+	Hito recuperarPorCodigo(String codigo) throws AppException;
 }
