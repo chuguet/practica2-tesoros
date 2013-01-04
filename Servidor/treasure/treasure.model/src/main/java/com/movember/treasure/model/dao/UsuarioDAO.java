@@ -22,7 +22,7 @@ class UsuarioDAO extends AbstractDAO implements IUsuarioDAO {
 	 * .model.bean.AbstractBean)
 	 */
 	public Integer insert(Usuario usuario) throws SQLException {
-		return Integer id = (Integer) this.getSqlMapClient().insert("usuario.insertReturnId", usuario);
+		return (Integer) this.getSqlMapClient().insert("usuario.insertReturnId", usuario);
 	}
 
 	/*
