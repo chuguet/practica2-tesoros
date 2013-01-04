@@ -12,8 +12,13 @@
 			$('input[id=apellidos]').val(usuario.apellidos);
 			$('input[id=email]').val(usuario.email);
 			$('input[id=usuario]').val(usuario.usuario);
-			if (usuario.admin == 1)
-			$('input[id=admin]').attr('checked', true);
+			if(usuario.admin == 0){
+				$('input:radio[name=tipoUsuario]')[0].checked = true;
+			} else if (usuario.admin == 1){
+				$('input:radio[name=tipoUsuario]')[2].checked = true;
+			} else if (usuario.admin ==2){
+				$('input:radio[name=tipoUsuario]')[1].checked = true;
+			}
 		};
 	</c:if>
 </script>
@@ -47,8 +52,10 @@
 			<input id="pwd" type="password" maxlength="200" class="text ui-widget-content ui-corner-all" />
 		</p>
 		<p>
-			<label for="admin">Es administrador:</label>
-			<input id="admin" type="checkbox"  class="ui-widget-content ui-corner-all" />
+			<label for="admin">Tipo de usuario:</label>
+			<input id="usuario" name="tipoUsuario" type="radio" value="0" />Usuario
+			<input id="gestor" name="tipoUsuario" type="radio" value="2" />Gestor
+			<input id="administrador" name="tipoUsuario" type="radio" value="1" />Administrador
 		</p>
 		<div class="botonera">
 			<c:choose>

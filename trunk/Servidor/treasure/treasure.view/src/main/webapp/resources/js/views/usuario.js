@@ -6,7 +6,7 @@ var usuario = {
 			datatype : 'local',
 			data : [],
 			colNames : [
-					"Id", "Nombre", "Apellidos", "Email", "Usuario", "Es admin"
+					"Id", "Nombre", "Apellidos", "Email", "Usuario", "Tipo usuario"
 			],
 			colModel : [
 					{
@@ -187,7 +187,7 @@ var usuario = {
 				email : $("input[id=email]").val(),
 				usuario : usuario,
 				pwd : pwd,
-				admin : $("input[id=admin]").is(':checked') ? 1 : 0
+				admin : $("input:radio[name='tipoUsuario']:checked").val()
 			};
 			var entity = (id != null) ? 'usuario/' + id : 'usuario';
 			generic.post(entity, data, function() {

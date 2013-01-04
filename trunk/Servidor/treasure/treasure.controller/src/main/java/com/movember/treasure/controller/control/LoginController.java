@@ -31,15 +31,15 @@ public class LoginController {
 	 * @return the string
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String printWelcome(ModelMap model, Principal principal, HttpServletRequest request) {
+	public String printWelcome(ModelMap model, Principal principal,
+			HttpServletRequest request) {
 		UsernamePasswordAuthenticationToken u = (UsernamePasswordAuthenticationToken) principal;
 		if (u != null) {
 			Usuario usuario = (Usuario) u.getPrincipal();
 			model.addAttribute("nombre", usuario.getNombre());
 			model.addAttribute("apellidos", usuario.getApellidos());
 			model.addAttribute("id_usuario", usuario.getId());
-		}
-		else {
+		} else {
 			model.addAttribute("nombre", "Usuario anónimo");
 			model.addAttribute("apellidos", null);
 			model.addAttribute("id_usuario", null);
@@ -47,13 +47,15 @@ public class LoginController {
 		model.addAttribute("ip_usuario", request.getRemoteAddr());
 		model.addAttribute("mobile", false);
 		if (u != null) {
-			if (!u.getAuthorities().contains(new GrantedAuthorityImpl("ROLE_ADMIN"))) {
-				model.addAttribute("noAccess", true);
-				return "login";
+			if (u.getAuthorities().contains(
+					new GrantedAuthorityImpl("ROLE_ADMIN"))
+					|| u.getAuthorities().contains(
+							new GrantedAuthorityImpl("ROLE_GESTOR"))) {
+				return "home";
 			}
-			return "home";
-		}
-		else {
+			model.addAttribute("noAccess", true);
+			return "login";
+		} else {
 			return "login";
 		}
 	}

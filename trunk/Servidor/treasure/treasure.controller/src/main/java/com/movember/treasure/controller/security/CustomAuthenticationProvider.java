@@ -40,10 +40,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.springframework.security.authentication.AuthenticationProvider#
 	 * authenticate(org.springframework.security.core.Authentication)
 	 */
-	public Authentication authenticate(Authentication auth) throws AuthenticationException {
+	public Authentication authenticate(Authentication auth)
+			throws AuthenticationException {
 
 		logger.debug("Performing custom authentication");
 
@@ -53,8 +55,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		try {
 			// Retrieve user details from database
 			usuario = usuarioService.selectByUser(auth.getName());
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			// logger.error("User does not exists!");
 			throw new BadCredentialsException("El usuario no existe");
 		}
@@ -65,13 +66,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		}
 		// Compare passwords
 		// Make sure to encode the password first before comparing
-		if (passwordEncoder.isPasswordValid(usuario.getPwd(), (String) auth.getCredentials(), null) == false) {
+		if (passwordEncoder.isPasswordValid(usuario.getPwd(),
+				(String) auth.getCredentials(), null) == false) {
 			logger.error("Contraseña incorrecta!");
 			throw new BadCredentialsException("Contraseña incorrecta");
 		}
 
 		logger.debug("Los detalles del usuario son correctos");
-		return new UsernamePasswordAuthenticationToken(usuario, auth.getCredentials(), getAuthorities(usuario.getAdmin()));
+		return new UsernamePasswordAuthenticationToken(usuario,
+				auth.getCredentials(), getAuthorities(usuario.getAdmin()));
 	}
 
 	/**
@@ -94,10 +97,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		// Check if this user has admin access
 		// We interpret Integer(1) as an admin user
-		if (access.compareTo(1) == 0) {
+		if (access.equals(1)) {
 			// User has admin access
 			logger.debug("Grant ROLE_ADMIN to this user");
 			authList.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
+		} else if (access.equals(2)) {
+			// User has gestor access
+			logger.debug("Grant ROLE_GESTOR to this user");
+			authList.add(new GrantedAuthorityImpl("ROLE_GESTOR"));
 		}
 
 		// Return list of granted authorities
@@ -106,11 +113,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * org.springframework.security.authentication.AuthenticationProvider#supports
 	 * (java.lang.Class)
 	 */
 	public boolean supports(Class<?> authentication) {
-		return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+		return (UsernamePasswordAuthenticationToken.class
+				.isAssignableFrom(authentication));
 	}
 }
