@@ -27,4 +27,5 @@ body.web div#content fieldset {border-radius: 10px; -webkit-border-radius: 10px;
 body.web div#content form label {width:115px; display:inline-block;}
 body.web div#content form input.text {width:220px; }
 
-body.web form#frmPremios div.redactor_editor{height:250px;}
+body.web form#frmPremios div.redactor_editor {height:250px;}
+body.web form#frmMensaje div.redactor_editor {height:340px;}

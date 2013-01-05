@@ -77,14 +77,14 @@ public class ConfiguracionController {
 	public @ResponseBody
 	MensajeDTO insert(@RequestBody ConfiguracionDTO configuracionDTO) {
 		if (configuracionDTO == null) {
-			return new MensajeDTO("Una configuracion es requerida", false);
+			return new MensajeDTO("Una configuración es requerida", false);
 		}
 
 		try {
 			Configuracion configuracion = new Configuracion();
 			configuracionDTO.toBusiness(configuracion);
 			configuracionService.insert(configuracion);
-			return new MensajeDTO("Configuracion insertada correctamente", true);
+			return new MensajeDTO("Configuración modificada correctamente", true);
 		}
 		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);

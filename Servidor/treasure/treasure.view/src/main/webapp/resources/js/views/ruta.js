@@ -213,7 +213,7 @@ var ruta = {
 			$("#nombreHito").attr('key', hito.idRest);
 			$("#codigo").val(hito.codigo);
 			$("#pista").val(hito.pista);
-			$(".redactor_editor").html(hito.pista);
+			$("#pista").setCode(hito.pista);
 			$('#longitud').val(hito.longitud);
 			$('#latitud').val(hito.latitud);
 			ruta.paintPoint(hito.latitud, hito.longitud);
@@ -231,6 +231,10 @@ var ruta = {
 
 		$("#btnPremio").button().click(function() {
 			$('#tabs-premios').tabs('select', 0);
+			$('#premio-identificados').setCode($('#premio_identificados').val());
+			$('#premio-identificados').val($('#premio_identificados').val());
+			$('#premio-no-identificados').setCode($('#premio_no_identificados').val());
+			$('#premio-no-identificados').val($('#premio_no_identificados').val());
 			$("#dialog-form-premios").dialog("open");
 		});
 
@@ -303,7 +307,7 @@ var ruta = {
 				$("#longitud").val('');
 				$("#latitud").val('');
 				$("#pista").val('');
-				$(".redactor_editor").html('');
+				$("#pista").setCode('');
 				if (ruta.newLocation != null){
 					ruta.map.removeOverlay(ruta.newLocation);
 				}
@@ -329,7 +333,8 @@ var ruta = {
 						jAlert(error, 'Error');
 						return;
 					}
-					
+					$('#premio_identificados').val($('#premio-identificados').val());
+					$('#premio_no_identificados').val($('#premio-no-identificados').val());
 					$(this).dialog("close");
 				},
 				"Cancelar" : function() {
@@ -359,8 +364,8 @@ var ruta = {
 		var fecha_fin = $("#fecha_fin").val();
 		var hitos = $('#lista').jqGrid('getRowData');
 		var hitos_necesarios = $('#hitos_necesarios').val();
-		var premio_identificados = $('#premio-identificados').val();
-		var premio_no_identificados = $('#premio-no-identificados').val();
+		var premio_identificados = $('#premio_identificados').val();
+		var premio_no_identificados = $('#premio_no_identificados').val();
 		var errores = '';
 		if (nombre == '') {
 			errores = "- El nombre es obligatorio<br />";

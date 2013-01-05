@@ -35,6 +35,7 @@
 		<script src="resources/js/views/usuario.js" type="text/javascript"></script>
 		<script src="resources/js/views/estadisticaRuta.js" type="text/javascript"></script>
 		<script src="resources/js/views/estadisticaUsuario.js" type="text/javascript"></script>
+		<script src="resources/js/views/configuracion.js" type="text/javascript"></script>
 		
 	</head>
 	<body id="quizz" class="web">
