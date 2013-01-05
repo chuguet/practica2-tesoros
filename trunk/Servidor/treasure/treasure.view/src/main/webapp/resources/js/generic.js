@@ -145,5 +145,8 @@ var generic = {
 	'resizeContent' : function() {
 		var bodyHeight = $('body').height();
 		$('#content').height(bodyHeight - 103);
+	},
+	'goHome' : function() {
+		$('#content').html('<img src="resources/imgs/tesoro.png" alt="imagenes"/>');
 	}
 };

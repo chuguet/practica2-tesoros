@@ -26,10 +26,11 @@ class ConfiguracionService implements IConfiguracionService {
 				mensaje.setId(numero * count);
 				mensaje.setMensaje(message);
 				configuracionDAO.insert(mensaje);
+				count++;
 			}
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al insertar la configuracion");
+			throw new AppException("Se ha producido un error al cambiar la configuración");
 		}
 	}
 
@@ -38,7 +39,7 @@ class ConfiguracionService implements IConfiguracionService {
 			configuracionDAO.deleteAll();
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al eliminar la configuracion");
+			throw new AppException("Se ha producido un error al eliminar la configuración");
 		}
 	}
 
@@ -57,7 +58,7 @@ class ConfiguracionService implements IConfiguracionService {
 			return configuracion;
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al recuperar la configuracion");
+			throw new AppException("Se ha producido un error al recuperar la configuración");
 		}
 	}
 }

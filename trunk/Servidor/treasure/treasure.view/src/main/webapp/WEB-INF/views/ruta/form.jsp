@@ -12,10 +12,12 @@
 			$('#fecha_inicio').val(ruta.fecha_inicio);
 			$('#fecha_fin').val(ruta.fecha_fin);
 			$('#hitos_necesarios').val(ruta.hitos_necesarios);
-			$('#premio-identificados').setCode(ruta.premio_identificados);
+			$('#premio_identificados').val(ruta.premio_identificados);
+			$('#premio_no_identificados').val(ruta.premio_no_identificados);
+			/* $('#premio-identificados').setCode(ruta.premio_identificados);
 			$('#premio-identificados').val(ruta.premio_identificados);
 			$('#premio-no-identificados').setCode(ruta.premio_no_identificados);
-			$('#premio-identificados').val(ruta.premio_identificados);
+			$('#premio-identificados').val(ruta.premio_identificados); */
 			$("#lista").setGridParam({
 				data : ruta.hitosDTO
 			}).trigger("reloadGrid");
@@ -31,6 +33,8 @@
 		</c:choose>
 		</legend>
 		<input type="hidden" id="id" />
+		<input type="hidden" id="premio_identificados" />
+		<input type="hidden" id="premio_no_identificados" />
 		<p>
 			<label for="nombre">Nombre:</label>
 			<input id="nombre" maxlength="200" class="text ui-widget-content ui-corner-all" />
