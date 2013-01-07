@@ -3,6 +3,8 @@ var estadisticaRuta = {
 		// Introduzco nombre de la encuesta en un span del jsp
 		var nombreRuta = $('#rutaText').text() + registro.ruta;
 		$('#rutaText').text(nombreRuta);
+		var usuarios = 'Numero de usuarios que han conseguido el tesoro de la ruta: '+registro.usuarios_ruta_completada;
+		$('#usuarios').text(usuarios);
 		var fechaInicio = 'Fecha de inicio: ' + registro.fecha_inicio;
 		$('#fecha_inicio').text(fechaInicio);
 		var fechaFin = 'Fecha de fin: ' + registro.fecha_fin;
