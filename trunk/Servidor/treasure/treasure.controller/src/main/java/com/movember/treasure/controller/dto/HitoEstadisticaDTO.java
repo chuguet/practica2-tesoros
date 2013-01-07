@@ -23,6 +23,8 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 
 	/** The nombre. */
 	private String nombre;
+	
+	private String codigo;
 
 	/**
 	 * Gets the contador_no_usuarios_identificados.
@@ -147,6 +149,15 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 		this.setLatitud(hitoEstadistica.getLatitud());
 		this.setLongitud(hitoEstadistica.getLongitud());
 		this.setNombre(hitoEstadistica.getNombre());
+		this.setCodigo(hitoEstadistica.getCodigo());
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }
