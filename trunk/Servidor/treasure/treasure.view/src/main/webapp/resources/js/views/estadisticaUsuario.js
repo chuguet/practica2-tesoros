@@ -32,5 +32,36 @@ var estadisticaUsuario = {
 									+ ' completado]</b></a></li></ul></li></ul>');
 		}
 		$('#tabla_rutas').jstree();
+		//Añadimos el mapa con los hitos checkeados
+		this.map = new GMap2(document.getElementById("map_canvas"));
+		this.map.addControl(new GSmallMapControl());
+		this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
+
+		for ( var i = 0; i < registro.hitos_terminados.length; i++) {
+			var hito = registro.hitos_terminados[i];
+			var latitud = hito.latitud;
+			var longitud = hito.longitud;
+			var point = new GLatLng(latitud, longitud);
+			var html = createPopUp(hito);
+			var hitoMapa = createMarker(point, html);
+			this.map.addOverlay(hitoMapa);
+		}
 	}
 };
+function createMarker(point, nombre) {
+	var marker = new GMarker(point);
+	GEvent.addListener(marker, 'click', function() {
+		marker.openInfoWindowHtml(nombre);
+	});
+	return marker;
+}
+function createPopUp(hito) {
+	var html = "<b>Nombre del hito: </b>" + hito.nombre + ".<br/><br/>";
+	html = html
+			+ "<span style='color: #808080; font-size: 9px;'>Latitud: "
+			+ hito.latitud + "</span><br/>";
+	html = html
+			+ "<span style='color: #808080; font-size: 9px;'>Longitud: "
+			+ hito.longitud + "</span>";
+	return html;
+}
