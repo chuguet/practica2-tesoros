@@ -111,9 +111,10 @@ class EstadisticaService implements IEstadisticaService {
 			// Recuperamos las rutas terminadas e hitos terminados
 			List<Hito> hitosTerminados = estadisticaDAO
 					.recuperarNumeroHitosTerminados(pIdUsuario);
+			estadisticaUsuario.setHitos_terminados(toHitoEstadistica(hitosTerminados));
 			List<Ruta> rutasTerminadas = estadisticaDAO
 					.recuperarNumeroRutasTerminadas(pIdUsuario);
-			estadisticaUsuario.setHitos_terminados(hitosTerminados.size());
+			estadisticaUsuario.setNum_hitos_terminados(hitosTerminados.size());
 			estadisticaUsuario.setRutas_terminadas(rutasTerminadas.size());
 			List<RutaHitoPorcentaje> listaRutaHitoPorcentaje = new ArrayList<RutaHitoPorcentaje>();
 			for (Ruta ruta : rutaService.selectAll()) {
@@ -138,6 +139,20 @@ class EstadisticaService implements IEstadisticaService {
 		}
 
 		return estadisticaUsuario;
+	}
+
+	private List<HitoEstadistica> toHitoEstadistica(List<Hito> hitosTerminados) {
+		List<HitoEstadistica> result = new ArrayList<HitoEstadistica>();
+		HitoEstadistica hitoEstadistica;
+		for(Hito hito : hitosTerminados){
+			hitoEstadistica = new HitoEstadistica();
+			hitoEstadistica.setId(hito.getId());
+			hitoEstadistica.setLatitud(hito.getLatitud());
+			hitoEstadistica.setLongitud(hito.getLongitud());
+			hitoEstadistica.setNombre(hito.getNombre());
+			result.add(hitoEstadistica);
+		}
+		return result;
 	}
 
 	private List<Hito> getListHitosDeRuta(Integer idRuta,

@@ -15,7 +15,7 @@ public class EstadisticaUsuario extends AbstractBean{
 	private Integer rutas_terminadas;
 
 	/** The num_hitos_terminados. */
-	private Integer hitos_terminados;
+	private Integer num_hitos_terminados;
 
 	/** The porcentaje_rutas_hitos. */
 	private List<RutaHitoPorcentaje> porcentaje_rutas_hitos;
@@ -26,6 +26,8 @@ public class EstadisticaUsuario extends AbstractBean{
 	/** The num_hitos_totales. */
 	private Integer num_hitos_totales;
 
+	private List<HitoEstadistica> hitos_terminados;
+	
 	/**
 	 * Gets the usuario.
 	 * 
@@ -103,11 +105,11 @@ public class EstadisticaUsuario extends AbstractBean{
 		this.num_hitos_totales = num_hitos_totales;
 	}
 
-	public Integer getHitos_terminados() {
+	public List<HitoEstadistica> getHitos_terminados() {
 		return hitos_terminados;
 	}
 
-	public void setHitos_terminados(Integer hitos_terminados) {
+	public void setHitos_terminados(List<HitoEstadistica> hitos_terminados) {
 		this.hitos_terminados = hitos_terminados;
 	}
 
@@ -117,6 +119,14 @@ public class EstadisticaUsuario extends AbstractBean{
 
 	public void setRutas_terminadas(Integer rutas_terminadas) {
 		this.rutas_terminadas = rutas_terminadas;
+	}
+
+	public Integer getNum_hitos_terminados() {
+		return num_hitos_terminados;
+	}
+
+	public void setNum_hitos_terminados(Integer num_hitos_terminados) {
+		this.num_hitos_terminados = num_hitos_terminados;
 	}
 
 }
