@@ -27,6 +27,8 @@ public class EstadisticaRutaDTO extends AbstractDTO {
 
 	/** The codigo. */
 	private String ruta;
+	
+	private Integer usuarios_ruta_completada;
 
 	@Override
 	public void toRest(Object object) throws AppException {
@@ -37,6 +39,7 @@ public class EstadisticaRutaDTO extends AbstractDTO {
 		this.setContador_total(estadistica.getContador_total());
 		this.setFecha_fin(sdf.format(estadistica.getFecha_fin()));
 		this.setFecha_inicio(sdf.format(estadistica.getFecha_inicio()));
+		this.setUsuarios_ruta_completada(estadistica.getUsuarios_ruta_completada());
 		if (estadistica.getHitos() != null && estadistica.getHitos().size() > 0) {
 			HitoEstadisticaDTO hitoEstadisticaDTO;
 			for (HitoEstadistica hito : estadistica.getHitos()) {
@@ -103,6 +106,14 @@ public class EstadisticaRutaDTO extends AbstractDTO {
 	 */
 	@Override
 	public void toBusiness(Object object) throws AppException {
+	}
+
+	public Integer getUsuarios_ruta_completada() {
+		return usuarios_ruta_completada;
+	}
+
+	public void setUsuarios_ruta_completada(Integer usuarios_ruta_completada) {
+		this.usuarios_ruta_completada = usuarios_ruta_completada;
 	}
 
 }

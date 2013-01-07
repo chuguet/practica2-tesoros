@@ -36,13 +36,18 @@ class EstadisticaService implements IEstadisticaService {
 			throws AppException {
 		EstadisticaRuta estadistica = new EstadisticaRuta();
 
-		Ruta ruta = rutaService.retrieve(pId);
-		estadistica.setId(ruta.getId());
-		estadistica.setFecha_fin(ruta.getFecha_fin());
-		estadistica.setFecha_inicio(ruta.getFecha_inicio());
-		estadistica.setRuta(ruta.getNombre());
-		estadistica.setHitos(getHitoEstadistica(ruta));
-		estadistica.setContador_total(getContadorTotal(estadistica.getHitos()));
+		try {
+			Ruta ruta = rutaService.retrieve(pId);
+			estadistica.setId(ruta.getId());
+			estadistica.setFecha_fin(ruta.getFecha_fin());
+			estadistica.setFecha_inicio(ruta.getFecha_inicio());
+			estadistica.setRuta(ruta.getNombre());
+			estadistica.setHitos(getHitoEstadistica(ruta));
+			estadistica.setContador_total(getContadorTotal(estadistica.getHitos()));
+			estadistica.setUsuarios_ruta_completada(estadisticaDAO.recuperarNumeroUsuariosHanTerminadoRuta(pId));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return estadistica;
 	}

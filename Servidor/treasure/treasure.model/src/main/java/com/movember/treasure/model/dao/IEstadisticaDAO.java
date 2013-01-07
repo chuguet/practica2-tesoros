@@ -22,4 +22,6 @@ public interface IEstadisticaDAO {
 	List<Hito> recuperarNumeroHitosTerminados(Integer pIdUsuario) throws SQLException;
 
 	List<Ruta> recuperarNumeroRutasTerminadas(Integer pIdUsuario) throws SQLException;
+	
+	Integer recuperarNumeroUsuariosHanTerminadoRuta(Integer pIdRuta) throws SQLException;
 }

@@ -11,6 +11,7 @@
 
 <fieldset id="estadistica">
 	<legend id="rutaText">Resultados de la ruta </legend>
+	<p id="usuarios"></p>
 	<p id="fecha_inicio"></p> 
 	<p id="fecha_fin"></p>
 	<p id="hitos_check"></p>

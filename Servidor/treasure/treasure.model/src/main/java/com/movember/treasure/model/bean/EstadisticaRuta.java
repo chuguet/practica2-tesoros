@@ -26,6 +26,8 @@ public class EstadisticaRuta extends AbstractBean {
 
 	/** The codigo. */
 	private String ruta;
+	
+	private Integer usuarios_ruta_completada;
 
 	/*
 	 * (non-Javadoc)
@@ -125,6 +127,14 @@ public class EstadisticaRuta extends AbstractBean {
 	 */
 	public void setRuta(String ruta) {
 		this.ruta = ruta;
+	}
+
+	public Integer getUsuarios_ruta_completada() {
+		return usuarios_ruta_completada;
+	}
+
+	public void setUsuarios_ruta_completada(Integer usuarios_ruta_completada) {
+		this.usuarios_ruta_completada = usuarios_ruta_completada;
 	}
 
 	

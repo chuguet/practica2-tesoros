@@ -43,4 +43,10 @@ public class EstadisticaDAO extends AbstractDAO implements IEstadisticaDAO {
 		return (List<Ruta>) this.getSqlMapClient().queryForList(
 				"estadistica.selectRutasTerminadas", pIdUsuario);
 	}
+
+	public Integer recuperarNumeroUsuariosHanTerminadoRuta(Integer pIdRuta)
+			throws SQLException {
+		return (Integer) this.getSqlMapClient().queryForObject(
+				"estadistica.recuperarNumeroUsuariosHanTerminadoRuta", pIdRuta);//TODO
+	}
 }
