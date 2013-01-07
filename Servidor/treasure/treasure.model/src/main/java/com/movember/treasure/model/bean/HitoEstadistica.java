@@ -20,6 +20,8 @@ public class HitoEstadistica extends AbstractBean {
 
 	/** The nombre. */
 	private String nombre;
+	
+	private String codigo;
 
 	/**
 	 * Gets the contador_no_usuarios_identificados.
@@ -116,6 +118,14 @@ public class HitoEstadistica extends AbstractBean {
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }

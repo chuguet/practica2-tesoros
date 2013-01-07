@@ -20,7 +20,7 @@ var estadisticaRuta = {
 			var latitud = hito.latitud;
 			var longitud = hito.longitud;
 			var point = new GLatLng(latitud, longitud);
-			var html = createPopUp(hito);
+			var html = createPopUpRuta(hito);
 			var hitoMapa = createMarker(point, html);
 			this.map.addOverlay(hitoMapa);
 		}
@@ -39,17 +39,16 @@ function createMarker(point, nombre) {
 	});
 	return marker;
 }
-function createPopUp(hito) {
-	var html = "<b>Nombre del hito: </b>" + hito.nombre + ".<br/><br/>";
-	html = html
-			+ "<span style='color: #808080; font-size: 9px;'>Latitud: "
+function createPopUpRuta(hito) {
+	var html = "<b>Nombre del hito: </b>" + hito.nombre + ".<br/>";
+	html = html + "<b>C&oacute;digo de etiqueta:</b> " + hito.codigo + "<br/><br/>";
+	html = html + "<span style='color: #808080; font-size: 9px;'>Latitud: "
 			+ hito.latitud + "</span><br/>";
-	html = html
-			+ "<span style='color: #808080; font-size: 9px;'>Longitud: "
+	html = html + "<span style='color: #808080; font-size: 9px;'>Longitud: "
 			+ hito.longitud + "</span>";
-	html = html + "<br/><br/><br/>Usuarios registrados que han checkeado:"
+	html = html + "<br/><br/><br/>Usuarios <b>registrados</b> que han checkeado:"
 			+ hito.contador_usuarios_identificados;
-	html = html + "<br/>Usuarios no registrados que han checkeado:"
+	html = html + "<br/>Usuarios <b>no registrados</b> que han checkeado:"
 			+ hito.contador_no_usuarios_identificados;
 	return html;
 }

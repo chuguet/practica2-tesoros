@@ -57,6 +57,7 @@ class EstadisticaService implements IEstadisticaService {
 				hitoEstadistica.setLatitud(hito.getLatitud());
 				hitoEstadistica.setLongitud(hito.getLongitud());
 				hitoEstadistica.setNombre(hito.getNombre());
+				hitoEstadistica.setCodigo(hito.getCodigo());
 				hitoEstadistica
 						.setContador_usuarios_identificados(estadisticaDAO
 								.recuperarHitosUsuIdent(ruta.getId()).get(
@@ -149,6 +150,7 @@ class EstadisticaService implements IEstadisticaService {
 			hitoEstadistica.setId(hito.getId());
 			hitoEstadistica.setLatitud(hito.getLatitud());
 			hitoEstadistica.setLongitud(hito.getLongitud());
+			hitoEstadistica.setCodigo(hito.getCodigo());
 			hitoEstadistica.setNombre(hito.getNombre());
 			result.add(hitoEstadistica);
 		}
