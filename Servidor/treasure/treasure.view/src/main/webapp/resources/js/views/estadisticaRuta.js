@@ -10,7 +10,7 @@ var estadisticaRuta = {
 		var fechaFin = 'Fecha de fin: ' + registro.fecha_fin;
 		$('#fecha_fin').text(fechaFin);
 		var contadorTotal = 'Con un total de ' + registro.contador_total
-				+ ' hitos chequeados';
+				+ ' check-in en hitos';
 		$('#hitos_check').text(contadorTotal);
 
 		this.map = new GMap2(document.getElementById("map_canvas"));

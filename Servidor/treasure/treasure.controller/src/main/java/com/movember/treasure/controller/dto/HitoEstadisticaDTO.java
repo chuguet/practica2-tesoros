@@ -1,5 +1,7 @@
 package com.movember.treasure.controller.dto;
 
+import java.text.SimpleDateFormat;
+
 import com.movember.treasure.model.bean.HitoEstadistica;
 import com.movember.treasure.model.exception.AppException;
 
@@ -8,7 +10,8 @@ import com.movember.treasure.model.exception.AppException;
  * The Class PreguntaEstadisticaDTO.
  */
 public class HitoEstadisticaDTO extends AbstractDTO {
-
+	private static final SimpleDateFormat sdf = new SimpleDateFormat(
+			"dd/MM/YYYY HH:mm");
 	/** The contador_no_usuarios_identificados. */
 	private Integer contador_no_usuarios_identificados;
 
@@ -23,8 +26,18 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 
 	/** The nombre. */
 	private String nombre;
-	
+
 	private String codigo;
+
+	private String fecha_checkin;
+
+	public String getFecha_checkin() {
+		return fecha_checkin;
+	}
+
+	public void setFecha_checkin(String fecha_checkin) {
+		this.fecha_checkin = fecha_checkin;
+	}
 
 	/**
 	 * Gets the contador_no_usuarios_identificados.
@@ -142,14 +155,19 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 	 */
 	@Override
 	public void toRest(Object object) throws AppException {
-		HitoEstadistica hitoEstadistica = (HitoEstadistica)object;
-		this.setContador_no_usuarios_identificados(hitoEstadistica.getContador_no_usuarios_identificados());
-		this.setContador_usuarios_identificados(hitoEstadistica.getContador_usuarios_identificados());
+		HitoEstadistica hitoEstadistica = (HitoEstadistica) object;
+		this.setContador_no_usuarios_identificados(hitoEstadistica
+				.getContador_no_usuarios_identificados());
+		this.setContador_usuarios_identificados(hitoEstadistica
+				.getContador_usuarios_identificados());
 		this.setId(hitoEstadistica.getId());
 		this.setLatitud(hitoEstadistica.getLatitud());
 		this.setLongitud(hitoEstadistica.getLongitud());
 		this.setNombre(hitoEstadistica.getNombre());
 		this.setCodigo(hitoEstadistica.getCodigo());
+		if (hitoEstadistica.getFecha_checkin() != null) {
+			this.setFecha_checkin(sdf.format(hitoEstadistica.getFecha_checkin()));
+		}
 	}
 
 	public String getCodigo() {

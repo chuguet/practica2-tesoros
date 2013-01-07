@@ -1,5 +1,6 @@
 package com.movember.treasure.model.dao;
 
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.movember.treasure.model.bean.Hito;
+import com.movember.treasure.model.bean.ParametrosHito;
 import com.movember.treasure.model.bean.Ruta;
 
 @Repository
@@ -48,5 +50,16 @@ public class EstadisticaDAO extends AbstractDAO implements IEstadisticaDAO {
 			throws SQLException {
 		return (Integer) this.getSqlMapClient().queryForObject(
 				"estadistica.recuperarNumeroUsuariosHanTerminadoRuta", pIdRuta);//TODO
+	}
+
+	public Date recuperarFechaCheckin(ParametrosHito parametrosHito) {
+		Date result = null;
+		try {
+			result = (Date) this.getSqlMapClient().queryForObject(
+					"estadistica.recuperarFechaCheckin", parametrosHito);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

@@ -98,4 +98,11 @@
 		usuario
 	</select>
 
+	<select id="recuperarFechaCheckin" parameterClass="com.movember.treasure.model.bean.ParametrosHito"
+		resultClass="java.util.Date">
+		select fecha from hito_dispositivo where
+		id_hito=#idHito:INTEGER# and
+		id_dispositivo=#idDipositivoUsuario:INTEGER#
+	</select>
+
 </sqlMap>

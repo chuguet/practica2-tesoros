@@ -12,6 +12,7 @@ import com.movember.treasure.model.bean.EstadisticaRuta;
 import com.movember.treasure.model.bean.EstadisticaUsuario;
 import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.HitoEstadistica;
+import com.movember.treasure.model.bean.ParametrosHito;
 import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.bean.RutaHitoPorcentaje;
 import com.movember.treasure.model.dao.IEstadisticaDAO;
@@ -117,7 +118,7 @@ class EstadisticaService implements IEstadisticaService {
 			// Recuperamos las rutas terminadas e hitos terminados
 			List<Hito> hitosTerminados = estadisticaDAO
 					.recuperarNumeroHitosTerminados(pIdUsuario);
-			estadisticaUsuario.setHitos_terminados(toHitoEstadistica(hitosTerminados));
+			estadisticaUsuario.setHitos_terminados(toHitoEstadistica(hitosTerminados, estadisticaUsuario.getUsuario().getId_dispositivo()));
 			List<Ruta> rutasTerminadas = estadisticaDAO
 					.recuperarNumeroRutasTerminadas(pIdUsuario);
 			estadisticaUsuario.setNum_hitos_terminados(hitosTerminados.size());
@@ -147,7 +148,7 @@ class EstadisticaService implements IEstadisticaService {
 		return estadisticaUsuario;
 	}
 
-	private List<HitoEstadistica> toHitoEstadistica(List<Hito> hitosTerminados) {
+	private List<HitoEstadistica> toHitoEstadistica(List<Hito> hitosTerminados, Integer idDipositivo) {
 		List<HitoEstadistica> result = new ArrayList<HitoEstadistica>();
 		HitoEstadistica hitoEstadistica;
 		for(Hito hito : hitosTerminados){
@@ -157,6 +158,7 @@ class EstadisticaService implements IEstadisticaService {
 			hitoEstadistica.setLongitud(hito.getLongitud());
 			hitoEstadistica.setCodigo(hito.getCodigo());
 			hitoEstadistica.setNombre(hito.getNombre());
+			hitoEstadistica.setFecha_checkin(estadisticaDAO.recuperarFechaCheckin(new ParametrosHito(hito.getId(),idDipositivo)));
 			result.add(hitoEstadistica);
 		}
 		return result;
