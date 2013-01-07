@@ -1,5 +1,7 @@
 package com.movember.treasure.model.bean;
 
+import java.util.Date;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class EncuestaContestada.
@@ -22,6 +24,8 @@ public class HitoEstadistica extends AbstractBean {
 	private String nombre;
 	
 	private String codigo;
+	
+	private Date fecha_checkin;
 
 	/**
 	 * Gets the contador_no_usuarios_identificados.
@@ -126,6 +130,14 @@ public class HitoEstadistica extends AbstractBean {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public Date getFecha_checkin() {
+		return fecha_checkin;
+	}
+
+	public void setFecha_checkin(Date fecha_checkin) {
+		this.fecha_checkin = fecha_checkin;
 	}
 
 }

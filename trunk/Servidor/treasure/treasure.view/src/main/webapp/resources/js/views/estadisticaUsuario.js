@@ -61,6 +61,7 @@ function createPopUpUsuario(hito) {
 	html = html + "<span style='color: #808080; font-size: 9px;'>Latitud: "
 			+ hito.latitud + "</span><br/>";
 	html = html + "<span style='color: #808080; font-size: 9px;'>Longitud: "
-			+ hito.longitud + "</span>";
+			+ hito.longitud + "</span></br></br>";
+	html = html + "<b>Fecha</b> y <b>hora</b> de checkin: " + hito.fecha_checkin;
 	return html;
 }
