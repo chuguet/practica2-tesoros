@@ -200,10 +200,10 @@ var ruta = {
 		 */
 		$("#btnAddHito").button().click(function() {
 			ruta.deseleccionarHito();
-			$('#dialog-form').dialog('option', 'title', 'A&ntilde;adir Hito');
+			$('#dialog-form-hitos').dialog('option', 'title', 'A&ntilde;adir Hito');
 			$(".ui-dialog-buttonpane button:contains('Modificar') span").text('Crear');
 			$('#tabs').tabs('select', 0);
-			$("#dialog-form").dialog("open");
+			$("#dialog-form-hitos").dialog("open");
 		});
 
 		$("#btnModifyHito").button().click(function() {
@@ -218,10 +218,10 @@ var ruta = {
 			$('#latitud').val(hito.latitud);
 			ruta.paintPoint(hito.latitud, hito.longitud);
 			
-			$('#dialog-form').dialog('option', 'title', 'Modificar Hito');
+			$('#dialog-form-hitos').dialog('option', 'title', 'Modificar Hito');
 			$(".ui-dialog-buttonpane button:contains('Crear') span").text('Modificar');
 			$('#tabs').tabs('select', 0);
-			$("#dialog-form").dialog("open");
+			$("#dialog-form-hitos").dialog("open");
 		});
 
 		$("#btnDeleteHito").button().click(function() {
@@ -249,7 +249,7 @@ var ruta = {
 			ruta.getParams();
 		});
 		
-		$("#dialog-form").dialog({
+		$("#dialog-form-hitos").dialog({
 			autoOpen : false,
 			height : 540,
 			width : 600,

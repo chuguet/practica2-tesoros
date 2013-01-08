@@ -72,7 +72,7 @@
 	</fieldset>
 </form>
 
-<div id="dialog-form" title="A&ntilde;adir Hito">
+<div id="dialog-form-hitos" title="A&ntilde;adir Hito">
 	<form id="frmHitos">
 		<div id="tabs">
 		    <ul>

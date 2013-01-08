@@ -82,7 +82,8 @@
   	</delete>
   	
 	<delete id="deleteByHito" parameterClass="java.lang.Integer">
-  		DELETE FROM hito_usuario 
+  		DELETE FROM hito_dispositivo 
   		WHERE id_hito = #id:INTEGER# 
   	</delete>
+  	
 </sqlMap>

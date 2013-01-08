@@ -2,7 +2,9 @@ package com.movember.treasure.model.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import org.springframework.stereotype.Repository;
+
 import com.movember.treasure.model.bean.HitoDispositivo;
 import com.movember.treasure.model.bean.HitoDispositivoCriterios;
 

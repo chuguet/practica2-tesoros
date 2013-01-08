@@ -9,6 +9,8 @@ public interface IGestorRutaDAO {
 	void insert(GestorRuta gestorRuta);
 
 	void deleteAllByIdGestor(Integer pIdGestor);
+	
+	void deleteAllByIdRuta(Integer pIdRuta);
 
 	List<Integer> retrieveByIdGestor(Integer pIdGestor);
 }

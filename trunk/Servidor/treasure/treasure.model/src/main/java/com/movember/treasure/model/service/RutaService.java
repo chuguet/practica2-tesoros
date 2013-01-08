@@ -20,6 +20,9 @@ class RutaService implements IRutaService {
 	/** The hito service. */
 	@Inject
 	private IHitoService hitoService;
+	
+	@Inject
+	private IGestorRutaService gestorRutaService;
 
 	/*
 	 * (non-Javadoc)
@@ -105,6 +108,7 @@ class RutaService implements IRutaService {
 	public void delete(Ruta ruta) throws AppException {
 		try {
 			List<Hito> listaHitos = this.hitoService.recuperarDeRuta(ruta.getId());
+			gestorRutaService.deleteAllByIdRuta(ruta.getId());
 			if (listaHitos != null && listaHitos.size() > 0) {
 				for (Hito hito : listaHitos) {
 					this.hitoService.delete(hito);
