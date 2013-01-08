@@ -94,8 +94,24 @@
 
 	<select id="recuperarNumeroUsuariosHanTerminadoRuta"
 		parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
-		select count(*) from
-		usuario
+		SELECT count(*)
+		FROM(
+		SELECT r.id, r.nombre, hitos_necesarios, count(*) as
+		checkin
+		FROM ruta
+		r
+		INNER JOIN hito h ON h.id_ruta = r.id
+		INNER JOIN
+		hito_dispositivo hd
+		ON
+		hd.id_hito = h.id
+		WHERE r.id = 2
+		GROUP BY
+		id_dispositivo)
+		tabla
+		WHERE
+		checkin = hitos_necesarios or
+		checkin > hitos_necesarios
 	</select>
 
 	<select id="recuperarFechaCheckin" parameterClass="com.movember.treasure.model.bean.ParametrosHito"
