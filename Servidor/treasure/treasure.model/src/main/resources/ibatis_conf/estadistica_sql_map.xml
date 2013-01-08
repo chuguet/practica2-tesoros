@@ -105,7 +105,7 @@
 		hito_dispositivo hd
 		ON
 		hd.id_hito = h.id
-		WHERE r.id = 2
+		WHERE r.id = #id:INTEGER#
 		GROUP BY
 		id_dispositivo)
 		tabla
