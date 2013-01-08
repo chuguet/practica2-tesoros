@@ -37,4 +37,12 @@ public class GestorRutaDAO extends AbstractDAO implements IGestorRutaDAO{
 		return result;
 	}
 
+	public void deleteAllByIdRuta(Integer pIdRuta) {
+		try {
+			this.getSqlMapClient().delete("gestor_ruta.deleteAllByIdRuta", pIdRuta);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

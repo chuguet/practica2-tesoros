@@ -27,4 +27,8 @@ public class GestorRutaService implements IGestorRutaService{
 		return gestorRutaDAO.retrieveByIdGestor(pIdGestor);
 	}
 
+	public void deleteAllByIdRuta(Integer pIdRuta) {
+		gestorRutaDAO.deleteAllByIdRuta(pIdRuta);
+	}
+
 }

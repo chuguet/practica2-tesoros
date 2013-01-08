@@ -20,4 +20,9 @@
   		DELETE FROM gestor_ruta 
   		WHERE id_usuario = #id:INTEGER# 
   	</delete>
+  	
+  	<delete id="deleteAllByIdRuta" parameterClass="java.lang.Integer">
+  		DELETE FROM gestor_ruta 
+  		WHERE id_ruta = #id:INTEGER# 
+  	</delete>
 </sqlMap>

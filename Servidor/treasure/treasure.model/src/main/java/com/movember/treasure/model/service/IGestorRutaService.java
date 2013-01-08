@@ -10,5 +10,7 @@ public interface IGestorRutaService {
 
 	void deleteAllByIdGestor(Integer pIdGestor);
 
+	void deleteAllByIdRuta(Integer pIdRuta);
+
 	List<Integer> retrieveByIdGestor(Integer pIdGestor);
 }

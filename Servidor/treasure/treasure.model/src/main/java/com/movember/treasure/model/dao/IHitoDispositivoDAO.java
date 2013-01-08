@@ -9,5 +9,7 @@ public interface IHitoDispositivoDAO extends IRepositoryDAO<HitoDispositivo> {
 
 	void deleteByHito(Integer idHito) throws SQLException;
 
-	List<HitoDispositivo> selectByCriterios(HitoDispositivoCriterios criterios) throws SQLException;
+	List<HitoDispositivo> selectByCriterios(HitoDispositivoCriterios criterios)
+			throws SQLException;
+
 }
