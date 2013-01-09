@@ -1,6 +1,7 @@
 package com.movember.treasure.model.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.movember.treasure.model.bean.Dispositivo;
 import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.HitoDispositivo;
+import com.movember.treasure.model.bean.Mensaje;
 import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.bean.Usuario;
 import com.movember.treasure.model.dao.IHitoDAO;
@@ -34,6 +36,9 @@ class HitoService implements IHitoService {
 
 	@Inject
 	private IRutaService rutaService;
+
+	@Inject
+	private IConfiguracionService configuracionService;
 
 	public void insert(Hito hito) throws AppException {
 		try {
@@ -90,7 +95,7 @@ class HitoService implements IHitoService {
 		}
 	}
 
-	public String checkHito(Hito hito, String uuid) throws AppException {
+	public List<String> checkHito(Hito hito, String uuid) throws AppException {
 		Dispositivo dispositivo = dispositivoService.selectByUUID(uuid);
 		if (dispositivo == null) {
 			throw new AppException("No se puede checkear un hito si no está reconocido el dispositivo.");
@@ -124,14 +129,31 @@ class HitoService implements IHitoService {
 		Ruta ruta = this.rutaService.retrieve(hitoBBDD.getId_ruta());
 		hitosCheckeados = this.hitoDispositivoService.selectByCriterios(null, dispositivo.getId(), null, null, null, null, ruta.getId());
 
-		String mensaje = "";
+		List<String> mensajes = new ArrayList<String>();
+		mensajes.add(hitoBBDD.getPista());
+		String premio = "";
 		if (ruta.getHitos_necesarios().equals(hitosCheckeados.size())) {
-			mensaje = (identificado.equals(1)) ? ruta.getPremio_identificados() : ruta.getPremio_no_identificados();
+			premio = (identificado.equals(1)) ? ruta.getPremio_identificados() : ruta.getPremio_no_identificados();
 		}
-		else {
-			mensaje = hitoBBDD.getPista();
+
+		mensajes.add(premio);
+		mensajes.add(this.recuperarFelicitacionPorDispositivo(dispositivo.getId()));
+		return mensajes;
+	}
+
+	private String recuperarFelicitacionPorDispositivo(Integer idDispositivo) throws AppException {
+		String felicitacion = "";
+		List<HitoDispositivo> hitosCheckeados = this.hitoDispositivoService.selectByCriterios(null, idDispositivo, null, null, null, null, null);
+		Integer numeroHitosCheckeados = hitosCheckeados.size();
+		List<Mensaje> mensajes = this.configuracionService.recuperarMensajes();
+
+		for (Mensaje mensaje : mensajes) {
+			if (numeroHitosCheckeados.equals(mensaje.getId())) {
+				felicitacion = mensaje.getMensaje();
+				break;
+			}
 		}
-		return mensaje;
+		return felicitacion;
 	}
 
 	public Hito recuperarPorCodigo(String codigo) throws AppException {

@@ -1,5 +1,6 @@
 package com.movember.treasure.controller.control;
 
+import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,8 +82,8 @@ public class RegistroController {
 		try {
 			Hito hito = new Hito();
 			hitoEncontradoDTO.toBusiness(hito);
-			String mensaje = hitoService.checkHito(hito, hitoEncontradoDTO.getUuid());
-			return new MensajeDTO("Usuario registrado correctamente", true, mensaje);
+			List<String> mensajes = hitoService.checkHito(hito, hitoEncontradoDTO.getUuid());
+			return new MensajeDTO("Usuario registrado correctamente", true, mensajes);
 		}
 		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);
