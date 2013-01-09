@@ -44,21 +44,26 @@ class ConfiguracionService implements IConfiguracionService {
 	}
 
 	public Configuracion retrieve() throws AppException {
+		List<Mensaje> mensajes = this.recuperarMensajes();
+		List<String> messages = new ArrayList<String>();
+		for (Mensaje mensaje : mensajes) {
+			messages.add(mensaje.getMensaje());
+		}
+		Configuracion configuracion = new Configuracion();
+		if (mensajes.size() > 0) {
+			configuracion.setId(mensajes.get(0).getId());
+			configuracion.setMensajes(messages);
+		}
+		return configuracion;
+
+	}
+
+	public List<Mensaje> recuperarMensajes() throws AppException {
 		try {
-			List<Mensaje> mensajes = this.configuracionDAO.selectAll();
-			List<String> messages = new ArrayList<String>();
-			for (Mensaje mensaje : mensajes) {
-				messages.add(mensaje.getMensaje());
-			}
-			Configuracion configuracion = new Configuracion();
-			if (mensajes.size() > 0) {
-				configuracion.setId(mensajes.get(0).getId());
-				configuracion.setMensajes(messages);
-			}
-			return configuracion;
+			return this.configuracionDAO.selectAll();
 		}
 		catch (SQLException e) {
-			throw new AppException("Se ha producido un error al recuperar la configuración");
+			throw new AppException("Se ha producido un error al recuperar los mensajes de la configuración");
 		}
 	}
 }
