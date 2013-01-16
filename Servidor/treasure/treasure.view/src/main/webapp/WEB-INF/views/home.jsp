@@ -45,10 +45,14 @@
 		</div>
 		
 		<div id="menu">
-			<a href="javascript:void" onclick="javascript:generic.getList('usuario');" title="Ver usuarios" class="itemMenu">Usuarios</a>
+		<c:if test="${usuario == '1'}">
+		<a href="javascript:void" onclick="javascript:generic.getList('usuario');" title="Ver usuarios" class="itemMenu">Usuarios</a>
 			<a href="javascript:void" onclick="javascript:generic.getList('ruta');" title="Ver rutas del tesoro" class="itemMenu">Rutas del tesoro</a>
 			<a href="javascript:void" onclick="javascript:generic.getForm('configuracion', 1);" title="Ver configuraci&oacute;n del sistema" class="itemMenu">Configuraci&oacute;n</a>
+		</c:if>
+		<c:if test="${usuario == '2'}">
 			<a href="javascript:void" onclick="javascript:generic.getList('gestor',${id_usuario});" title="Ver gesti&oacute;n de rutas" class="itemMenu">Gestor</a>
+		</c:if>
 			<div id="usuario">
 				<span>Usuario : ${nombre} ${apellidos}</span> 
 				<a href="<c:url value="/j_spring_security_logout" />" id="btnUnlogin" title="Salir"><span>Salir</span></a>

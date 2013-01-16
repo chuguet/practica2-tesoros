@@ -1,7 +1,6 @@
 package com.movember.treasure.controller.dto;
 
 import java.text.SimpleDateFormat;
-
 import com.movember.treasure.model.bean.HitoEstadistica;
 import com.movember.treasure.model.exception.AppException;
 
@@ -10,8 +9,7 @@ import com.movember.treasure.model.exception.AppException;
  * The Class PreguntaEstadisticaDTO.
  */
 public class HitoEstadisticaDTO extends AbstractDTO {
-	private static final SimpleDateFormat sdf = new SimpleDateFormat(
-			"dd/MM/YYYY HH:mm");
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	/** The contador_no_usuarios_identificados. */
 	private Integer contador_no_usuarios_identificados;
 
@@ -90,8 +88,7 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 	 * @param contador_no_usuarios_identificados
 	 *            the new contador_no_usuarios_identificados
 	 */
-	public void setContador_no_usuarios_identificados(
-			Integer contador_no_usuarios_identificados) {
+	public void setContador_no_usuarios_identificados(Integer contador_no_usuarios_identificados) {
 		this.contador_no_usuarios_identificados = contador_no_usuarios_identificados;
 	}
 
@@ -101,8 +98,7 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 	 * @param contador_usuarios_identificados
 	 *            the new contador_usuarios_identificados
 	 */
-	public void setContador_usuarios_identificados(
-			Integer contador_usuarios_identificados) {
+	public void setContador_usuarios_identificados(Integer contador_usuarios_identificados) {
 		this.contador_usuarios_identificados = contador_usuarios_identificados;
 	}
 
@@ -138,7 +134,6 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.treasure.controller.dto.AbstractDTO#toBusiness(java.lang
 	 * .Object)
@@ -149,17 +144,14 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.treasure.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
 	@Override
 	public void toRest(Object object) throws AppException {
 		HitoEstadistica hitoEstadistica = (HitoEstadistica) object;
-		this.setContador_no_usuarios_identificados(hitoEstadistica
-				.getContador_no_usuarios_identificados());
-		this.setContador_usuarios_identificados(hitoEstadistica
-				.getContador_usuarios_identificados());
+		this.setContador_no_usuarios_identificados(hitoEstadistica.getContador_no_usuarios_identificados());
+		this.setContador_usuarios_identificados(hitoEstadistica.getContador_usuarios_identificados());
 		this.setId(hitoEstadistica.getId());
 		this.setLatitud(hitoEstadistica.getLatitud());
 		this.setLongitud(hitoEstadistica.getLongitud());
