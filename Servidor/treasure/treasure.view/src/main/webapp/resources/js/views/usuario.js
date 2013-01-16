@@ -124,7 +124,7 @@ var usuario = {
 		});
 		
 		//Petición al servidor para recuperar todas las rutas y ejecutar la funcion de rellenar los checkboxs
-		generic.get('ruta', null, usuario.rellenarListBox);
+		generic.get('ruta/gestor', null, usuario.rellenarListBox);
 		
 		//Cuadro de dialogo de jquery para los checkbox
 		$("#dialog-form").dialog({
