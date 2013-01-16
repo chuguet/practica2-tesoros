@@ -109,6 +109,12 @@ class HitoService implements IHitoService {
 			throw new AppException("No se puede checkear un hito que no existe en el sistema.");
 		}
 
+		Ruta ruta = this.rutaService.retrieve(hitoBBDD.getId_ruta());
+		Date fechaActual = new Date();
+		if (ruta.getFecha_fin().before(fechaActual) || ruta.getFecha_inicio().after(fechaActual)) {
+			throw new AppException("La ruta a la que está asociado este hito no esta activa en este momento");
+		}
+
 		// Comprobamos que ese hito aun no se haya chequeado
 		List<HitoDispositivo> hitosCheckeados = this.hitoDispositivoService.selectByCriterios(hitoBBDD.getId(), dispositivo.getId(), null, null, identificado, null, null);
 		if (hitosCheckeados.size() > 0) {
@@ -121,12 +127,16 @@ class HitoService implements IHitoService {
 		hitoDispositivo.setLatitud(hito.getLatitud());
 		hitoDispositivo.setIdentificado(identificado);
 		hitoDispositivo.setFecha(new Date());
+
+		if (!verificarDistancia(hitoDispositivo, hitoBBDD)) {
+			throw new AppException("Está haciendo trampas, puesto que no está a menos de 50 metros del hito");
+		}
+
 		this.hitoDispositivoService.insert(hitoDispositivo);
 
 		// Si el numero de hitos chequeados mas el que acabamos de chequear es
 		// igual al numero de hitos
 		// necesarios para conseguir el premio, se manda el premio al movil
-		Ruta ruta = this.rutaService.retrieve(hitoBBDD.getId_ruta());
 		hitosCheckeados = this.hitoDispositivoService.selectByCriterios(null, dispositivo.getId(), null, null, null, null, ruta.getId());
 
 		List<String> mensajes = new ArrayList<String>();
@@ -139,6 +149,22 @@ class HitoService implements IHitoService {
 		mensajes.add(premio);
 		mensajes.add(this.recuperarFelicitacionPorDispositivo(dispositivo.getId()));
 		return mensajes;
+	}
+
+	private boolean verificarDistancia(HitoDispositivo hitoDispositivo, Hito hitoBBDD) {
+		Double lat1 = new Double(hitoDispositivo.getLatitud());
+		Double lon1 = new Double(hitoDispositivo.getLongitud());
+		Double lat2 = new Double(hitoBBDD.getLatitud());
+		Double lon2 = new Double(hitoBBDD.getLongitud());
+		double toRad = 0.0174532925;
+		double dLat = (lat2 - lat1) * toRad;
+		double dLon = (lon2 - lon1) * toRad;
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * toRad) * Math.cos(lat2 * toRad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		// radio de la tierra en metros
+		double distancia = 6371000 * c;
+
+		return (distancia <= 50);
 	}
 
 	private String recuperarFelicitacionPorDispositivo(Integer idDispositivo) throws AppException {
