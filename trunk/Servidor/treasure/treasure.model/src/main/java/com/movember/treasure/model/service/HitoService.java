@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.movember.treasure.model.bean.Dispositivo;
 import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.HitoDispositivo;
+import com.movember.treasure.model.bean.ItemConfiguracion;
 import com.movember.treasure.model.bean.Mensaje;
 import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.bean.Usuario;
@@ -151,20 +152,27 @@ class HitoService implements IHitoService {
 		return mensajes;
 	}
 
-	private boolean verificarDistancia(HitoDispositivo hitoDispositivo, Hito hitoBBDD) {
-		Double lat1 = new Double(hitoDispositivo.getLatitud());
-		Double lon1 = new Double(hitoDispositivo.getLongitud());
-		Double lat2 = new Double(hitoBBDD.getLatitud());
-		Double lon2 = new Double(hitoBBDD.getLongitud());
-		double toRad = 0.0174532925;
-		double dLat = (lat2 - lat1) * toRad;
-		double dLon = (lon2 - lon1) * toRad;
-		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * toRad) * Math.cos(lat2 * toRad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		// radio de la tierra en metros
-		double distancia = 6371000 * c;
+	private boolean verificarDistancia(HitoDispositivo hitoDispositivo, Hito hitoBBDD) throws AppException {
+		ItemConfiguracion controlDistancia = this.configuracionService.recuperarItemConfiguracion("controlDistancia");
+		if (controlDistancia.getValor().equals(new Integer(1))) {
+			ItemConfiguracion distanciaMaxima = this.configuracionService.recuperarItemConfiguracion("distanciaMaxima");
+			Double lat1 = new Double(hitoDispositivo.getLatitud());
+			Double lon1 = new Double(hitoDispositivo.getLongitud());
+			Double lat2 = new Double(hitoBBDD.getLatitud());
+			Double lon2 = new Double(hitoBBDD.getLongitud());
+			double toRad = 0.0174532925;
+			double dLat = (lat2 - lat1) * toRad;
+			double dLon = (lon2 - lon1) * toRad;
+			double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * toRad) * Math.cos(lat2 * toRad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+			double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+			// radio de la tierra en metros
+			double distancia = 6371000 * c;
 
-		return (distancia <= 50);
+			return (distancia <= distanciaMaxima.getValor());
+		}
+		else {
+			return true;
+		}
 	}
 
 	private String recuperarFelicitacionPorDispositivo(Integer idDispositivo) throws AppException {
