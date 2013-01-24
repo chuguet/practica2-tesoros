@@ -39,6 +39,9 @@ var configuracion = {
 		}).trigger('resize');
 
 		$('#mensaje').redactor();
+		$('.numbersOnly').keyup(function() {
+			this.value = this.value.replace(/[^0-9\.]/g, '');
+		});
 
 		$("#btnAddMessage").button().click(function() {
 			configuracion.deseleccionarMensaje();
@@ -120,10 +123,15 @@ var configuracion = {
 	},
 	'getParams' : function() {
 		var numero = $("#numero").val();
+		var distanciaMaxima = $('#distanciaMaxima').val();
+		var controlDistancia = ($('#controlDistancia').is(':checked')) ? '1' : '0';
 		var messages = $('#lista').jqGrid('getRowData');
 		var errores = '';
 		if (numero == '') {
 			errores = "- Hay que indicar el n&uacute;mero m&uacute;ltiplo para los mensajes<br />";
+		}
+		if (distanciaMaxima == '') {
+			errores = "- Hay que indicar la distancia m&aacute;xima de control de checkin<br />";
 		}
 		if (messages.length < 5) {
 			errores += "- Debe introducir al menos 5 mensajes";
@@ -137,9 +145,20 @@ var configuracion = {
 				mensajes.push(messages[i].mensaje);
 			}
 
+			var itemsConfiguracion = new Array();
+
+			itemsConfiguracion.push({
+				'clave' : 'controlDistancia',
+				'valor' : controlDistancia
+			})
+			itemsConfiguracion.push({
+				'clave' : 'distanciaMaxima',
+				'valor' : distanciaMaxima
+			})
 			var data = {
 				numero : numero,
-				mensajes : mensajes
+				mensajes : mensajes,
+				itemsConfiguracion : itemsConfiguracion
 			};
 			generic.post('configuracion', data, function() {
 				generic.goHome();
@@ -154,6 +173,17 @@ var configuracion = {
 				'mensaje' : conf.mensajes[i]
 			});
 		}
+		for( var i = 0; i < conf.itemsConfiguracion.length; i++) {
+			switch (conf.itemsConfiguracion[i].clave) {
+			case "controlDistancia":
+				$('#controlDistancia').attr('checked', conf.itemsConfiguracion[i].valor);
+				break;
+			case "distanciaMaxima":
+				$('#distanciaMaxima').val(conf.itemsConfiguracion[i].valor);
+				break;
+			}
+		}
+
 		$("#lista").setGridParam({
 			data : messages
 		}).trigger("reloadGrid");

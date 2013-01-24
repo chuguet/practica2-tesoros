@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="configuracion">
-	<resultMap id="configuracionResult" class="com.movember.treasure.model.bean.Mensaje">
+	<resultMap id="configuracionResult" class="com.movember.treasure.model.bean.ItemConfiguracion">
 		<result column="id" property="id" jdbcType="INTEGER" />
-		<result column="mensaje" property="mensaje" jdbcType="TEXT" />
+		<result column="clave" property="clave" jdbcType="VARCHAR" />
+		<result column="valor" property="valor" jdbcType="INTEGER" />
 	</resultMap>
 	
 	<select id="selectAll" resultMap="configuracionResult">
-		SELECT id, mensaje
+		SELECT id, clave, valor
 		FROM configuracion
 		ORDER BY id
 	</select>
 	
-	<insert id="insert" parameterClass="com.movember.treasure.model.bean.Mensaje"> 
+	<select id="selectByClave" parameterClass="java.lang.String" resultMap="configuracionResult">
+		SELECT id, clave, valor
+		FROM configuracion
+		WHERE clave = #clave:VARCHAR#
+	</select>
+	
+	<insert id="insert" parameterClass="com.movember.treasure.model.bean.ItemConfiguracion"> 
 	 	INSERT INTO configuracion 
-    	(id, mensaje)
+    	(clave, valor)
 	 	VALUES  
-	 	(#id:INTEGER#, #mensaje:TEXT#)
+	 	(#clave:VARCHAR#, #valor:INTEGER#)
 	</insert>
+	
+	<update id="update" parameterClass="com.movember.treasure.model.bean.ItemConfiguracion"> 
+	 	UPDATE configuracion
+	 	SET clave = #clave:VARCHAR#,
+	 	valor = #valor:INTEGER#
+	 	WHERE id = #id:INTEGER#
+	</update>
 	
 	<delete id="deleteAll">
   		DELETE FROM configuracion

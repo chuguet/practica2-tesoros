@@ -1,5 +1,6 @@
 package com.movember.treasure.controller.dto;
 
+import com.movember.treasure.model.bean.AbstractBean;
 import com.movember.treasure.model.exception.AppException;
 
 /**
@@ -37,7 +38,10 @@ public abstract class AbstractDTO {
 	 * @throws AppException
 	 *             the app exception
 	 */
-	public abstract void toRest(Object object) throws AppException;
+	public void toRest(Object object) throws AppException {
+		AbstractBean abstractBean = (AbstractBean) object;
+		this.setId(abstractBean.getId());
+	}
 
 	/**
 	 * To business.
@@ -47,5 +51,8 @@ public abstract class AbstractDTO {
 	 * @throws AppException
 	 *             the app exception
 	 */
-	public abstract void toBusiness(Object object) throws AppException;
+	public void toBusiness(Object object) throws AppException {
+		AbstractBean abstractBean = (AbstractBean) object;
+		abstractBean.setId(this.getId());
+	}
 }

@@ -12,8 +12,15 @@
 	<fieldset>
 		<legend>Configuraci&oacute;n</legend>
 		<p>
+			<label for="controlDistancia">Control de distancia</label>
+			<input id="controlDistancia" type="checkbox" />
+			&nbsp;&nbsp;
+			<label for="distanciaMaxima">Distancia M&aacute;xima</label>
+			<input id="distanciaMaxima" type="text" class="text ui-widget-content ui-corner-all numbersOnly" style="width:40px;"/>
+		</p>
+		<p>
 			<label for="numero">N&uacute;mero m&uacute;ltiplo para mensaje:</label>
-			<input id="numero" maxlength="200" class="text ui-widget-content ui-corner-all" />
+			<input id="numero" maxlength="3" class="ui-widget-content ui-corner-all numbersOnly" style="width:40px;" />
 		</p>
 		<fieldset>
 			<legend>Mensajes</legend>

@@ -2,6 +2,7 @@ package com.movember.treasure.model.service;
 
 import java.util.List;
 import com.movember.treasure.model.bean.Configuracion;
+import com.movember.treasure.model.bean.ItemConfiguracion;
 import com.movember.treasure.model.bean.Mensaje;
 import com.movember.treasure.model.exception.AppException;
 
@@ -13,4 +14,6 @@ public interface IConfiguracionService {
 	Configuracion retrieve() throws AppException;
 
 	List<Mensaje> recuperarMensajes() throws AppException;
+
+	ItemConfiguracion recuperarItemConfiguracion(String clave) throws AppException;
 }
