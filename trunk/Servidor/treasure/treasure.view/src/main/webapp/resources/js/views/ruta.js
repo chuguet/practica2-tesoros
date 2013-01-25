@@ -408,20 +408,11 @@ var ruta = {
     'newLocation': null,
     'map': null,
 	'configureGoogleMaps' : function(){
-// var mapOptions = {
-// center: new google.maps.LatLng(40.4199, -3.694668),
-// zoom: 13,
-// mapTypeId: google.maps.MapTypeId.ROADMAP
-// };
-// this.map = new google.maps.Map(document.getElementById("map_canvas"),
-// mapOptions);
-		
-		
 		if (GBrowserIsCompatible()) {
 			if (this.map == null){
-            this.map = new GMap2(document.getElementById("map_canvas"));
-            this.map.addControl(new GSmallMapControl());
-            this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
+	            this.map = new GMap2(document.getElementById("map_canvas"));
+	            this.map.addControl(new GSmallMapControl());
+	            this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
 			}
 			GEvent.addListener(this.map, "click", function(marker,point) {
 				if (ruta.newLocation != null){

@@ -17,3 +17,7 @@
 	<p id="hitos_check"></p>
 	<div id="map_canvas" style="width:100%; height:300px"></div>
 </fieldset>
+
+<div id="dialog-hito-en-tiempo" title="An&aacute;lisis del Hito en el tiempo">
+	<div id="container" style="min-width: 550px; height: 400px; margin: 0 auto"></div>
+</div>

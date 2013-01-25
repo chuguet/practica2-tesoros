@@ -11,12 +11,9 @@
 		<result column="nombre" property="nombre" jdbcType="VARCHAR" />
 		<result column="fecha_inicio" property="fecha_inicio" jdbcType="DATE" />
 		<result column="fecha_fin" property="fecha_fin" jdbcType="DATE" />
-		<result column="hitos_necesarios" property="hitos_necesarios"
-			jdbcType="INTEGER" />
-		<result column="premio_identificados" property="premio_identificados"
-			jdbcType="TEXT" />
-		<result column="premio_no_identificados" property="premio_no_identificados"
-			jdbcType="TEXT" />
+		<result column="hitos_necesarios" property="hitos_necesarios" jdbcType="INTEGER" />
+		<result column="premio_identificados" property="premio_identificados" jdbcType="TEXT" />
+		<result column="premio_no_identificados" property="premio_no_identificados" jdbcType="TEXT" />
 	</resultMap>
 
 	<resultMap id="hitoResult" class="com.movember.treasure.model.bean.Hito">
@@ -29,96 +26,70 @@
 		<result column="pista" property="pista" jdbcType="TEXT" />
 	</resultMap>
 
-	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer"
-		resultMap="mapResult">
+	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
 		SELECT count(*) as contador, h.id as id
 		FROM hito h
-		LEFT JOIN
-		hito_dispositivo hu ON h.id = hu.id_hito
-		WHERE h.id_ruta = #id:INTEGER#
-		AND identificado = 0
-		GROUP by id_hito
-	</select>
-
-	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer"
-		resultMap="mapResult">
-		SELECT count(*) as contador, h.id as id
-		FROM hito h
-		LEFT JOIN
-		hito_dispositivo hu ON h.id = hu.id_hito
+		LEFT JOIN hito_dispositivo hu ON h.id = hu.id_hito
 		WHERE h.id_ruta = #id:INTEGER#
 		AND identificado = 1
 		GROUP by id_hito
 	</select>
 
+	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
+		SELECT count(*) as contador, h.id as id
+		FROM hito h
+		LEFT JOIN hito_dispositivo hu ON h.id = hu.id_hito
+		WHERE h.id_ruta = #id:INTEGER#
+		AND identificado = 0
+		GROUP by id_hito
+	</select>
+
 	<select id="selectCountHitos" resultClass="java.lang.Integer">
-		select count(*) from
-		hito
+		SELECT count(*) 
+		FROM hito
 	</select>
 	<select id="selectCountRutas" resultClass="java.lang.Integer">
-		select count(*) from
-		ruta
+		SELECT count(*) 
+		FROM ruta
 	</select>
 
 	<select id="selectHitosTerminados" parameterClass="java.lang.Integer"
 		resultMap="hitoResult">
 		SELECT h.*
 		FROM hito_dispositivo hd
-		INNER JOIN dispositivo d
-		on hd.id_dispositivo = d.id
-		INNER JOIN usuario u on u.id_dispositivo =
-		d.id
-		INNER JOIN hito h on h.id = hd.id_hito
+		INNER JOIN dispositivo d ON hd.id_dispositivo = d.id
+		INNER JOIN usuario u ON u.id_dispositivo = d.id
+		INNER JOIN hito h ON h.id = hd.id_hito
 		WHERE u.id= #id:INTEGER#
 	</select>
 
-	<select id="selectRutasTerminadas" parameterClass="java.lang.Integer"
-		resultMap="rutaResult">
+	<select id="selectRutasTerminadas" parameterClass="java.lang.Integer" resultMap="rutaResult">
 		SELECT r.*
 		FROM ruta r
-		INNER JOIN (SELECT
-		h.id_ruta, count(*)
-		AS contador
-		FROM hito_dispositivo hd
-		INNER JOIN dispositivo d on
-		hd.id_dispositivo = d.id
-		INNER JOIN usuario
-		u on u.id_dispositivo = d.id
-		INNER JOIN hito h on h.id = hd.id_hito
-		WHERE u.id=#id:INTEGER#
-		GROUP BY
-		h.id_ruta) h ON r.id = h.id_ruta
-		WHERE
-		h.contador >= r.hitos_necesarios
+		INNER JOIN (SELECT h.id_ruta, count(*) AS contador
+					FROM hito_dispositivo hd
+					INNER JOIN dispositivo d ON hd.id_dispositivo = d.id
+					INNER JOIN usuario u ON u.id_dispositivo = d.id
+					INNER JOIN hito h ON h.id = hd.id_hito
+					WHERE u.id=#id:INTEGER#
+					GROUP BY h.id_ruta) h ON r.id = h.id_ruta
+		WHERE h.contador >= r.hitos_necesarios
 	</select>
 
-	<select id="recuperarNumeroUsuariosHanTerminadoRuta"
-		parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+	<select id="recuperarNumeroUsuariosHanTerminadoRuta" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
 		SELECT count(*)
-		FROM(
-		SELECT r.id, r.nombre, hitos_necesarios, count(*) as
-		checkin
-		FROM ruta
-		r
-		INNER JOIN hito h ON h.id_ruta = r.id
-		INNER JOIN
-		hito_dispositivo hd
-		ON
-		hd.id_hito = h.id
-		WHERE r.id = #id:INTEGER#
-		GROUP BY
-		id_dispositivo)
-		tabla
-		WHERE
-		checkin = hitos_necesarios or
-		checkin > hitos_necesarios
+		FROM(SELECT r.id, r.nombre, hitos_necesarios, count(*) as checkin
+			FROM ruta r
+			INNER JOIN hito h ON h.id_ruta = r.id
+			INNER JOIN hito_dispositivo hd ON hd.id_hito = h.id
+			WHERE r.id = #id:INTEGER#
+			GROUP BY id_dispositivo) tabla
+		WHERE checkin = hitos_necesarios OR checkin > hitos_necesarios
 	</select>
 
-	<select id="recuperarFechaCheckin" parameterClass="com.movember.treasure.model.bean.ParametrosHito"
-		resultClass="java.util.Date">
-		select fecha from hito_dispositivo where
-		id_hito=#idHito:INTEGER# and
-		id_dispositivo=#idDipositivoUsuario:INTEGER#
+	<select id="recuperarFechaCheckin" parameterClass="com.movember.treasure.model.bean.ParametrosHito" resultClass="java.util.Date">
+		SELECT fecha 
+		FROM hito_dispositivo 
+		WHERE id_hito=#idHito:INTEGER# AND id_dispositivo=#idDipositivoUsuario:INTEGER#
 	</select>
-
 </sqlMap>

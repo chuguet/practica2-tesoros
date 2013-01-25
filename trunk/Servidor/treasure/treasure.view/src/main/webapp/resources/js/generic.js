@@ -105,7 +105,7 @@ var generic = {
 			success : function(response) {
 				if (response.indexOf('Pantalla de acceso al sistema') != -1) {
 					jAlert('Ha finalizado la sesi&oacute;n. Por favor, vuelva a acceder al sistema', 'Finalizaci&oacute;n de sesi&oacute;n', function() {
-						window.location.reload(true);
+						logout();
 					});
 				}
 				else {

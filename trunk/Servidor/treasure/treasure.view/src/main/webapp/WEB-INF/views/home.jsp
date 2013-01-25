@@ -17,13 +17,13 @@
 		<link href="resources/css/ui.jqgrid.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/ui.graph.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/redactor.css" rel="stylesheet" type="text/css">
-		<!--  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIuX3SNPXeixU2JzGntpW2KgHvwOxq-tM&sensor=true"></script>-->
 		<script src="http://maps.google.com/maps?file=api&amp;v=2&key=AIzaSyAIuX3SNPXeixU2JzGntpW2KgHvwOxq-tM&sensor=false" type="text/javascript"></script>
 		<script src="resources/js/jquery.require.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-1.8.2.min.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-ui-1.9.1.min.js" type="text/javascript"></script>
 		<script src="resources/js/jquery.jstree.js" type="text/javascript"></script>
 		<script src="resources/js/generic.js" type="text/javascript"></script>
+		<script src="resources/js/jquery.highcharts.js" type="text/javascript"></script>
 		
 	  	<script src="resources/js/jquery.dynatree.js" type="text/javascript"></script>
 		<script src="resources/js/jquery.alerts.js" type="text/javascript"></script>
@@ -36,7 +36,11 @@
 		<script src="resources/js/views/estadisticaRuta.js" type="text/javascript"></script>
 		<script src="resources/js/views/estadisticaUsuario.js" type="text/javascript"></script>
 		<script src="resources/js/views/configuracion.js" type="text/javascript"></script>
-		
+		<script type="text/javascript">
+			function logout(){
+				window.location.href = '<c:url value="/j_spring_security_logout" />';
+			}
+		</script>
 	</head>
 	<body id="quizz" class="web">
 		
@@ -55,7 +59,7 @@
 		</c:if>
 			<div id="usuario">
 				<span>Usuario : ${nombre} ${apellidos}</span> 
-				<a href="<c:url value="/j_spring_security_logout" />" id="btnUnlogin" title="Salir"><span>Salir</span></a>
+				<a href="javascript:void" onclick="javascript:logout();" id="btnUnlogin" title="Salir"><span>Salir</span></a>
 			</div>
 		</div>
 		
