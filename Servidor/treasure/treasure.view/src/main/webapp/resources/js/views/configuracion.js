@@ -176,7 +176,7 @@ var configuracion = {
 		for( var i = 0; i < conf.itemsConfiguracion.length; i++) {
 			switch (conf.itemsConfiguracion[i].clave) {
 			case "controlDistancia":
-				$('#controlDistancia').attr('checked', conf.itemsConfiguracion[i].valor);
+				$('#controlDistancia').attr('checked', (conf.itemsConfiguracion[i].valor == 1));
 				break;
 			case "distanciaMaxima":
 				$('#distanciaMaxima').val(conf.itemsConfiguracion[i].valor);
