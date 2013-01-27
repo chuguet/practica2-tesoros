@@ -14,4 +14,6 @@ public interface IHitoService extends IService<Hito> {
 	List<String> checkHito(Hito hito, String uuid) throws AppException;
 
 	Hito recuperarPorCodigo(String codigo) throws AppException;
+
+	String generarQR(String codigo) throws AppException;
 }

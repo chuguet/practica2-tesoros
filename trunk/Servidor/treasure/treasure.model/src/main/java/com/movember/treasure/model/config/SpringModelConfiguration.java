@@ -49,6 +49,13 @@ public class SpringModelConfiguration {
 	@Value("${jdbc.password}")
 	private String password;
 
+	@Value("${qrPath}")
+	private String qrPath;
+
+	public String getQrPath() {
+		return qrPath;
+	}
+
 	/**
 	 * Gets the data source.
 	 * 
