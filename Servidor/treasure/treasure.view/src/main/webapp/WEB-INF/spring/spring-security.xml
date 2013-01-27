@@ -18,12 +18,14 @@
 		<intercept-url pattern="/usuario/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/registro**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/ruta/**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/codigoQR/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/gestor/**" access="ROLE_GESTOR" />
 		<intercept-url pattern="/configuracion/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/estadisticaRuta/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/estadisticaUsuario/**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/logout" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
 		<intercept-url pattern="/encontrarHito**" access="ROLE_ANONYMOUS, ROLE_USER, ROLE_ADMIN, ROLE_GESTOR" />
+		
 		<form-login login-page="/login" default-target-url="/home" authentication-failure-url="/loginfailed" login-processing-url="/j_spring_security_check" />
 		<logout logout-success-url="/login" />
 	</http>

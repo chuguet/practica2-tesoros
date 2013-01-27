@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.movember.treasure.controller.dto.MensajeDTO;
 import com.movember.treasure.controller.dto.RutaDTO;
 import com.movember.treasure.model.bean.Ruta;
@@ -52,7 +49,8 @@ public class RutaController {
 			Ruta ruta = this.rutaService.retrieve(id);
 			// Comversion a DTO
 			rutaDTO.toRest(ruta);
-		} catch (AppException e) {
+		}
+		catch (AppException e) {
 
 		}
 		return rutaDTO;
@@ -76,7 +74,8 @@ public class RutaController {
 				rutasDTO.add(e);
 			}
 
-		} catch (AppException e) {
+		}
+		catch (AppException e) {
 
 		}
 		return rutasDTO;
@@ -102,7 +101,8 @@ public class RutaController {
 				}
 			}
 
-		} catch (AppException e) {
+		}
+		catch (AppException e) {
 
 		}
 		return rutasDTO;
@@ -117,8 +117,7 @@ public class RutaController {
 	 */
 	private boolean isActive(Ruta ruta) {
 		Date fechaActual = Calendar.getInstance().getTime();
-		return ruta.getFecha_fin().after(fechaActual)
-				&& ruta.getFecha_inicio().before(fechaActual);
+		return ruta.getFecha_fin().after(fechaActual) && ruta.getFecha_inicio().before(fechaActual);
 	}
 
 	/**
@@ -133,8 +132,7 @@ public class RutaController {
 	 * @return devuelve la dirección de la petición rest
 	 */
 	@RequestMapping(value = "/" + recurso + "/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
-	public String createForm(@PathVariable("operacion") String operacion,
-			final Model uiModel) {
+	public String createForm(@PathVariable("operacion") String operacion, final Model uiModel) {
 		uiModel.addAttribute("operacion", operacion);
 		if (!operacion.equals("list")) {
 			operacion = "form";
@@ -155,13 +153,13 @@ public class RutaController {
 		if (rutaDTO == null) {
 			return new MensajeDTO("Una ruta es requerida", false);
 		}
-
 		try {
 			Ruta ruta = new Ruta();
 			rutaDTO.toBusiness(ruta);
 			rutaService.insert(ruta);
 			return new MensajeDTO("Ruta creada correctamente", true);
-		} catch (AppException e) {
+		}
+		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);
 		}
 	}
@@ -179,13 +177,13 @@ public class RutaController {
 		if (rutaDTO == null) {
 			return new MensajeDTO("Una ruta es requerida", false);
 		}
-
 		try {
 			Ruta ruta = new Ruta();
 			rutaDTO.toBusiness(ruta);
 			rutaService.update(ruta);
 			return new MensajeDTO("Ruta modificada correctamente", true);
-		} catch (AppException e) {
+		}
+		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);
 		}
 	}
@@ -205,13 +203,13 @@ public class RutaController {
 		if (id == null) {
 			return new MensajeDTO("Una ruta es requerida", false);
 		}
-
 		try {
 			Ruta ruta = new Ruta();
 			ruta.setId(id);
 			this.rutaService.delete(ruta);
 			return new MensajeDTO("Ruta eliminada correctamente", true);
-		} catch (AppException e) {
+		}
+		catch (AppException e) {
 			return new MensajeDTO(e.getMessage(), false);
 		}
 	}

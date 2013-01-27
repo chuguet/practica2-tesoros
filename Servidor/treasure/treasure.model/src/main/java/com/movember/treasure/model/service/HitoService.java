@@ -1,11 +1,22 @@
 package com.movember.treasure.model.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.movember.treasure.model.bean.Dispositivo;
 import com.movember.treasure.model.bean.Hito;
 import com.movember.treasure.model.bean.HitoDispositivo;
@@ -13,6 +24,7 @@ import com.movember.treasure.model.bean.ItemConfiguracion;
 import com.movember.treasure.model.bean.Mensaje;
 import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.bean.Usuario;
+import com.movember.treasure.model.config.SpringModelConfiguration;
 import com.movember.treasure.model.dao.IHitoDAO;
 import com.movember.treasure.model.exception.AppException;
 
@@ -40,6 +52,9 @@ class HitoService implements IHitoService {
 
 	@Inject
 	private IConfiguracionService configuracionService;
+
+	@Inject
+	private SpringModelConfiguration configuration;
 
 	public void insert(Hito hito) throws AppException {
 		try {
@@ -196,6 +211,50 @@ class HitoService implements IHitoService {
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error de acceso a datos al recuperar un hito por su código");
+		}
+	}
+
+	public String generarQR(String codigo) throws AppException {
+		try {
+			Charset charset = Charset.forName("ISO-8859-1");
+			CharsetEncoder encoder = charset.newEncoder();
+			byte[] b = null;
+
+			// Convert a string to ISO-8859-1 bytes in a ByteBuffer
+			ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(codigo));
+			b = bbuf.array();
+
+			String data;
+
+			data = new String(b, "ISO-8859-1");
+
+			// get a byte matrix for the data
+			BitMatrix matrix = null;
+			int h = 100;
+			int w = 100;
+			com.google.zxing.Writer writer = new QRCodeWriter();
+
+			matrix = writer.encode(data, com.google.zxing.BarcodeFormat.QR_CODE, w, h);
+
+			String image = codigo.replace(' ', '_') + ".png";
+			String filePath = configuration.getQrPath() + image;
+			File file = new File(filePath);
+
+			MatrixToImageWriter.writeToFile(matrix, "PNG", file);
+			System.out.println("printing to " + file.getAbsolutePath());
+			return image;
+		}
+		catch (UnsupportedEncodingException e) {
+			throw new AppException("Se ha producido un error de codificación no soportado al generar el código QR");
+		}
+		catch (CharacterCodingException e) {
+			throw new AppException("Se ha producido un error de codificación de caracteres al generar el código QR");
+		}
+		catch (IOException e) {
+			throw new AppException("Se ha producido un error de escritura al guardar la imagen del código QR");
+		}
+		catch (com.google.zxing.WriterException e) {
+			throw new AppException("Se ha producido un error de escritura del código QR");
 		}
 	}
 }

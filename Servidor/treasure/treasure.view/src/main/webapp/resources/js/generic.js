@@ -76,7 +76,9 @@ var generic = {
 					}
 				}
 				else {
-					jAlert(response.mensaje, 'Operaci&oacute;n correcta');
+					if (response.mensaje.length > 0) {
+						jAlert(response.mensaje, 'Operaci&oacute;n correcta');
+					}
 					if (response.correcto) {
 						if (callback) {
 							var param = new Array();

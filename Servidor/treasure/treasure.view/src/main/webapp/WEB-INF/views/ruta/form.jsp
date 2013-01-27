@@ -77,17 +77,24 @@
 		<div id="tabs">
 		    <ul>
 		        <li><a href="#tabs-1">Datos</a></li>
-		        <li><a href="#tabs-2">Geoposicionamiento</a></li>
+		        <li><a href="#tabs-2">Código QR</a></li>
+		        <li><a href="#tabs-3">Geoposicionamiento</a></li>
 		    </ul>
 		    <div id="tabs-1">
 				<label for="nombreHito">Hito</label> 
-				<input type="text" name="nombreHito" id="nombreHito" class="text ui-widget-content ui-corner-all" key="" /><br/>
-				<label for="codigo">C&oacute;digo</label>
-				<input type="text" name="codigo" id="codigo" value="" class="text ui-widget-content ui-corner-all" /><br/><br />
+				<input type="text" name="nombreHito" id="nombreHito" class="text ui-widget-content ui-corner-all" key="" /><br/><br />
+				
 				<label for="pista">Pista</label><br /> 
 				<textarea id="pista" name="pista" style="height:200px;"></textarea>
 			</div>
-			<div id="tabs-2" style="position:relative;">
+			<div id="tabs-2">
+				<label for="codigo">C&oacute;digo</label>
+				<input type="text" name="codigo" id="codigo" value="" class="text ui-widget-content ui-corner-all" />
+				<input type="button" id="btnGenerarQR" value="Generar QR" /><br/>
+				<div id="containerQR"></div> 
+				
+			</div>
+			<div id="tabs-3" style="position:relative;">
 				<div id="map_canvas"></div>
 				<label for="longitud">Longitud</label>
 				<input type="text" name="longitud" id="longitud" value="" class="text ui-widget-content ui-corner-all" /><br/>

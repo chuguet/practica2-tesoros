@@ -4,8 +4,13 @@ body div.ui-datepicker {font-size: 0.7em;}
 
 /*Formulario de preguntas*/
 #frmHitos input {width:380px; display:inline-block;}
+#frmHitos div#tabs-2 input {width:300px; display:inline-block;}
+#frmHitos div#tabs-2 input#btnGenerarQR {width:120px; display:inline-block;}
+#frmHitos div#tabs-2 div#containerQR{width:527px; height:287px; text-align:center;}
+#frmHitos div#tabs-2 div#containerQR img {padding-top:90px;}
+
 #frmHitos label {width:67px; display:inline-block;}
-#frmHitos textarea {width:515px; height:200px}
+#frmHitos textarea {width:515px; height:220px}
 #frmHitos div#map_canvas {width:516px; height:271px}
 
 body.web {overflow:hidden}

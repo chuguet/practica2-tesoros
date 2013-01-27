@@ -182,7 +182,7 @@ var ruta = {
 		// hitos
 		$("#tabs").tabs();
 		$('#tabs').bind('tabsshow', function(event, ui) {
-			if (ui.panel.id == "tabs-2") {
+			if (ui.panel.id == "tabs-3") {
 			    $(ui.panel).css("height","100%");
 			    ruta.map.checkResize();
 			}
@@ -198,6 +198,17 @@ var ruta = {
 		 * *******************************GESTION DE BOTONES DE
 		 * HITOS***********************************************
 		 */
+		$("#btnGenerarQR").button().click(function() {
+			var codigo = $('#codigo').val();
+			if (codigo == '') {
+				jAlert("Debe indicar el c&oacute;digo del hito", "Error");
+			}
+			else{
+				var entity = 'codigoQR/';
+				generic.post(entity, codigo, ruta.showQRCode);
+			}
+		});
+		
 		$("#btnAddHito").button().click(function() {
 			ruta.deseleccionarHito();
 			$('#dialog-form-hitos').dialog('option', 'title', 'A&ntilde;adir Hito');
@@ -212,6 +223,7 @@ var ruta = {
 			$("#nombreHito").val(hito.nombre);
 			$("#nombreHito").attr('key', hito.idRest);
 			$("#codigo").val(hito.codigo);
+			ruta.paintQr(hito.codigo + '.png');
 			$("#pista").val(hito.pista);
 			$("#pista").setCode(hito.pista);
 			$('#longitud').val(hito.longitud);
@@ -308,6 +320,7 @@ var ruta = {
 				$("#latitud").val('');
 				$("#pista").val('');
 				$("#pista").setCode('');
+				$('div#containerQR').empty();
 				if (ruta.newLocation != null){
 					ruta.map.removeOverlay(ruta.newLocation);
 				}
@@ -435,5 +448,13 @@ var ruta = {
 	'paintPoint': function(lattitude, longitude){
 		ruta.newLocation = new GMarker(new GLatLng(lattitude, longitude));
 		ruta.map.addOverlay(ruta.newLocation);
+	},
+	'showQRCode': function(){
+		var params = arguments[0];
+		ruta.paintQr(params.parameter);
+	},
+	'paintQr' : function(image){
+		$('div#containerQR').empty();
+		$('div#containerQR').append("<img src='resources/qrCodes/" + image + "' alt='C&oacute;digo QR generado' />");
 	}
 };
