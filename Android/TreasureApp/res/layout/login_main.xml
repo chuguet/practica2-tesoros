@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@layout/rounded">
+    <TextView
+        android:id="@+id/tv_un"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:textColor="#444444"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="9dip"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="10dip"
+        android:text="Usuario:"/>
+    <EditText
+        android:id="@+id/et_un"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background"
+        android:layout_toRightOf="@id/tv_un"
+        android:layout_alignTop="@id/tv_un"
+        android:layout_marginLeft="50dip"/>
+     <TextView
+        android:id="@+id/tv_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:textColor="#444444"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_un"
+        android:layout_marginRight="9dip"
+        android:layout_marginTop="15dip"
+        android:layout_marginLeft="10dip"
+        android:text="Contraseña:"/>
+    <EditText
+        android:id="@+id/et_pw"
+        android:layout_width="150dip"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background"
+        android:layout_toRightOf="@id/tv_pw"
+        android:layout_alignTop="@id/tv_pw"
+        android:layout_below="@id/et_un"
+        android:layout_marginLeft="17dip"
+        android:password="true"        />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/et_pw"
+        android:onClick="onClickLogin"
+        android:text="Acceder" />
+
+    <Button
+        android:id="@+id/btn_anonimous"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btn_login"
+        android:onClick="onClickAnonimous"
+        android:text="Anónimo" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btn_anonimous"
+        android:onClick="onClickRegister"
+        android:text="Registro" />
+
+</RelativeLayout>

@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="@layout/rounded">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right|center_vertical" >
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/txtUsuario"
+    		android:paddingLeft="3dp"
+    		android:paddingTop="10dp"
+    		android:layout_marginRight="7dp" />
+
+        <ImageButton
+            android:id="@+id/btn_logout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/btnLogout"
+            android:scaleType="centerCrop"
+            android:onClick="onLogout"
+            android:src="@drawable/ic_logout" />
+
+    </LinearLayout>
+
+ 	<LinearLayout
+ 	    android:layout_width="match_parent"
+ 	    android:layout_height="wrap_content"
+ 	    android:orientation="horizontal" >
+
+ 	    <Button
+ 	        android:id="@+id/btn_captureQR"
+ 	        android:layout_height="wrap_content"
+ 	        android:layout_width="wrap_content"
+ 	        android:layout_weight="1"
+ 	        android:onClick="onLaunchQRScanner"
+ 	        android:text="@string/btnCapturarQR" />
+
+ 	    <Button
+ 	        android:id="@+id/btn_send"
+ 	        android:layout_height="wrap_content"
+ 	        android:layout_width="wrap_content"
+ 	        android:layout_weight="1"
+ 	        android:enabled="false"
+ 	        android:onClick="onEnviar"
+ 	        android:text="@string/btnEnviar" />
+ 	</LinearLayout>
+	    
+        <RelativeLayout
+            android:id="@+id/scanner_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="18">
+        </RelativeLayout>
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal" >
+
+		    <TextView
+			    android:id="@+id/lbl_code"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="@string/txtCodigo" />
+
+		    <TextView
+		        android:id="@+id/tv_codigoQR"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="4" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal" >
+
+		    <TextView
+		        android:id="@+id/lbl_longitud"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/txtLongitud"
+		        android:layout_weight="1" />
+
+		    <TextView
+		        android:id="@+id/tv_longitude"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="4" />
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal" >
+
+		    <TextView
+			    android:id="@+id/lbl_latitude"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="@string/txtLatitud" />
+		    <TextView
+			    android:id="@+id/tv_latitude"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="4" />
+		</LinearLayout>
+
+</LinearLayout>

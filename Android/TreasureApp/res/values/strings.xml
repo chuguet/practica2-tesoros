@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TreasureApp</string>
+    <string name="menu_settings">Settings</string>
+    <string name="btnCapturarQR">Capturar QR</string>
+    <string name="btnEnviar">Enviar</string>
+    <string name="btnLogout">Logout</string>
+    <string name="txtCodigo">Código:</string>
+    <string name="txtLongitud">Longitud:</string>
+	<string name="txtLatitud">Latitud:</string>
+	<string name="txtUsuario">Usuario:</string>
+	<string name="btnContinuar">Continuar</string>
+	
+</resources>
