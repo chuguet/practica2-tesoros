@@ -1,19 +1,27 @@
-package com.movember.treasure.model.service;
+package com.movember.treasure.model.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
+import com.movember.treasure.model.bean.EstadisticaHito;
 import com.movember.treasure.model.bean.EstadisticaRuta;
 import com.movember.treasure.model.bean.EstadisticaUsuario;
 import com.movember.treasure.model.bean.Hito;
-import com.movember.treasure.model.bean.HitoEstadistica;
 import com.movember.treasure.model.bean.ParametrosHito;
 import com.movember.treasure.model.bean.Ruta;
 import com.movember.treasure.model.bean.RutaHitoPorcentaje;
 import com.movember.treasure.model.dao.IEstadisticaDAO;
 import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IEstadisticaService;
+import com.movember.treasure.model.service.IHitoService;
+import com.movember.treasure.model.service.IRutaService;
+import com.movember.treasure.model.service.IUsuarioService;
 
 /**
  * The Class EstadisticaService.
@@ -30,32 +38,30 @@ class EstadisticaService implements IEstadisticaService {
 	@Inject
 	private IHitoService hitoService;
 
-	public EstadisticaRuta retrieveEstadisticaRuta(Integer pId) throws AppException {
-		EstadisticaRuta estadistica = new EstadisticaRuta();
-
+	public EstadisticaRuta retrieveEstadisticaRuta(Integer pIdEncuesta) throws AppException {
 		try {
-			Ruta ruta = rutaService.retrieve(pId);
+			EstadisticaRuta estadistica = new EstadisticaRuta();
+			Ruta ruta = rutaService.retrieve(pIdEncuesta);
 			estadistica.setId(ruta.getId());
 			estadistica.setFecha_fin(ruta.getFecha_fin());
 			estadistica.setFecha_inicio(ruta.getFecha_inicio());
 			estadistica.setRuta(ruta.getNombre());
 			estadistica.setHitos(getHitoEstadistica(ruta));
 			estadistica.setContador_total(getContadorTotal(estadistica.getHitos()));
-			estadistica.setUsuarios_ruta_completada(estadisticaDAO.recuperarNumeroUsuariosHanTerminadoRuta(pId));
+			estadistica.setUsuarios_ruta_completada(estadisticaDAO.recuperarNumeroUsuariosHanTerminadoRuta(pIdEncuesta));
+			return estadistica;
 		}
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al recuperar la ruta para generar las estadísticas");
 		}
-
-		return estadistica;
 	}
 
-	private List<HitoEstadistica> getHitoEstadistica(Ruta ruta) throws AppException {
+	private List<EstadisticaHito> getHitoEstadistica(Ruta ruta) throws AppException {
 		try {
-			List<HitoEstadistica> hitos = new ArrayList<HitoEstadistica>();
-			HitoEstadistica hitoEstadistica;
+			List<EstadisticaHito> hitos = new ArrayList<EstadisticaHito>();
+			EstadisticaHito hitoEstadistica;
 			for (Hito hito : ruta.getHitos()) {
-				hitoEstadistica = new HitoEstadistica();
+				hitoEstadistica = new EstadisticaHito();
 				hitoEstadistica.setId(hito.getId());
 				hitoEstadistica.setLatitud(hito.getLatitud());
 				hitoEstadistica.setLongitud(hito.getLongitud());
@@ -78,9 +84,9 @@ class EstadisticaService implements IEstadisticaService {
 		}
 	}
 
-	private Integer getContadorTotal(List<HitoEstadistica> hitos) {
+	private Integer getContadorTotal(List<EstadisticaHito> hitos) {
 		Integer contador = 0;
-		for (HitoEstadistica hitoEstadistica : hitos) {
+		for (EstadisticaHito hitoEstadistica : hitos) {
 			contador = contador + hitoEstadistica.getContador_no_usuarios_identificados() + hitoEstadistica.getContador_usuarios_identificados();
 		}
 		return contador;
@@ -92,8 +98,9 @@ class EstadisticaService implements IEstadisticaService {
 	 * retrieveEstadisticaUsuario(java.lang.Integer)
 	 */
 	public EstadisticaUsuario retrieveEstadisticaUsuario(Integer pIdUsuario) throws AppException {
-		EstadisticaUsuario estadisticaUsuario = new EstadisticaUsuario();
 		try {
+			EstadisticaUsuario estadisticaUsuario = new EstadisticaUsuario();
+
 			// Recuperamos el usuario
 			estadisticaUsuario.setUsuario(usuarioService.retrieve(pIdUsuario));
 			// Seteamos el id de usuario
@@ -120,28 +127,33 @@ class EstadisticaService implements IEstadisticaService {
 				listaRutaHitoPorcentaje.add(rutaHitoPorcentaje);
 			}
 			estadisticaUsuario.setPorcentaje_rutas_hitos(listaRutaHitoPorcentaje);
+
+			return estadisticaUsuario;
 		}
 		catch (SQLException e) {
-			e.printStackTrace();
+			throw new AppException("Se ha producido un error al calcular las estadísticas de un usuario");
 		}
-
-		return estadisticaUsuario;
 	}
 
-	private List<HitoEstadistica> toHitoEstadistica(List<Hito> hitosTerminados, Integer idDipositivo) {
-		List<HitoEstadistica> result = new ArrayList<HitoEstadistica>();
-		HitoEstadistica hitoEstadistica;
-		for (Hito hito : hitosTerminados) {
-			hitoEstadistica = new HitoEstadistica();
-			hitoEstadistica.setId(hito.getId());
-			hitoEstadistica.setLatitud(hito.getLatitud());
-			hitoEstadistica.setLongitud(hito.getLongitud());
-			hitoEstadistica.setCodigo(hito.getCodigo());
-			hitoEstadistica.setNombre(hito.getNombre());
-			hitoEstadistica.setFecha_checkin(estadisticaDAO.recuperarFechaCheckin(new ParametrosHito(hito.getId(), idDipositivo)));
-			result.add(hitoEstadistica);
+	private List<EstadisticaHito> toHitoEstadistica(List<Hito> hitosTerminados, Integer idDipositivo) throws AppException {
+		try {
+			List<EstadisticaHito> result = new ArrayList<EstadisticaHito>();
+			EstadisticaHito hitoEstadistica;
+			for (Hito hito : hitosTerminados) {
+				hitoEstadistica = new EstadisticaHito();
+				hitoEstadistica.setId(hito.getId());
+				hitoEstadistica.setLatitud(hito.getLatitud());
+				hitoEstadistica.setLongitud(hito.getLongitud());
+				hitoEstadistica.setCodigo(hito.getCodigo());
+				hitoEstadistica.setNombre(hito.getNombre());
+				hitoEstadistica.setFecha_checkin(estadisticaDAO.recuperarFechaCheckin(new ParametrosHito(hito.getId(), idDipositivo)));
+				result.add(hitoEstadistica);
+			}
+			return result;
 		}
-		return result;
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error al calcular las estadísticas de los hitos de una ruta");
+		}
 	}
 
 	private List<Hito> getListHitosDeRuta(Integer idRuta, List<Hito> hitosTerminados) {
@@ -152,5 +164,50 @@ class EstadisticaService implements IEstadisticaService {
 			}
 		}
 		return result;
+	}
+
+	public EstadisticaHito recuperarContadorHitoPorDias(Integer idHito) throws AppException {
+		try {
+			EstadisticaHito estadisticaHito = new EstadisticaHito();
+			Hito hito = this.hitoService.retrieve(idHito);
+			estadisticaHito.setId(hito.getId());
+			estadisticaHito.setLatitud(hito.getLatitud());
+			estadisticaHito.setLongitud(hito.getLongitud());
+			estadisticaHito.setCodigo(hito.getCodigo());
+			estadisticaHito.setNombre(hito.getNombre());
+
+			Map<Date, Long> contadorIdentificados = this.estadisticaDAO.recuperarContadorHitoPorDiasIdentificado(idHito);
+			Map<Date, Long> contadorNoIdentificados = this.estadisticaDAO.recuperarContadorHitoPorDiasNoIdentificado(idHito);
+			Map<Date, Long> contadorHitoPorDiasIdentificado = new HashMap<Date, Long>();
+			Map<Date, Long> contadorHitoPorDiasNoIdentificado = new HashMap<Date, Long>();
+			Ruta rutaDelHito = this.rutaService.retrieve(hito.getId_ruta());
+
+			Date fechaInicio = rutaDelHito.getFecha_inicio();
+			Date fechaFin = rutaDelHito.getFecha_fin();
+			Long contadorIdent, contadorNoIdent;
+			while (fechaInicio.before(fechaFin) || fechaInicio.equals(fechaFin)) {
+				contadorIdent = (contadorIdentificados.containsKey(fechaInicio)) ? contadorIdentificados.get(fechaInicio) : new Long(0);
+				contadorHitoPorDiasIdentificado.put(fechaInicio, contadorIdent);
+
+				contadorNoIdent = (contadorNoIdentificados.containsKey(fechaInicio)) ? contadorNoIdentificados.get(fechaInicio) : new Long(0);
+				contadorHitoPorDiasNoIdentificado.put(fechaInicio, contadorNoIdent);
+
+				fechaInicio = this.addDays(fechaInicio, 1);
+			}
+
+			estadisticaHito.setContadorPorDiasIdentificado(contadorHitoPorDiasIdentificado);
+			estadisticaHito.setContadorPorDiasNoIdentificado(contadorHitoPorDiasNoIdentificado);
+			return estadisticaHito;
+		}
+		catch (SQLException e) {
+			throw new AppException("Se ha producido un error al recuperar las estadísticas de checkin de un hito");
+		}
+	}
+
+	private Date addDays(Date date, int days) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, days); // minus number would decrement the days
+		return cal.getTime();
 	}
 }

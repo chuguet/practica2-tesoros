@@ -1,4 +1,4 @@
-package com.movember.treasure.model.dao;
+package com.movember.treasure.model.dao.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.movember.treasure.model.bean.GestorRuta;
+import com.movember.treasure.model.dao.IGestorRutaDAO;
 
 @Repository
 public class GestorRutaDAO extends AbstractDAO implements IGestorRutaDAO{

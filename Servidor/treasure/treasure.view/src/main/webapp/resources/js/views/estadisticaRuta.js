@@ -61,11 +61,33 @@ var estadisticaRuta = {
 		html = html + "<span style='color: #808080; font-size: 9px;'>Longitud: " + hito.longitud + "</span></p>";
 		html = html + "Usuarios <b>registrados</b> que han checkeado:" + hito.contador_usuarios_identificados + "<br/>";
 		html = html + "Usuarios <b>no registrados</b> que han checkeado:" + hito.contador_no_usuarios_identificados + "<br/>";
-		html = html + "<a href='javascript:void' onclick='javascript:estadisticaRuta.verHitoEnTiempo(\"" + hito.nombre + "\"," + hito.id + ");' title='Ver estad&iacute;stica de tiempo'>Ver estad&iacute;stica en tiempo</a>";
+		html = html + "<a href='javascript:void' onclick='javascript:estadisticaRuta.cargarHitoEstadistica(" + hito.id + ");' title='Ver estad&iacute;stica de tiempo'>Ver estad&iacute;stica en tiempo</a>";
 		return html;
 	},
-	'verHitoEnTiempo' : function(nombreHito, idHito) {
-		$('#dialog-hito-en-tiempo').dialog('option', 'title', 'An&aacute;lisis del Hito ' + nombreHito);
+	'cargarHitoEstadistica' : function(idHito) {
+		generic.get('estadisticaHito', idHito, estadisticaRuta.verHitoEnTiempo);
+	},
+	'verHitoEnTiempo' : function() {
+		var hito = arguments[0];
+
+		var categorias = new Array();
+		var datosIdentificado = new Array();
+		var datosNoIdentificado = new Array();
+		for( var campo in hito.contadorPorDiasIdentificado) {
+			categorias.push(campo);
+		}
+		categorias.sort();
+		for( var i = 0; i < categorias.length; i++) {
+			datosIdentificado.push(hito.contadorPorDiasIdentificado[categorias[i]]);
+			datosNoIdentificado.push(hito.contadorPorDiasNoIdentificado[categorias[i]]);
+			categorias[i] = categorias[i].substring(3, 5) + '/' + categorias[i].substring(0, 2);
+		}
+
+		var numItems = datosIdentificado.length;
+		var size = 40 * numItems;
+		$('#container').attr("style", "min-width: " + size + "px; height: 380px; margin: 0 auto");
+
+		$('#dialog-hito-en-tiempo').dialog('option', 'title', 'An&aacute;lisis del Hito ' + hito.nombre);
 		chart = new Highcharts.Chart({
 			chart : {
 				renderTo : 'container',
@@ -74,9 +96,7 @@ var estadisticaRuta = {
 				marginBottom : 25
 			},
 			xAxis : {
-				categories : [
-						'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-				]
+				categories : categorias
 			},
 			yAxis : {
 				title : {
@@ -106,18 +126,14 @@ var estadisticaRuta = {
 			series : [
 					{
 						name : 'Ident.',
-						data : [
-								7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6
-						]
+						data : datosIdentificado
 					}, {
 						name : 'No ident.',
-						data : [
-								1, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5
-						]
+						data : datosNoIdentificado
 					}
 			]
 		});
-		var l = $("g.highcharts-legend").attr("transform", "translate(450,20)");
+		var l = $("g.highcharts-legend").attr("transform", "translate(30,20)");
 		$("#dialog-hito-en-tiempo").dialog("open");
 	}
 };

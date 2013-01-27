@@ -1,4 +1,4 @@
-package com.movember.treasure.model.service;
+package com.movember.treasure.model.service.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +27,12 @@ import com.movember.treasure.model.bean.Usuario;
 import com.movember.treasure.model.config.SpringModelConfiguration;
 import com.movember.treasure.model.dao.IHitoDAO;
 import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IConfiguracionService;
+import com.movember.treasure.model.service.IDispositivoService;
+import com.movember.treasure.model.service.IHitoDispositivoService;
+import com.movember.treasure.model.service.IHitoService;
+import com.movember.treasure.model.service.IRutaService;
+import com.movember.treasure.model.service.IUsuarioService;
 
 /**
  * The Class HitoService.

@@ -1,4 +1,4 @@
-package com.movember.treasure.model.service;
+package com.movember.treasure.model.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.movember.treasure.model.bean.GestorRuta;
 import com.movember.treasure.model.dao.IGestorRutaDAO;
+import com.movember.treasure.model.service.IGestorRutaService;
 
 @Service
 public class GestorRutaService implements IGestorRutaService{

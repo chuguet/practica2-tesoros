@@ -1,4 +1,4 @@
-package com.movember.treasure.model.service;
+package com.movember.treasure.model.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import com.movember.treasure.model.bean.Mensaje;
 import com.movember.treasure.model.dao.IConfiguracionDAO;
 import com.movember.treasure.model.dao.ILogroDAO;
 import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IConfiguracionService;
 
 @Service
 class ConfiguracionService implements IConfiguracionService {

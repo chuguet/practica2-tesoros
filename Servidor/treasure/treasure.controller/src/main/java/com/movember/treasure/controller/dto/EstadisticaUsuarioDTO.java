@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.movember.treasure.model.bean.EstadisticaUsuario;
-import com.movember.treasure.model.bean.HitoEstadistica;
+import com.movember.treasure.model.bean.EstadisticaHito;
 import com.movember.treasure.model.bean.RutaHitoPorcentaje;
 import com.movember.treasure.model.exception.AppException;
 
@@ -44,7 +44,7 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 	/** The usuario. */
 	private String usuario;
 
-	private List<HitoEstadisticaDTO> hitos_terminados;
+	private List<EstadisticaHitoDTO> hitos_terminados;
 	
 	/**
 	 * Calculo porcentaje.
@@ -222,17 +222,17 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 				+ estadisticaUsuario.getUsuario().getApellidos();
 		
 		if (estadisticaUsuario.getHitos_terminados() != null && estadisticaUsuario.getHitos_terminados().size() > 0) {
-			HitoEstadisticaDTO hitoEstadisticaDTO;
-			for (HitoEstadistica hito : estadisticaUsuario.getHitos_terminados()) {
-				hitoEstadisticaDTO = new HitoEstadisticaDTO();
+			EstadisticaHitoDTO hitoEstadisticaDTO;
+			for (EstadisticaHito hito : estadisticaUsuario.getHitos_terminados()) {
+				hitoEstadisticaDTO = new EstadisticaHitoDTO();
 				hitoEstadisticaDTO.toRest(hito);
 				this.addHitoEstadisticaDTO(hitoEstadisticaDTO);
 			}
 		}
 	}
-	private void addHitoEstadisticaDTO(HitoEstadisticaDTO hitoEstadisticaDTO) {
+	private void addHitoEstadisticaDTO(EstadisticaHitoDTO hitoEstadisticaDTO) {
 		if (this.getHitos_terminados() == null) {
-			this.hitos_terminados = new ArrayList<HitoEstadisticaDTO>();
+			this.hitos_terminados = new ArrayList<EstadisticaHitoDTO>();
 		}
 		hitos_terminados.add(hitoEstadisticaDTO);
 	}
@@ -244,11 +244,11 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 		this.id = id;
 	}
 
-	public List<HitoEstadisticaDTO> getHitos_terminados() {
+	public List<EstadisticaHitoDTO> getHitos_terminados() {
 		return hitos_terminados;
 	}
 
-	public void setHitos_terminados(List<HitoEstadisticaDTO> hitos_terminados) {
+	public void setHitos_terminados(List<EstadisticaHitoDTO> hitos_terminados) {
 		this.hitos_terminados = hitos_terminados;
 	}
 

@@ -2,8 +2,8 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
 <sqlMap namespace="estadistica">
 	<resultMap id="mapResult" class="java.util.HashMap">
-		<result property="key" column="id" javaType="java.lang.Integer" />
-		<result property="value" column="contador" javaType="java.lang.Integer" />
+		<result column="id" property="key" javaType="java.lang.Integer" />
+		<result column="contador" property="value" javaType="java.lang.Integer" />
 	</resultMap>
 
 	<resultMap id="rutaResult" class="com.movember.treasure.model.bean.Ruta">
@@ -25,6 +25,12 @@
 		<result column="codigo" property="codigo" jdbcType="VARCHAR" />
 		<result column="pista" property="pista" jdbcType="TEXT" />
 	</resultMap>
+	
+	<resultMap id="mapCheckingHito" class="java.util.HashMap">
+		<result column="fecha" property="key" jdbcType="DATE" />
+		<result column="contador" property="value" jdbcType="INTEGER" />
+	</resultMap>
+	
 
 	<select id="selectCountHitoIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
 		SELECT count(*) as contador, h.id as id
@@ -36,7 +42,7 @@
 	</select>
 
 	<select id="selectCountHitoNotIdent" parameterClass="java.lang.Integer" resultMap="mapResult">
-		SELECT count(*) as contador, h.id as id
+		SELECT count(*) AS contador, h.id as id
 		FROM hito h
 		LEFT JOIN hito_dispositivo hu ON h.id = hu.id_hito
 		WHERE h.id_ruta = #id:INTEGER#
@@ -48,13 +54,27 @@
 		SELECT count(*) 
 		FROM hito
 	</select>
+	
+	<select id="selectCountHitosByDiaIdentificado" parameterClass="java.lang.Integer" resultMap="mapCheckingHito">
+		SELECT count(*) AS contador, DATE(fecha)AS fecha
+		FROM hito_dispositivo 
+		WHERE id_hito=#idHito:INTEGER# AND identificado = 1
+		GROUP BY DATE(fecha);
+	</select>
+	
+	<select id="selectCountHitosByDiaNoIdentificado" parameterClass="java.lang.Integer" resultMap="mapCheckingHito">
+		SELECT count(*) AS contador, DATE(fecha)AS fecha
+		FROM hito_dispositivo 
+		WHERE id_hito=#idHito:INTEGER# AND identificado = 0
+		GROUP BY DATE(fecha);
+	</select>
+	
 	<select id="selectCountRutas" resultClass="java.lang.Integer">
 		SELECT count(*) 
 		FROM ruta
 	</select>
 
-	<select id="selectHitosTerminados" parameterClass="java.lang.Integer"
-		resultMap="hitoResult">
+	<select id="selectHitosTerminados" parameterClass="java.lang.Integer" resultMap="hitoResult">
 		SELECT h.*
 		FROM hito_dispositivo hd
 		INNER JOIN dispositivo d ON hd.id_dispositivo = d.id

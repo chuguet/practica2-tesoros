@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.movember.treasure.model.bean.EstadisticaRuta;
-import com.movember.treasure.model.bean.HitoEstadistica;
+import com.movember.treasure.model.bean.EstadisticaHito;
 import com.movember.treasure.model.exception.AppException;
 
 /**
@@ -23,7 +23,7 @@ public class EstadisticaRutaDTO extends AbstractDTO {
 	private String fecha_inicio;
 
 	/** The id_encuesta. */
-	private List<HitoEstadisticaDTO> hitos;
+	private List<EstadisticaHitoDTO> hitos;
 
 	/** The codigo. */
 	private String ruta;
@@ -41,18 +41,18 @@ public class EstadisticaRutaDTO extends AbstractDTO {
 		this.setFecha_inicio(sdf.format(estadistica.getFecha_inicio()));
 		this.setUsuarios_ruta_completada(estadistica.getUsuarios_ruta_completada());
 		if (estadistica.getHitos() != null && estadistica.getHitos().size() > 0) {
-			HitoEstadisticaDTO hitoEstadisticaDTO;
-			for (HitoEstadistica hito : estadistica.getHitos()) {
-				hitoEstadisticaDTO = new HitoEstadisticaDTO();
+			EstadisticaHitoDTO hitoEstadisticaDTO;
+			for (EstadisticaHito hito : estadistica.getHitos()) {
+				hitoEstadisticaDTO = new EstadisticaHitoDTO();
 				hitoEstadisticaDTO.toRest(hito);
 				this.addHitoEstadisticaDTO(hitoEstadisticaDTO);
 			}
 		}
 	}
 
-	private void addHitoEstadisticaDTO(HitoEstadisticaDTO hitoEstadisticaDTO) {
+	private void addHitoEstadisticaDTO(EstadisticaHitoDTO hitoEstadisticaDTO) {
 		if (this.getHitos() == null) {
-			this.hitos = new ArrayList<HitoEstadisticaDTO>();
+			this.hitos = new ArrayList<EstadisticaHitoDTO>();
 		}
 		hitos.add(hitoEstadisticaDTO);
 	}
@@ -81,11 +81,11 @@ public class EstadisticaRutaDTO extends AbstractDTO {
 		this.fecha_inicio = fecha_inicio;
 	}
 
-	public List<HitoEstadisticaDTO> getHitos() {
+	public List<EstadisticaHitoDTO> getHitos() {
 		return hitos;
 	}
 
-	public void setHitos(List<HitoEstadisticaDTO> hitos) {
+	public void setHitos(List<EstadisticaHitoDTO> hitos) {
 		this.hitos = hitos;
 	}
 

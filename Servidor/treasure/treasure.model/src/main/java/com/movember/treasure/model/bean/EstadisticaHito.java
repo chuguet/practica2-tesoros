@@ -1,15 +1,14 @@
-package com.movember.treasure.controller.dto;
+package com.movember.treasure.model.bean;
 
-import java.text.SimpleDateFormat;
-import com.movember.treasure.model.bean.HitoEstadistica;
-import com.movember.treasure.model.exception.AppException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class PreguntaEstadisticaDTO.
+ * The Class EncuestaContestada.
  */
-public class HitoEstadisticaDTO extends AbstractDTO {
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+public class EstadisticaHito extends AbstractBean {
+
 	/** The contador_no_usuarios_identificados. */
 	private Integer contador_no_usuarios_identificados;
 
@@ -27,14 +26,14 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 
 	private String codigo;
 
-	private String fecha_checkin;
+	private Date fecha_checkin;
 
-	public String getFecha_checkin() {
-		return fecha_checkin;
-	}
+	private Map<Date, Long> contadorPorDiasIdentificado;
+	private Map<Date, Long> contadorPorDiasNoIdentificado;
 
-	public void setFecha_checkin(String fecha_checkin) {
-		this.fecha_checkin = fecha_checkin;
+	public EstadisticaHito() {
+		this.setContadorPorDiasIdentificado(new HashMap<Date, Long>());
+		this.setContadorPorDiasNoIdentificado(new HashMap<Date, Long>());
 	}
 
 	/**
@@ -132,36 +131,6 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 		this.nombre = nombre;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * com.movember.treasure.controller.dto.AbstractDTO#toBusiness(java.lang
-	 * .Object)
-	 */
-	@Override
-	public void toBusiness(Object object) throws AppException {
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * com.movember.treasure.controller.dto.AbstractDTO#toRest(java.lang.Object)
-	 */
-	@Override
-	public void toRest(Object object) throws AppException {
-		HitoEstadistica hitoEstadistica = (HitoEstadistica) object;
-		this.setContador_no_usuarios_identificados(hitoEstadistica.getContador_no_usuarios_identificados());
-		this.setContador_usuarios_identificados(hitoEstadistica.getContador_usuarios_identificados());
-		this.setId(hitoEstadistica.getId());
-		this.setLatitud(hitoEstadistica.getLatitud());
-		this.setLongitud(hitoEstadistica.getLongitud());
-		this.setNombre(hitoEstadistica.getNombre());
-		this.setCodigo(hitoEstadistica.getCodigo());
-		if (hitoEstadistica.getFecha_checkin() != null) {
-			this.setFecha_checkin(sdf.format(hitoEstadistica.getFecha_checkin()));
-		}
-	}
-
 	public String getCodigo() {
 		return codigo;
 	}
@@ -170,4 +139,27 @@ public class HitoEstadisticaDTO extends AbstractDTO {
 		this.codigo = codigo;
 	}
 
+	public Date getFecha_checkin() {
+		return fecha_checkin;
+	}
+
+	public void setFecha_checkin(Date fecha_checkin) {
+		this.fecha_checkin = fecha_checkin;
+	}
+
+	public void setContadorPorDiasIdentificado(Map<Date, Long> contadorPorDiasIdentificado) {
+		this.contadorPorDiasIdentificado = contadorPorDiasIdentificado;
+	}
+
+	public Map<Date, Long> getContadorPorDiasIdentificado() {
+		return contadorPorDiasIdentificado;
+	}
+
+	public void setContadorPorDiasNoIdentificado(Map<Date, Long> contadorPorDiasNoIdentificado) {
+		this.contadorPorDiasNoIdentificado = contadorPorDiasNoIdentificado;
+	}
+
+	public Map<Date, Long> getContadorPorDiasNoIdentificado() {
+		return contadorPorDiasNoIdentificado;
+	}
 }

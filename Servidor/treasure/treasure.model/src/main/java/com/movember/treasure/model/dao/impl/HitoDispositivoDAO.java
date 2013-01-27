@@ -1,4 +1,4 @@
-package com.movember.treasure.model.dao;
+package com.movember.treasure.model.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.movember.treasure.model.bean.HitoDispositivo;
 import com.movember.treasure.model.bean.HitoDispositivoCriterios;
+import com.movember.treasure.model.dao.IHitoDispositivoDAO;
 
 @Repository
 class HitoDispositivoDAO extends AbstractDAO implements IHitoDispositivoDAO {

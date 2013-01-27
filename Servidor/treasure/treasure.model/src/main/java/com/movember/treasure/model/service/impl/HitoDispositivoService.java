@@ -1,4 +1,4 @@
-package com.movember.treasure.model.service;
+package com.movember.treasure.model.service.impl;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,6 +9,7 @@ import com.movember.treasure.model.bean.HitoDispositivo;
 import com.movember.treasure.model.bean.HitoDispositivoCriterios;
 import com.movember.treasure.model.dao.IHitoDispositivoDAO;
 import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IHitoDispositivoService;
 
 @Service
 class HitoDispositivoService implements IHitoDispositivoService {

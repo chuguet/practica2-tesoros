@@ -1,4 +1,4 @@
-package com.movember.treasure.model.dao;
+package com.movember.treasure.model.dao.impl;
 
 import javax.inject.Inject;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;

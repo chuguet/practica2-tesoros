@@ -1,4 +1,4 @@
-package com.movember.treasure.model.service;
+package com.movember.treasure.model.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +15,9 @@ import com.movember.treasure.model.bean.Usuario;
 import com.movember.treasure.model.dao.IGestorRutaDAO;
 import com.movember.treasure.model.dao.IUsuarioDAO;
 import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IDispositivoService;
+import com.movember.treasure.model.service.IGestorRutaService;
+import com.movember.treasure.model.service.IUsuarioService;
 
 // TODO: Auto-generated Javadoc
 /**
