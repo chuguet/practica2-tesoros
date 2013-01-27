@@ -1,10 +1,11 @@
-package com.movember.treasure.model.dao;
+package com.movember.treasure.model.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import com.movember.treasure.model.bean.Usuario;
+import com.movember.treasure.model.dao.IUsuarioDAO;
 
 /**
  * The Class UsuarioDAO.

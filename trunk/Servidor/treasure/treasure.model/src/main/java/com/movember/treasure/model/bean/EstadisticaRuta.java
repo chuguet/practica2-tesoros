@@ -22,7 +22,7 @@ public class EstadisticaRuta extends AbstractBean {
 	private Date fecha_inicio;
 
 	/** The id_encuesta. */
-	private List<HitoEstadistica> hitos;
+	private List<EstadisticaHito> hitos;
 
 	/** The codigo. */
 	private String ruta;
@@ -71,7 +71,7 @@ public class EstadisticaRuta extends AbstractBean {
 	 *
 	 * @return the hitos
 	 */
-	public List<HitoEstadistica> getHitos() {
+	public List<EstadisticaHito> getHitos() {
 		return hitos;
 	}
 
@@ -116,7 +116,7 @@ public class EstadisticaRuta extends AbstractBean {
 	 *
 	 * @param hitos the new hitos
 	 */
-	public void setHitos(List<HitoEstadistica> hitos) {
+	public void setHitos(List<EstadisticaHito> hitos) {
 		this.hitos = hitos;
 	}
 

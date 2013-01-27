@@ -26,7 +26,7 @@ public class EstadisticaUsuario extends AbstractBean{
 	/** The num_hitos_totales. */
 	private Integer num_hitos_totales;
 
-	private List<HitoEstadistica> hitos_terminados;
+	private List<EstadisticaHito> hitos_terminados;
 	
 	/**
 	 * Gets the usuario.
@@ -105,11 +105,11 @@ public class EstadisticaUsuario extends AbstractBean{
 		this.num_hitos_totales = num_hitos_totales;
 	}
 
-	public List<HitoEstadistica> getHitos_terminados() {
+	public List<EstadisticaHito> getHitos_terminados() {
 		return hitos_terminados;
 	}
 
-	public void setHitos_terminados(List<HitoEstadistica> hitos_terminados) {
+	public void setHitos_terminados(List<EstadisticaHito> hitos_terminados) {
 		this.hitos_terminados = hitos_terminados;
 	}
 

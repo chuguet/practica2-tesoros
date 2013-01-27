@@ -1,9 +1,10 @@
-package com.movember.treasure.model.dao;
+package com.movember.treasure.model.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
 import org.springframework.stereotype.Repository;
 import com.movember.treasure.model.bean.Mensaje;
+import com.movember.treasure.model.dao.ILogroDAO;
 
 @Repository
 class LogroDAO extends AbstractDAO implements ILogroDAO {

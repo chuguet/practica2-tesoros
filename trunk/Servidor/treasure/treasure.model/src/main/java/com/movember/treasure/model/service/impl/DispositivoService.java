@@ -1,4 +1,4 @@
-package com.movember.treasure.model.service;
+package com.movember.treasure.model.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.movember.treasure.model.bean.Dispositivo;
 import com.movember.treasure.model.dao.IDispositivoDAO;
 import com.movember.treasure.model.exception.AppException;
+import com.movember.treasure.model.service.IDispositivoService;
 
 /**
  * The Class DispositivoService.
