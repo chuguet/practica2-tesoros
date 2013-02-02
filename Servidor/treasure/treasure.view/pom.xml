@@ -13,7 +13,7 @@
 	<name>${project.groupId}.${project.artifactId}</name>
 
 	<build>
-		<finalName>${project.groupId}.${project.artifactId}</finalName>
+		<finalName>practicas2</finalName>
 	</build>
 
     <dependencies>

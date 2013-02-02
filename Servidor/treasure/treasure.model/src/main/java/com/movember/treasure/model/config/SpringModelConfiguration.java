@@ -56,6 +56,13 @@ public class SpringModelConfiguration {
 		return qrPath;
 	}
 
+	@Value("${contextQR}")
+	private String contextQR;
+
+	public String getContextQR() {
+		return contextQR;
+	}
+
 	/**
 	 * Gets the data source.
 	 * 

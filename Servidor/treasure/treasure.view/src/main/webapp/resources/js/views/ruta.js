@@ -455,6 +455,7 @@ var ruta = {
 	},
 	'paintQr' : function(image){
 		$('div#containerQR').empty();
-		$('div#containerQR').append("<img src='resources/qrCodes/" + image + "' alt='C&oacute;digo QR generado' />");
+		var contextQR = $('input#contextQR').val();
+		$('div#containerQR').append("<img src='" + contextQR + image.replace(/ /g, '_') + "' alt='C&oacute;digo QR generado' />");
 	}
 };

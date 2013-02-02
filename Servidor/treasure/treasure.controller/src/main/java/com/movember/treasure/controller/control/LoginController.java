@@ -18,6 +18,11 @@ import com.movember.treasure.model.bean.Usuario;
 @Controller
 public class LoginController {
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String welcome() {
+		return "redirect:/login";
+	}
+	
 	/**
 	 * Petición REST que recoge los datos del usuario y nos lleva a la pagina
 	 * principal *.
