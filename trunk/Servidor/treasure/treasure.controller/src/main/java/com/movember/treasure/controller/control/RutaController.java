@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.movember.treasure.controller.dto.MensajeDTO;
 import com.movember.treasure.controller.dto.RutaDTO;
 import com.movember.treasure.model.bean.Ruta;
+import com.movember.treasure.model.config.SpringModelConfiguration;
 import com.movember.treasure.model.exception.AppException;
 import com.movember.treasure.model.service.IRutaService;
 
@@ -33,6 +34,9 @@ public class RutaController {
 
 	/** Recurso principal del controlador en la peticiones rest *. */
 	private static final String recurso = "ruta";
+
+	@Inject
+	private SpringModelConfiguration configuration;
 
 	/**
 	 * Petición REST que nos devuelve una sola ruta por ID.
@@ -134,6 +138,7 @@ public class RutaController {
 	@RequestMapping(value = "/" + recurso + "/form/{operacion}", method = RequestMethod.GET, produces = "text/html")
 	public String createForm(@PathVariable("operacion") String operacion, final Model uiModel) {
 		uiModel.addAttribute("operacion", operacion);
+		uiModel.addAttribute("contextQR", configuration.getContextQR());
 		if (!operacion.equals("list")) {
 			operacion = "form";
 		}

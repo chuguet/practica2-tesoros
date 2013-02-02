@@ -91,8 +91,8 @@
 				<label for="codigo">C&oacute;digo</label>
 				<input type="text" name="codigo" id="codigo" value="" class="text ui-widget-content ui-corner-all" />
 				<input type="button" id="btnGenerarQR" value="Generar QR" /><br/>
+				<input type="hidden" id="contextQR" value="${contextQR}" />
 				<div id="containerQR"></div> 
-				
 			</div>
 			<div id="tabs-3" style="position:relative;">
 				<div id="map_canvas"></div>
