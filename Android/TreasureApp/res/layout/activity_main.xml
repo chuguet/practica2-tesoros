@@ -25,7 +25,7 @@
     		android:paddingLeft="3dp"
     		android:paddingTop="10dp"
     		android:layout_marginRight="7dp" />
-
+<!--  
         <ImageButton
             android:id="@+id/btn_logout"
             android:layout_width="30dp"
@@ -35,7 +35,7 @@
             android:scaleType="centerCrop"
             android:onClick="onLogout"
             android:src="@drawable/ic_logout" />
-
+-->
     </LinearLayout>
 
  	<LinearLayout

@@ -4,6 +4,7 @@ import java.util.Locale;
 import org.jsoup.Jsoup;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
@@ -24,6 +25,8 @@ public class HtmlViewer extends Activity implements OnInitListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.htmlviewer_main);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 		this.web_view = (WebView) this.findViewById(R.id.webview);
 
 		Bundle bundle = getIntent().getExtras();

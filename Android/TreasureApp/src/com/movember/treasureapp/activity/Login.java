@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,9 +32,9 @@ public class Login extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_main);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		this.prop = PropertiesService.loadProperties(this);
 		verifyDeviceRegistered();
 		verifyUserLogged();
@@ -147,7 +148,8 @@ public class Login extends Activity {
 	private void verifyUserLogged() {
 		String name = UserInformationService.readName(this);
 		if (name != null && name.length() > 0) {
-			accessApplication();
+			Intent intent = new Intent(getApplicationContext(), Main.class);
+			startActivity(intent);
 		}
 	}
 
