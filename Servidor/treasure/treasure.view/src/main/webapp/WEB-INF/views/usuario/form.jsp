@@ -54,9 +54,9 @@
 		</p>
 		<p>
 			<label for="admin">Tipo de usuario:</label>
-			<input id="usuario" name="tipoUsuario" type="radio" value="0" />Usuario
-			<input id="gestor" name="tipoUsuario" type="radio" value="2" />Gestor
-			<input id="administrador" name="tipoUsuario" type="radio" value="1" />Administrador
+			<input id="chk_usuario" name="tipoUsuario" type="radio" value="0" />Usuario
+			<input id="chk_gestor" name="tipoUsuario" type="radio" value="2" />Gestor
+			<input id="chk_administrador" name="tipoUsuario" type="radio" value="1" />Administrador
 		</p>
 		<div class="botonera">
 			<c:choose>
