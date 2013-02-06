@@ -160,5 +160,11 @@
 			<artifactId>javase</artifactId>
 			<version>${com.google.zxing}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.lang}</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -110,6 +110,8 @@
 	<select id="recuperarFechaCheckin" parameterClass="com.movember.treasure.model.bean.ParametrosHito" resultClass="java.util.Date">
 		SELECT fecha 
 		FROM hito_dispositivo 
-		WHERE id_hito=#idHito:INTEGER# AND id_dispositivo=#idDipositivoUsuario:INTEGER#
+		WHERE id_hito=#idHito:INTEGER# AND id_dispositivo=#idDispositivoUsuario:INTEGER#
+		GROUP BY fecha
+		LIMIT 1;
 	</select>
 </sqlMap>

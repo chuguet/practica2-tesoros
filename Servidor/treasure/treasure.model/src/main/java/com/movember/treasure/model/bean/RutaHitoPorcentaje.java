@@ -4,7 +4,7 @@ package com.movember.treasure.model.bean;
 /**
  * The Class RutaHitoPorcentaje.
  */
-public class RutaHitoPorcentaje extends AbstractBean{
+public class RutaHitoPorcentaje extends AbstractBean {
 
 	/** The num_hitos_totales. */
 	private Integer num_hitos_totales;
@@ -12,8 +12,12 @@ public class RutaHitoPorcentaje extends AbstractBean{
 	/** The num_hitos_checkeados. */
 	private Integer num_hitos_checkeados;
 
+	private Integer num_hitos_distintos_checkeados;
+
 	/** The num_hitos_necesarios. */
 	private Integer num_hitos_necesarios;
+
+	private Integer num_hitos_distintos;
 
 	/** The ruta. */
 	private String ruta;
@@ -92,5 +96,21 @@ public class RutaHitoPorcentaje extends AbstractBean{
 	 */
 	public void setNum_hitos_necesarios(Integer num_hitos_necesarios) {
 		this.num_hitos_necesarios = num_hitos_necesarios;
+	}
+
+	public void setNum_hitos_distintos(Integer num_hitos_distintos) {
+		this.num_hitos_distintos = num_hitos_distintos;
+	}
+
+	public Integer getNum_hitos_distintos() {
+		return num_hitos_distintos;
+	}
+
+	public void setNum_hitos_distintos_checkeados(Integer num_hitos_distintos_checkeados) {
+		this.num_hitos_distintos_checkeados = num_hitos_distintos_checkeados;
+	}
+
+	public Integer getNum_hitos_distintos_checkeados() {
+		return num_hitos_distintos_checkeados;
 	}
 }

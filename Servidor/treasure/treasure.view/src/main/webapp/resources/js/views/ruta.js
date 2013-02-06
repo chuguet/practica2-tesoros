@@ -6,7 +6,7 @@ var ruta = {
 				datatype : 'local',
 				data : [],
 				colNames : [
-						"Id", "Tesoro", "Fecha Inicio", "Fecha Fin", "Hitos Necesarios"
+						"Id", "Tesoro", "Fecha Inicio", "Fecha Fin", "Hitos Necesarios", "Hitos Distintos"
 				],
 				colModel : [
 						{
@@ -42,7 +42,15 @@ var ruta = {
 							sorttype : 'string',
 							sortable : true,
 							align : 'right'
+						}, {
+							name : 'hitos_distintos',
+							index : 'hitos_distintos',
+							width : 10,
+							sorttype : 'string',
+							sortable : true,
+							align : 'right'
 						}
+						
 				],
 				rowNum : 20,
 				rowList : [
@@ -308,7 +316,7 @@ var ruta = {
 
 					$(this).dialog("close");
 				},
-				Cancel : function() {
+				"Cancelar" : function() {
 					$(this).dialog("close");
 				}
 			},
@@ -323,6 +331,7 @@ var ruta = {
 				$('div#containerQR').empty();
 				if (ruta.newLocation != null){
 					ruta.map.removeOverlay(ruta.newLocation);
+					ruta.map.removeOverlay(ruta.polygon);
 				}
 			}
 		});
@@ -377,9 +386,11 @@ var ruta = {
 		var fecha_fin = $("#fecha_fin").val();
 		var hitos = $('#lista').jqGrid('getRowData');
 		var hitos_necesarios = $('#hitos_necesarios').val();
+		var hitos_distintos = $('#hitos_distintos').val();
 		var premio_identificados = $('#premio_identificados').val();
 		var premio_no_identificados = $('#premio_no_identificados').val();
 		var errores = '';
+		var controlarHitos = true;
 		if (nombre == '') {
 			errores = "- El nombre es obligatorio<br />";
 		}
@@ -389,8 +400,24 @@ var ruta = {
 		if (fecha_fin == '') {
 			errores += "- La fecha de finalizaci&oacute;n es obligatoria<br />";
 		}
-		if (hitos_necesarios>hitos.length){
-			errores += "- El n&uacute;mero de hitos necesarios para encontrar el tesoro no puede superar al n&uacute;mero de hitos del tesoro<br />";
+		if (hitos_necesarios == ''){
+			errores += "- Es necesario introducir el número de hitos necesarios<br />";
+			controlarHitos = false;
+		}
+		if (hitos_distintos == ''){
+			errores += "- Es necesario introducir el número de hitos distintos que se deben checkear para ganar el premio<br />";
+			controlarHitos = false;
+		}
+		if (controlarHitos){
+			if (hitos_necesarios > hitos.length){
+				errores += "- El n&uacute;mero de hitos necesarios para encontrar el tesoro no puede superar al n&uacute;mero de hitos del tesoro<br />";
+			}
+			if (hitos_distintos > hitos.length){
+				errores += "- El n&uacute;mero de hitos distintos para encontrar el tesoro no puede superar al n&uacute;mero de hitos del tesoro<br />";
+			}
+			if (hitos_distintos > hitos_necesarios){
+				errores += "- El n&uacute;mero de hitos distintos no puede superar al n&uacute;mero de hitos necesarios<br />";
+			}
 		}
 		if(premio_identificados.length == 0 || premio_no_identificados.length == 0){
 			errores += "- Deben introducirse los premios correspondientes a la ruta<br />";
@@ -409,6 +436,7 @@ var ruta = {
 				fecha_fin : fecha_fin,
 				hitosDTO : hitos,
 				hitos_necesarios : hitos_necesarios,
+				hitos_distintos : hitos_distintos,
 				premio_identificados : premio_identificados,
 				premio_no_identificados : premio_no_identificados
 			};
@@ -419,35 +447,68 @@ var ruta = {
 		}
 	},
     'newLocation': null,
-    'map': null,
+    'polygon' : null,
+    'map' : null,
 	'configureGoogleMaps' : function(){
-		if (GBrowserIsCompatible()) {
+		if (google.maps.BrowserIsCompatible()) {
 			if (this.map == null){
-	            this.map = new GMap2(document.getElementById("map_canvas"));
-	            this.map.addControl(new GSmallMapControl());
-	            this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
+	            this.map = new google.maps.Map2(document.getElementById("map_canvas"));
+	            this.map.addControl(new google.maps.SmallMapControl());
+	            this.map.setCenter(new google.maps.LatLng(40.4199, -3.694668), 13);
 			}
-			GEvent.addListener(this.map, "click", function(marker,point) {
+			google.maps.Event.addListener(this.map, "click", function(marker,point) {
 				if (ruta.newLocation != null){
 					ruta.map.removeOverlay(ruta.newLocation);
+					ruta.map.removeOverlay(ruta.polygon);
 				}
 				if (marker && marker.openInfoWindowHtml) {
 					ruta.newLocation = marker;
 					$('#longitud').val(marker.getPoint().lng().toString());
 					$('#latitud').val(marker.getPoint().lat().toString());
+					ruta.paintCircle(marker.getPoint().lat().toString(), marker.getPoint().lng().toString());
 				} 
 				else if (point) {
-					ruta.newLocation = new GMarker(point);
+					ruta.newLocation = new google.maps.Marker(point);
 					ruta.map.addOverlay(ruta.newLocation);
 					$('#longitud').val(point.lng().toString());
 					$('#latitud').val(point.lat().toString());
+					ruta.paintCircle(point.lat().toString(), point.lng().toString());
 	            }
 			});
         }
 	},
 	'paintPoint': function(lattitude, longitude){
-		ruta.newLocation = new GMarker(new GLatLng(lattitude, longitude));
+		ruta.newLocation = new google.maps.Marker(new GLatLng(lattitude, longitude));
 		ruta.map.addOverlay(ruta.newLocation);
+		ruta.map.setCenter(new google.maps.LatLng(lattitude, longitude), 13);
+		
+		ruta.paintCircle(lattitude, longitude);
+	},
+	'paintCircle' : function(lattitude, longitude){
+		 // Perkins
+        var center = new GLatLng(lattitude, longitude); 
+        var radius = 0.05; 
+
+        // convert kilometers to miles-diameter
+        var radius = radius * 1.609344; 
+
+        var latOffset = 0.01; 
+        var lonOffset = 0.01; 
+        var latConv = center.distanceFrom(new GLatLng(center.lat()+0.1, center.lng()))/100; 
+        var lngConv = center.distanceFrom(new GLatLng(center.lat(), center.lng()+0.1))/100; 
+
+        // nodes = number of points to create circle polygon
+        var nodes = 40; 
+        // Loop
+        var points = []; 
+        var step = parseInt(360/nodes)||10; 
+        for(var i=0; i<=360; i+=step) { 
+        	var pint = new GLatLng(center.lat() + (radius/latConv * Math.cos(i * Math.PI/180)), center.lng() + (radius/lngConv * Math.sin(i * Math.PI/ 180))); 
+            // push pints into points array
+             points.push(pint); 
+        } 
+        ruta.polygon = new GPolygon(points, "#f33f00", 1, 1, "#ff0000",  0.1); 
+        ruta.map.addOverlay(ruta.polygon); 
 	},
 	'showQRCode': function(){
 		var params = arguments[0];

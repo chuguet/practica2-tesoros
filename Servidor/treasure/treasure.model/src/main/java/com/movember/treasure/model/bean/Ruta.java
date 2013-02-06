@@ -23,6 +23,9 @@ public class Ruta extends AbstractBean {
 	/** The hitos_necesarios. */
 	private Integer hitos_necesarios;
 
+	/** The hitos_distintos. */
+	private Integer hitos_distintos;
+
 	/** The nombre. */
 	private String nombre;
 
@@ -73,6 +76,10 @@ public class Ruta extends AbstractBean {
 	 */
 	public Integer getHitos_necesarios() {
 		return hitos_necesarios;
+	}
+
+	public Integer getHitos_distintos() {
+		return hitos_distintos;
 	}
 
 	/**
@@ -143,6 +150,16 @@ public class Ruta extends AbstractBean {
 	}
 
 	/**
+	 * Sets the hitos_distintos.
+	 * 
+	 * @param hitos_distintos
+	 *            the new hitos_distintos
+	 */
+	public void setHitos_distintos(Integer hitos_distintos) {
+		this.hitos_distintos = hitos_distintos;
+	}
+
+	/**
 	 * Sets the nombre.
 	 * 
 	 * @param nombre
@@ -171,5 +188,4 @@ public class Ruta extends AbstractBean {
 	public void setPremio_no_identificados(String premio_no_identificados) {
 		this.premio_no_identificados = premio_no_identificados;
 	}
-
 }

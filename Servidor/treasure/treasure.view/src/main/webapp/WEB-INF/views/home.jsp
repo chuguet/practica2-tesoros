@@ -17,6 +17,7 @@
 		<link href="resources/css/ui.jqgrid.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/ui.graph.css" rel="stylesheet" type="text/css">
 		<link href="resources/css/redactor.css" rel="stylesheet" type="text/css">
+		<!--<script src="http://maps.google.com/maps/api/js?sensor=false&.js"></script>-->
 		<script src="http://maps.google.com/maps?file=api&amp;v=2&key=AIzaSyAIuX3SNPXeixU2JzGntpW2KgHvwOxq-tM&sensor=false" type="text/javascript"></script>
 		<script src="resources/js/jquery.require.js" type="text/javascript"></script>
 		<script src="resources/js/jquery-1.8.2.min.js" type="text/javascript"></script>

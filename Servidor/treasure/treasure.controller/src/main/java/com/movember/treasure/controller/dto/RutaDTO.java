@@ -23,6 +23,9 @@ public class RutaDTO extends AbstractDTO {
 	/** The hitos_necesarios. */
 	private Integer hitos_necesarios;
 
+	/** The hitos_distintos. */
+	private Integer hitos_distintos;
+
 	/** The hitos dto. */
 	private List<HitoDTO> hitosDTO;
 
@@ -67,6 +70,10 @@ public class RutaDTO extends AbstractDTO {
 	 */
 	public Integer getHitos_necesarios() {
 		return hitos_necesarios;
+	}
+
+	public Integer getHitos_distintos() {
+		return hitos_distintos;
 	}
 
 	/**
@@ -125,6 +132,10 @@ public class RutaDTO extends AbstractDTO {
 		this.hitos_necesarios = hitos_necesarios;
 	}
 
+	public void setHitos_distintos(Integer hitos_distintos) {
+		this.hitos_distintos = hitos_distintos;
+	}
+
 	/**
 	 * Sets the hitos dto.
 	 * 
@@ -155,7 +166,6 @@ public class RutaDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toBusiness(java.lang.Object
 	 * )
@@ -167,12 +177,14 @@ public class RutaDTO extends AbstractDTO {
 		ruta.setId(this.getId());
 		ruta.setNombre(this.nombre);
 		ruta.setHitos_necesarios(this.hitos_necesarios);
+		ruta.setHitos_distintos(this.hitos_distintos);
 		ruta.setPremio_identificados(this.premio_identificados);
 		ruta.setPremio_no_identificados(this.premio_no_identificados);
 		try {
 			ruta.setFecha_inicio(formatoDelTexto.parse(this.fecha_inicio));
 			ruta.setFecha_fin(formatoDelTexto.parse(this.fecha_fin));
-		} catch (ParseException e) {
+		}
+		catch (ParseException e) {
 			throw new AppException("Error en la conversión de fechas");
 		}
 
@@ -188,7 +200,6 @@ public class RutaDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.quizz.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
@@ -201,6 +212,7 @@ public class RutaDTO extends AbstractDTO {
 		this.fecha_inicio = sdf.format(ruta.getFecha_inicio());
 		this.fecha_fin = sdf.format(ruta.getFecha_fin());
 		this.hitos_necesarios = ruta.getHitos_necesarios();
+		this.hitos_distintos = ruta.getHitos_distintos();
 		this.premio_identificados = ruta.getPremio_identificados();
 		this.premio_no_identificados = ruta.getPremio_no_identificados();
 
