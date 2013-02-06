@@ -12,12 +12,9 @@
 			$('#fecha_inicio').val(ruta.fecha_inicio);
 			$('#fecha_fin').val(ruta.fecha_fin);
 			$('#hitos_necesarios').val(ruta.hitos_necesarios);
+			$('#hitos_distintos').val(ruta.hitos_distintos);
 			$('#premio_identificados').val(ruta.premio_identificados);
 			$('#premio_no_identificados').val(ruta.premio_no_identificados);
-			/* $('#premio-identificados').setCode(ruta.premio_identificados);
-			$('#premio-identificados').val(ruta.premio_identificados);
-			$('#premio-no-identificados').setCode(ruta.premio_no_identificados);
-			$('#premio-identificados').val(ruta.premio_identificados); */
 			$("#lista").setGridParam({
 				data : ruta.hitosDTO
 			}).trigger("reloadGrid");
@@ -48,6 +45,8 @@
 		<p>
 			<label for="hitos_necesarios">Hitos necesarios para ganar:</label>
 			<input id="hitos_necesarios" class="text ui-widget-content ui-corner-all" />
+			<label for="hitos_distintos">Hitos distintos para ganar:</label>
+			<input id="hitos_distintos" class="text ui-widget-content ui-corner-all" />
 		</p>
 		<fieldset>
 			<legend>Hitos</legend>

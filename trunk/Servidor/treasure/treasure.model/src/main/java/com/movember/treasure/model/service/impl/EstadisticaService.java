@@ -111,19 +111,20 @@ class EstadisticaService implements IEstadisticaService {
 			// Recuperamos las rutas terminadas e hitos terminados
 			List<Hito> hitosTerminados = estadisticaDAO.recuperarNumeroHitosTerminados(pIdUsuario);
 			estadisticaUsuario.setHitos_terminados(toHitoEstadistica(hitosTerminados, estadisticaUsuario.getUsuario().getId_dispositivo()));
-			List<Ruta> rutasTerminadas = estadisticaDAO.recuperarNumeroRutasTerminadas(pIdUsuario);
+			// List<Ruta> rutasTerminadas =
+			// estadisticaDAO.recuperarNumeroRutasTerminadas(pIdUsuario);
 			estadisticaUsuario.setNum_hitos_terminados(hitosTerminados.size());
-			estadisticaUsuario.setRutas_terminadas(rutasTerminadas.size());
+			// estadisticaUsuario.setRutas_terminadas(rutasTerminadas.size());
 			List<RutaHitoPorcentaje> listaRutaHitoPorcentaje = new ArrayList<RutaHitoPorcentaje>();
 			for (Ruta ruta : rutaService.selectAll()) {
 				RutaHitoPorcentaje rutaHitoPorcentaje = new RutaHitoPorcentaje();
 				rutaHitoPorcentaje.setId(ruta.getId());
 				rutaHitoPorcentaje.setRuta(ruta.getNombre());
 				rutaHitoPorcentaje.setNum_hitos_necesarios(ruta.getHitos_necesarios());
-				List<Hito> hitoRutas = getListHitosDeRuta(ruta.getId(), hitoService.recuperarDeRuta(ruta.getId()));
+				rutaHitoPorcentaje.setNum_hitos_distintos(ruta.getHitos_distintos());
 				List<Hito> hitoPorcentaje = getListHitosDeRuta(ruta.getId(), hitosTerminados);
 				rutaHitoPorcentaje.setNum_hitos_checkeados(hitoPorcentaje.size());
-				rutaHitoPorcentaje.setNum_hitos_totales(hitoRutas.size());
+				rutaHitoPorcentaje.setNum_hitos_totales(hitoService.recuperarDeRuta(ruta.getId()).size());
 				listaRutaHitoPorcentaje.add(rutaHitoPorcentaje);
 			}
 			estadisticaUsuario.setPorcentaje_rutas_hitos(listaRutaHitoPorcentaje);
@@ -135,7 +136,7 @@ class EstadisticaService implements IEstadisticaService {
 		}
 	}
 
-	private List<EstadisticaHito> toHitoEstadistica(List<Hito> hitosTerminados, Integer idDipositivo) throws AppException {
+	private List<EstadisticaHito> toHitoEstadistica(List<Hito> hitosTerminados, Integer idDispositivo) throws AppException {
 		try {
 			List<EstadisticaHito> result = new ArrayList<EstadisticaHito>();
 			EstadisticaHito hitoEstadistica;
@@ -146,7 +147,7 @@ class EstadisticaService implements IEstadisticaService {
 				hitoEstadistica.setLongitud(hito.getLongitud());
 				hitoEstadistica.setCodigo(hito.getCodigo());
 				hitoEstadistica.setNombre(hito.getNombre());
-				hitoEstadistica.setFecha_checkin(estadisticaDAO.recuperarFechaCheckin(new ParametrosHito(hito.getId(), idDipositivo)));
+				hitoEstadistica.setFecha_checkin(this.estadisticaDAO.recuperarFechaCheckin(new ParametrosHito(hito.getId(), idDispositivo)));
 				result.add(hitoEstadistica);
 			}
 			return result;

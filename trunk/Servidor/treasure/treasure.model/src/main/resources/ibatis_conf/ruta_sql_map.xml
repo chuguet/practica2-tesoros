@@ -7,24 +7,24 @@
 		<result column="fecha_inicio" property="fecha_inicio" jdbcType="DATE" />		
 		<result column="fecha_fin" property="fecha_fin" jdbcType="DATE" />	
 		<result column="hitos_necesarios" property="hitos_necesarios" jdbcType="INTEGER" />
+		<result column="hitos_distintos" property="hitos_distintos" jdbcType="INTEGER" />
 		<result column="premio_identificados" property="premio_identificados" jdbcType="TEXT" />
 		<result column="premio_no_identificados" property="premio_no_identificados" jdbcType="TEXT" />
-		
 	</resultMap>
 	
 	<select id="selectById" parameterClass="java.lang.Integer" resultMap="rutaResult">
-		SELECT id, nombre, fecha_inicio, fecha_fin, hitos_necesarios, premio_identificados, premio_no_identificados
+		SELECT id, nombre, fecha_inicio, fecha_fin, hitos_necesarios, hitos_distintos, premio_identificados, premio_no_identificados
 		FROM ruta
 		WHERE id = #id:INTEGER#
 	</select>
 
 	<select id="selectAll" resultMap="rutaResult">
-		SELECT id, nombre, fecha_inicio, fecha_fin, hitos_necesarios, premio_identificados, premio_no_identificados
+		SELECT id, nombre, fecha_inicio, fecha_fin, hitos_necesarios, hitos_distintos, premio_identificados, premio_no_identificados
 		FROM ruta
 	</select>
 	
 	<select id="find" resultMap="rutaResult" parameterClass="com.movember.treasure.model.bean.ParametrosRuta">
-		SELECT id, nombre, fecha_inicio, fecha_fin, hitos_necesarios, premio_identificados, premio_no_identificados
+		SELECT id, nombre, fecha_inicio, fecha_fin, hitos_necesarios, hitos_distintos, premio_identificados, premio_no_identificados
 		FROM ruta e
 		WHERE fecha_inicio <![CDATA[ <= ]]> now() AND fecha_fin <![CDATA[ >= ]]> now()
 		<isNotNull property="securityToken" prepend="AND">
@@ -37,9 +37,9 @@
 	
 	<insert id="insertReturnId" parameterClass="com.movember.treasure.model.bean.Ruta"> 
 	 	INSERT INTO ruta 
-    	(nombre, fecha_inicio, fecha_fin, hitos_necesarios, premio_identificados, premio_no_identificados)
+    	(nombre, fecha_inicio, fecha_fin, hitos_necesarios, hitos_distintos, premio_identificados, premio_no_identificados)
 	 	VALUES  
-	 	(#nombre:VARCHAR#, #fecha_inicio:DATE#, #fecha_fin:DATE#, #hitos_necesarios:INTEGER#, #premio_identificados:TEXT#, #premio_no_identificados:TEXT#)
+	 	(#nombre:VARCHAR#, #fecha_inicio:DATE#, #fecha_fin:DATE#, #hitos_necesarios:INTEGER#, #hitos_distintos:INTEGER#, #premio_identificados:TEXT#, #premio_no_identificados:TEXT#)
 	 	<selectKey resultClass="int" keyProperty="id">
 			select LAST_INSERT_ID()
 	 	</selectKey> 
@@ -52,6 +52,7 @@
   		fecha_inicio = #fecha_inicio:DATE#,
   		fecha_fin = #fecha_fin:DATE#,
   		hitos_necesarios = #hitos_necesarios:INTEGER#,
+  		hitos_distintos = #hitos_distintos:INTEGER#,
   		premio_identificados = #premio_identificados:TEXT#,
   		premio_no_identificados = #premio_no_identificados:TEXT#
 	 	WHERE id = #id:INTEGER#

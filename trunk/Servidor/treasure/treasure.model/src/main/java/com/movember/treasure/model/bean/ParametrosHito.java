@@ -1,25 +1,32 @@
 package com.movember.treasure.model.bean;
 
 public class ParametrosHito {
-	public ParametrosHito(){
-		
-	}
-	public ParametrosHito(Integer idHito, Integer idDispositivoUsuario){
-		this.idDipositivoUsuario=idDispositivoUsuario;
-		this.idHito=idHito;
-	}
+
 	private Integer idHito;
-	private Integer idDipositivoUsuario;
-	public Integer getIdDipositivoUsuario() {
-		return idDipositivoUsuario;
-	}
-	public void setIdDipositivoUsuario(Integer idDipositivoUsuario) {
-		this.idDipositivoUsuario = idDipositivoUsuario;
-	}
+	private Integer idDispositivoUsuario;
+
 	public Integer getIdHito() {
 		return idHito;
 	}
+
 	public void setIdHito(Integer idHito) {
+		this.idHito = idHito;
+	}
+
+	public Integer getIdDispositivoUsuario() {
+		return idDispositivoUsuario;
+	}
+
+	public void setIdDispositivoUsuario(Integer idDispositivoUsuario) {
+		this.idDispositivoUsuario = idDispositivoUsuario;
+	}
+
+	public ParametrosHito() {
+
+	}
+
+	public ParametrosHito(Integer idHito, Integer idDispositivoUsuario) {
+		this.idDispositivoUsuario = idDispositivoUsuario;
 		this.idHito = idHito;
 	}
 }

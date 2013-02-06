@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Service;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -137,10 +138,14 @@ class HitoService implements IHitoService {
 			throw new AppException("La ruta a la que está asociado este hito no esta activa en este momento");
 		}
 
-		// Comprobamos que ese hito aun no se haya chequeado
-		List<HitoDispositivo> hitosCheckeados = this.hitoDispositivoService.selectByCriterios(hitoBBDD.getId(), dispositivo.getId(), null, null, identificado, null, null);
+		// Comprobamos que ese hito aun no se haya chequeado en el día de hoy
+		List<HitoDispositivo> hitosCheckeados = this.hitoDispositivoService.selectByCriterios(hitoBBDD.getId(), dispositivo.getId(), null, null, null, null, null);
 		if (hitosCheckeados.size() > 0) {
-			throw new AppException("Ya ha checkeado este hito con anterioridad.");
+			for (HitoDispositivo hitoCheckeado : hitosCheckeados) {
+				if (DateUtils.isSameDay(hitoCheckeado.getFecha(), new Date())) {
+					throw new AppException("No se permite checkear el mismo hito en el mismo día");
+				}
+			}
 		}
 		HitoDispositivo hitoDispositivo = new HitoDispositivo();
 		hitoDispositivo.setId_hito(hitoBBDD.getId());
@@ -161,16 +166,28 @@ class HitoService implements IHitoService {
 		// necesarios para conseguir el premio, se manda el premio al movil
 		hitosCheckeados = this.hitoDispositivoService.selectByCriterios(null, dispositivo.getId(), null, null, null, null, ruta.getId());
 
+		Integer hitosDistintos = this.recuperarNumeroHitosDistintos(hitosCheckeados);
+
 		List<String> mensajes = new ArrayList<String>();
 		mensajes.add(hitoBBDD.getPista());
 		String premio = "";
-		if (ruta.getHitos_necesarios().equals(hitosCheckeados.size())) {
+		if (ruta.getHitos_necesarios().equals(hitosCheckeados.size()) && ruta.getHitos_distintos().equals(hitosDistintos)) {
 			premio = (identificado.equals(1)) ? ruta.getPremio_identificados() : ruta.getPremio_no_identificados();
 		}
 
 		mensajes.add(premio);
 		mensajes.add(this.recuperarFelicitacionPorDispositivo(dispositivo.getId()));
 		return mensajes;
+	}
+
+	public Integer recuperarNumeroHitosDistintos(List<HitoDispositivo> hitosCheckeados) {
+		List<Integer> hitosDistintos = new ArrayList<Integer>();
+		for (HitoDispositivo hitoDispositivo : hitosCheckeados) {
+			if (!hitosDistintos.contains(hitoDispositivo.getId_hito())) {
+				hitosDistintos.add(hitoDispositivo.getId_hito());
+			}
+		}
+		return hitosDistintos.size();
 	}
 
 	private boolean verificarDistancia(HitoDispositivo hitoDispositivo, Hito hitoBBDD) throws AppException {

@@ -16,15 +16,19 @@ var estadisticaRuta = {
 		this.map.addControl(new GSmallMapControl());
 		this.map.setCenter(new GLatLng(40.4199, -3.694668), 13);
 
+		var bounds = new GLatLngBounds();
 		for( var i = 0; i < registro.hitos.length; i++) {
 			var hito = registro.hitos[i];
 			var latitud = hito.latitud;
 			var longitud = hito.longitud;
 			var point = new GLatLng(latitud, longitud);
+			bounds.extend(point);
 			var html = this.createPopUpRuta(hito);
 			var hitoMapa = this.createMarker(point, html);
 			this.map.addOverlay(hitoMapa);
 		}
+		this.map.setZoom(this.map.getBoundsZoomLevel(bounds));
+		this.map.setCenter(bounds.getCenter());
 
 		$("#dialog-hito-en-tiempo").dialog({
 			autoOpen : false,
