@@ -454,6 +454,7 @@ public class Main extends Activity implements Camera.PreviewCallback, ZBarConsta
 		// and set it as the content of our activity.
 		mPreview = new CameraPreview(this, this, autoFocusCB);
 		mCamera = Camera.open();
+		mCamera.setDisplayOrientation(90);
 		mPreviewing = true;
 		mPreview.setCamera(mCamera);
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.scanner_layout);
