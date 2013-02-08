@@ -13,8 +13,8 @@ var estadisticaUsuario = {
 
 			$('#tabla_rutas').append(
 					'<ul><li><a>Ruta: <b>' + rutaHitoPorcentaje.ruta + '</b></a>' + '<ul><li><a>Numero de hitos totales de la ruta: ' + rutaHitoPorcentaje.num_hitos_totales + '.</a></li>' + '<li><a>Numero de hitos necesarios para superar la ruta: ' + rutaHitoPorcentaje.num_hitos_necesarios + '.</a></li>' + '<li><a>Numero de hitos distintos para superar la ruta: '
-							+ rutaHitoPorcentaje.num_hitos_distintos + '.</a></li>' + '<li><a>Numero de hitos totales chequeados por el usuario: ' + rutaHitoPorcentaje.num_hitos_checkeados + '. <b>[' + rutaHitoPorcentaje.porcentaje_finalizado + ' completado]</b></a></li></ul></li></ul>' + '<li><a>Numero de hitos totales chequeados por el usuario: '
-							+ rutaHitoPorcentaje.num_hitos_distintos_checkeados + '. <b>[' + rutaHitoPorcentaje.porcentaje_distintos_finalizado + ' completado]</b></a></li></ul></li></ul>');
+							+ rutaHitoPorcentaje.num_hitos_distintos + '.</a></li>' + '<li><a>Numero de hitos totales chequeados por el usuario: ' + rutaHitoPorcentaje.num_hitos_checkeados + '. <b>[' + rutaHitoPorcentaje.porcentaje_finalizado + ' completado]</b></a></li><li><a>Numero de hitos distintos chequeados por el usuario: ' + rutaHitoPorcentaje.num_hitos_distintos_checkeados + '. <b>['
+							+ rutaHitoPorcentaje.porcentaje_distintos_finalizado + ' completado]</b></a></li></ul></li></ul>');
 		}
 		$('#tabla_rutas').jstree();
 		// Añadimos el mapa con los hitos checkeados

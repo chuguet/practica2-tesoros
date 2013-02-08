@@ -155,9 +155,7 @@ class HitoService implements IHitoService {
 		hitoDispositivo.setIdentificado(identificado);
 		hitoDispositivo.setFecha(new Date());
 
-		if (!verificarDistancia(hitoDispositivo, hitoBBDD)) {
-			throw new AppException("Está haciendo trampas, puesto que no está a menos de 50 metros del hito");
-		}
+		verificarDistancia(hitoDispositivo, hitoBBDD);
 
 		this.hitoDispositivoService.insert(hitoDispositivo);
 
@@ -180,7 +178,7 @@ class HitoService implements IHitoService {
 		return mensajes;
 	}
 
-	public Integer recuperarNumeroHitosDistintos(List<HitoDispositivo> hitosCheckeados) {
+	private Integer recuperarNumeroHitosDistintos(List<HitoDispositivo> hitosCheckeados) {
 		List<Integer> hitosDistintos = new ArrayList<Integer>();
 		for (HitoDispositivo hitoDispositivo : hitosCheckeados) {
 			if (!hitosDistintos.contains(hitoDispositivo.getId_hito())) {
@@ -190,7 +188,7 @@ class HitoService implements IHitoService {
 		return hitosDistintos.size();
 	}
 
-	private boolean verificarDistancia(HitoDispositivo hitoDispositivo, Hito hitoBBDD) throws AppException {
+	private void verificarDistancia(HitoDispositivo hitoDispositivo, Hito hitoBBDD) throws AppException {
 		ItemConfiguracion controlDistancia = this.configuracionService.recuperarItemConfiguracion("controlDistancia");
 		if (controlDistancia.getValor().equals(new Integer(1))) {
 			ItemConfiguracion distanciaMaxima = this.configuracionService.recuperarItemConfiguracion("distanciaMaxima");
@@ -206,10 +204,9 @@ class HitoService implements IHitoService {
 			// radio de la tierra en metros
 			double distancia = 6371000 * c;
 
-			return (distancia <= distanciaMaxima.getValor());
-		}
-		else {
-			return true;
+			if (distancia > distanciaMaxima.getValor()) {
+				throw new AppException("Está haciendo trampas, puesto que no está a menos de " + distanciaMaxima.getValor().toString() + " metros del hito");
+			}
 		}
 	}
 

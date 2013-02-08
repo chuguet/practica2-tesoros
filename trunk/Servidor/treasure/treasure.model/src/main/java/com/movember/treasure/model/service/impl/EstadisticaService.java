@@ -111,11 +111,10 @@ class EstadisticaService implements IEstadisticaService {
 			// Recuperamos las rutas terminadas e hitos terminados
 			List<Hito> hitosTerminados = estadisticaDAO.recuperarNumeroHitosTerminados(pIdUsuario);
 			estadisticaUsuario.setHitos_terminados(toHitoEstadistica(hitosTerminados, estadisticaUsuario.getUsuario().getId_dispositivo()));
-			// List<Ruta> rutasTerminadas =
-			// estadisticaDAO.recuperarNumeroRutasTerminadas(pIdUsuario);
-			estadisticaUsuario.setNum_hitos_terminados(hitosTerminados.size());
+
 			// estadisticaUsuario.setRutas_terminadas(rutasTerminadas.size());
 			List<RutaHitoPorcentaje> listaRutaHitoPorcentaje = new ArrayList<RutaHitoPorcentaje>();
+			Integer numHitosTerminados = 0;
 			for (Ruta ruta : rutaService.selectAll()) {
 				RutaHitoPorcentaje rutaHitoPorcentaje = new RutaHitoPorcentaje();
 				rutaHitoPorcentaje.setId(ruta.getId());
@@ -123,10 +122,22 @@ class EstadisticaService implements IEstadisticaService {
 				rutaHitoPorcentaje.setNum_hitos_necesarios(ruta.getHitos_necesarios());
 				rutaHitoPorcentaje.setNum_hitos_distintos(ruta.getHitos_distintos());
 				List<Hito> hitoPorcentaje = getListHitosDeRuta(ruta.getId(), hitosTerminados);
-				rutaHitoPorcentaje.setNum_hitos_checkeados(hitoPorcentaje.size());
-				rutaHitoPorcentaje.setNum_hitos_totales(hitoService.recuperarDeRuta(ruta.getId()).size());
-				listaRutaHitoPorcentaje.add(rutaHitoPorcentaje);
+				if (hitoPorcentaje.size() > 0) {
+					// si se ha checkeado algun hito se muestran las
+					// estadisticas de ruta
+					rutaHitoPorcentaje.setNum_hitos_checkeados(hitoPorcentaje.size());
+					rutaHitoPorcentaje.setNum_hitos_distintos_checkeados(this.recuperarNumeroHitosDistintosCheckeados(hitoPorcentaje));
+					rutaHitoPorcentaje.setNum_hitos_totales(hitoService.recuperarDeRuta(ruta.getId()).size());
+
+					if (rutaHitoPorcentaje.getNum_hitos_checkeados() >= rutaHitoPorcentaje.getNum_hitos_necesarios() && rutaHitoPorcentaje.getNum_hitos_distintos_checkeados() >= rutaHitoPorcentaje.getNum_hitos_distintos()) {
+						estadisticaUsuario.setRutas_terminadas(estadisticaUsuario.getRutas_terminadas() + 1);
+					}
+
+					numHitosTerminados += rutaHitoPorcentaje.getNum_hitos_distintos_checkeados();
+					listaRutaHitoPorcentaje.add(rutaHitoPorcentaje);
+				}
 			}
+			estadisticaUsuario.setNum_hitos_terminados(hitosTerminados.size());
 			estadisticaUsuario.setPorcentaje_rutas_hitos(listaRutaHitoPorcentaje);
 
 			return estadisticaUsuario;
@@ -134,6 +145,16 @@ class EstadisticaService implements IEstadisticaService {
 		catch (SQLException e) {
 			throw new AppException("Se ha producido un error al calcular las estadísticas de un usuario");
 		}
+	}
+
+	private Integer recuperarNumeroHitosDistintosCheckeados(List<Hito> hitosCheckeados) {
+		List<Integer> hitosDistintos = new ArrayList<Integer>();
+		for (Hito hito : hitosCheckeados) {
+			if (!hitosDistintos.contains(hito.getId())) {
+				hitosDistintos.add(hito.getId());
+			}
+		}
+		return hitosDistintos.size();
 	}
 
 	private List<EstadisticaHito> toHitoEstadistica(List<Hito> hitosTerminados, Integer idDispositivo) throws AppException {

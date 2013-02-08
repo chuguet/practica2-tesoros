@@ -3,9 +3,8 @@ package com.movember.treasure.controller.dto;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.movember.treasure.model.bean.EstadisticaUsuario;
 import com.movember.treasure.model.bean.EstadisticaHito;
+import com.movember.treasure.model.bean.EstadisticaUsuario;
 import com.movember.treasure.model.bean.RutaHitoPorcentaje;
 import com.movember.treasure.model.exception.AppException;
 
@@ -45,7 +44,7 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 	private String usuario;
 
 	private List<EstadisticaHitoDTO> hitos_terminados;
-	
+
 	/**
 	 * Calculo porcentaje.
 	 * 
@@ -55,8 +54,7 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 	 *            the num_rutas_totales
 	 * @return the string
 	 */
-	private String calculoPorcentaje(Integer rutas_terminadas,
-			Integer num_rutas_totales) {
+	private String calculoPorcentaje(Integer rutas_terminadas, Integer num_rutas_totales) {
 		Float result = new Float("0.00");
 		Float parcial = Float.valueOf(rutas_terminadas);
 		Float total = Float.valueOf(num_rutas_totales);
@@ -150,8 +148,7 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 	 * @param porcentaje_rutas_hitos
 	 *            the new porcentaje_rutas_hitos
 	 */
-	public void setPorcentaje_rutas_hitos(
-			List<RutaHitoPorcentajeDTO> porcentaje_rutas_hitos) {
+	public void setPorcentaje_rutas_hitos(List<RutaHitoPorcentajeDTO> porcentaje_rutas_hitos) {
 		this.porcentaje_rutas_hitos = porcentaje_rutas_hitos;
 	}
 
@@ -177,7 +174,6 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.treasure.controller.dto.AbstractDTO#toBusiness(java.lang
 	 * .Object)
@@ -190,7 +186,6 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * com.movember.treasure.controller.dto.AbstractDTO#toRest(java.lang.Object)
 	 */
@@ -199,28 +194,22 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 		EstadisticaUsuario estadisticaUsuario = (EstadisticaUsuario) object;
 
 		this.id = estadisticaUsuario.getId();
-		this.porcentaje_hitos_totales = calculoPorcentaje(
-				estadisticaUsuario.getNum_hitos_terminados(),
-				estadisticaUsuario.getNum_hitos_totales());
-		this.porcentaje_rutas_totales = calculoPorcentaje(
-				estadisticaUsuario.getRutas_terminadas(),
-				estadisticaUsuario.getNum_rutas_totales());
+		this.porcentaje_hitos_totales = calculoPorcentaje(estadisticaUsuario.getNum_hitos_terminados(), estadisticaUsuario.getNum_hitos_totales());
+		this.porcentaje_rutas_totales = calculoPorcentaje(estadisticaUsuario.getRutas_terminadas(), estadisticaUsuario.getNum_rutas_totales());
 		this.num_hitos_terminados = estadisticaUsuario.getNum_hitos_terminados();
 		this.num_hitos_totales = estadisticaUsuario.getNum_hitos_totales();
 		this.num_rutas_terminadas = estadisticaUsuario.getRutas_terminadas();
 		this.num_rutas_totales = estadisticaUsuario.getNum_rutas_totales();
 		RutaHitoPorcentajeDTO hitoPorcentajeDTO;
 		List<RutaHitoPorcentajeDTO> listRutaHitoPorcentajeDTO = new ArrayList<RutaHitoPorcentajeDTO>();
-		for (RutaHitoPorcentaje rutaHitoPorcentaje : estadisticaUsuario
-				.getPorcentaje_rutas_hitos()) {
+		for (RutaHitoPorcentaje rutaHitoPorcentaje : estadisticaUsuario.getPorcentaje_rutas_hitos()) {
 			hitoPorcentajeDTO = new RutaHitoPorcentajeDTO();
 			hitoPorcentajeDTO.toRest(rutaHitoPorcentaje);
 			listRutaHitoPorcentajeDTO.add(hitoPorcentajeDTO);
 		}
 		this.setPorcentaje_rutas_hitos(listRutaHitoPorcentajeDTO);
-		this.usuario = estadisticaUsuario.getUsuario().getNombre() + " "
-				+ estadisticaUsuario.getUsuario().getApellidos();
-		
+		this.usuario = estadisticaUsuario.getUsuario().getNombre() + " " + estadisticaUsuario.getUsuario().getApellidos();
+
 		if (estadisticaUsuario.getHitos_terminados() != null && estadisticaUsuario.getHitos_terminados().size() > 0) {
 			EstadisticaHitoDTO hitoEstadisticaDTO;
 			for (EstadisticaHito hito : estadisticaUsuario.getHitos_terminados()) {
@@ -230,12 +219,14 @@ public class EstadisticaUsuarioDTO extends AbstractDTO {
 			}
 		}
 	}
+
 	private void addHitoEstadisticaDTO(EstadisticaHitoDTO hitoEstadisticaDTO) {
 		if (this.getHitos_terminados() == null) {
 			this.hitos_terminados = new ArrayList<EstadisticaHitoDTO>();
 		}
 		hitos_terminados.add(hitoEstadisticaDTO);
 	}
+
 	public Integer getId() {
 		return id;
 	}

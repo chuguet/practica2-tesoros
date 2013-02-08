@@ -6,28 +6,28 @@ import java.util.List;
 /**
  * The Class EstadisticaUsuario.
  */
-public class EstadisticaUsuario extends AbstractBean{
+public class EstadisticaUsuario extends AbstractBean {
 
 	/** The usuario. */
 	private Usuario usuario;
 
 	/** The num_rutas_terminadas. */
-	private Integer rutas_terminadas;
+	private Integer rutas_terminadas = 0;
 
 	/** The num_hitos_terminados. */
-	private Integer num_hitos_terminados;
+	private Integer num_hitos_terminados = 0;
 
 	/** The porcentaje_rutas_hitos. */
 	private List<RutaHitoPorcentaje> porcentaje_rutas_hitos;
 
 	/** The num_rutas_totales. */
-	private Integer num_rutas_totales;
+	private Integer num_rutas_totales = 0;
 
 	/** The num_hitos_totales. */
-	private Integer num_hitos_totales;
+	private Integer num_hitos_totales = 0;
 
 	private List<EstadisticaHito> hitos_terminados;
-	
+
 	/**
 	 * Gets the usuario.
 	 * 
@@ -62,8 +62,7 @@ public class EstadisticaUsuario extends AbstractBean{
 	 * @param porcentaje_rutas_hitos
 	 *            the new porcentaje_rutas_hitos
 	 */
-	public void setPorcentaje_rutas_hitos(
-			List<RutaHitoPorcentaje> porcentaje_rutas_hitos) {
+	public void setPorcentaje_rutas_hitos(List<RutaHitoPorcentaje> porcentaje_rutas_hitos) {
 		this.porcentaje_rutas_hitos = porcentaje_rutas_hitos;
 	}
 

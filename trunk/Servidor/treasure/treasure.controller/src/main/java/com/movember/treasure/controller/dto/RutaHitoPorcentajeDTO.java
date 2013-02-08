@@ -154,6 +154,7 @@ public class RutaHitoPorcentajeDTO extends AbstractDTO {
 	@Override
 	public void toRest(Object object) throws AppException {
 		RutaHitoPorcentaje rutaHitoPorcentaje = (RutaHitoPorcentaje) object;
+		this.num_hitos_distintos_checkeados = rutaHitoPorcentaje.getNum_hitos_distintos_checkeados();
 		this.num_hitos_checkeados = rutaHitoPorcentaje.getNum_hitos_checkeados();
 		this.num_hitos_necesarios = rutaHitoPorcentaje.getNum_hitos_necesarios();
 		this.num_hitos_distintos = rutaHitoPorcentaje.getNum_hitos_distintos();
