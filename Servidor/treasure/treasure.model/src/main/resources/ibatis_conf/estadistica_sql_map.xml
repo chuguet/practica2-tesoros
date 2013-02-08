@@ -98,13 +98,21 @@
 
 	<select id="recuperarNumeroUsuariosHanTerminadoRuta" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
 		SELECT count(*)
-		FROM(SELECT r.id, r.nombre, hitos_necesarios, count(*) as checkin
+		FROM(SELECT r.id, r.nombre, hitos_necesarios, count(*) as hitos_totales_checkeados
 			FROM ruta r
 			INNER JOIN hito h ON h.id_ruta = r.id
 			INNER JOIN hito_dispositivo hd ON hd.id_hito = h.id
 			WHERE r.id = #id:INTEGER#
 			GROUP BY id_dispositivo) tabla
-		WHERE checkin = hitos_necesarios OR checkin > hitos_necesarios
+		INNER JOIN 
+			(SELECT r.id, r.nombre, hitos_distintos, count(*) as hitos_distintos_checkeados
+			FROM ruta r
+			INNER JOIN hito h ON h.id_ruta = r.id
+			INNER JOIN (SELECT DISTINCT(id_hito), id_dispositivo
+						FROM hito_dispositivo) hd ON hd.id_hito = h.id
+			WHERE r.id = #id:INTEGER#
+			GROUP BY id_dispositivo) tabla1 ON tabla.id = tabla1.id
+		WHERE tabla.hitos_totales_checkeados >= tabla.hitos_necesarios AND tabla1.hitos_distintos_checkeados >= tabla1.hitos_distintos
 	</select>
 
 	<select id="recuperarFechaCheckin" parameterClass="com.movember.treasure.model.bean.ParametrosHito" resultClass="java.util.Date">

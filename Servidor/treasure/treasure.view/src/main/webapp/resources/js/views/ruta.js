@@ -1,5 +1,6 @@
 var ruta = {
 	'rowID' : null,
+	'distanciaControl' : null,
 	'formatList' : function() {
 		$(function() {
 			$("#lista").jqGrid({
@@ -98,6 +99,7 @@ var ruta = {
 	},
 
 	'formatForm' : function() {
+		generic.get('configuracion', 1, this.controlarConfiguracion);
 		this.rowID = null;
 		
 		$("#lista").jqGrid({
@@ -487,7 +489,7 @@ var ruta = {
 	'paintCircle' : function(lattitude, longitude){
 		 // Perkins
         var center = new GLatLng(lattitude, longitude); 
-        var radius = 0.05; 
+        var radius = ruta.distanciaControl / 1000; 
 
         // convert kilometers to miles-diameter
         var radius = radius * 1.609344; 
@@ -518,5 +520,8 @@ var ruta = {
 		$('div#containerQR').empty();
 		var contextQR = $('input#contextQR').val();
 		$('div#containerQR').append("<img src='" + contextQR + image.replace(/ /g, '_') + "' alt='C&oacute;digo QR generado' />");
+	},
+	'controlarConfiguracion' : function(info){
+		ruta.distanciaControl = info.itemsConfiguracion[1].valor;
 	}
 };
