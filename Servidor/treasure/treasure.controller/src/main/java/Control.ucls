@@ -1,0 +1,98 @@
+<class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" 
+    name="com.movember.treasure.controller.security.CustomAuthenticationProvider" project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/security/CustomAuthenticationProvider.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="104" y="329"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" 
+    name="com.movember.treasure.controller.control.ConfiguracionController" project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/ConfiguracionController.java" 
+    binary="false">    
+    <position height="163" width="239" x="-9" y="50"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="com.movember.treasure.controller.control.GestorController" 
+    project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/GestorController.java" 
+    binary="false">    
+    <position height="163" width="214" x="270" y="50"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="com.movember.treasure.controller.control.RegistroController" 
+    project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/RegistroController.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="386" y="325"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="com.movember.treasure.controller.control.UsuarioController" 
+    project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/UsuarioController.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="626" y="118"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" 
+    name="com.movember.treasure.controller.control.EstadisticaController" project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/EstadisticaController.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="640" y="343"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="com.movember.treasure.controller.control.QRController" 
+    project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/QRController.java" binary="false">    
+    <position height="-1" width="-1" x="1157" y="308"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="com.movember.treasure.controller.control.LoginController" 
+    project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/LoginController.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="920" y="96"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="com.movember.treasure.controller.control.RutaController" 
+    project="treasure.controller" 
+    file="/treasure.controller/src/main/java/com/movember/treasure/controller/control/RutaController.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="927" y="323"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
