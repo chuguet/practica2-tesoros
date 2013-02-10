@@ -1,6 +1,5 @@
 package com.movember.treasureapp.activity;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import java.util.UUID;
 import org.apache.http.entity.StringEntity;
@@ -28,6 +27,7 @@ public class Login extends Activity {
 	private EditText un, pw;
 	private Properties prop;
 	ViewFlipper flipper;
+	private Integer intentos = 0;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -114,8 +114,9 @@ public class Login extends Activity {
 					@Override
 					public void onSuccess(JSONObject jObject) {
 						try {
-							if (jObject.has("error")) {
-								showMessage("Error de acceso", jObject.getString("mensaje"));
+							if (jObject.has("correcto") && jObject.get("correcto").toString().equals("false")) {
+								verifySynchronizingError();
+
 							}
 							else {
 								UserInformationService.writeUuid(getApplicationContext(), jObject.getString("parameter"));
@@ -123,22 +124,45 @@ public class Login extends Activity {
 						}
 						catch (JSONException e) {
 							Log.d("tag", "Fallo al registrar el dispositivo");
+							verifySynchronizingError();
 						}
 					}
 
 					@Override
 					public void onFailure(Throwable arg0) {
-						showMessage("Error de acceso", "Se ha producido un error de acceso. Vuelva a intentarlo.");
+						verifySynchronizingError();
 					}
 				});
 			}
-			catch (JSONException e) {
+			catch (Exception e) {
 				Log.d("tag", "Fallo al registrar el dispositivo");
-			}
-			catch (UnsupportedEncodingException e) {
-				Log.d("tag", "Fallo al registrar el dispositivo");
+				verifySynchronizingError();
 			}
 		}
+	}
+
+	private void verifySynchronizingError() {
+		this.intentos++;
+		if (this.intentos > 5) {
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle("Error de sincronización");
+			alertDialog.setMessage("Hay problemas de sincronización con el servidor. Vuelva a intentarlo más tarde");
+			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					killApp();
+				}
+			});
+			alertDialog.show();
+		}
+		else {
+			verifyDeviceRegistered();
+		}
+	}
+
+	private void killApp() {
+		finish();
+		System.exit(0);
 	}
 
 	private void accessApplication() {
